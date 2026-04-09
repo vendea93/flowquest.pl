@@ -51,72 +51,18 @@ $recentForms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
-        body { background-color: #f8f9fa; }
-        .sidebar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; min-height: 100vh; }
-        .sidebar .nav-link { color: rgba(255,255,255,.8); padding: 12px 20px; }
-        .sidebar .nav-link:hover { color: white; background: rgba(255,255,255,.1); }
-        .sidebar .nav-link.active { color: white; background: rgba(255,255,255,.2); }
         .stat-card { border-radius: 10px; transition: transform 0.2s; border: none; }
         .stat-card:hover { transform: translateY(-5px); }
-        .header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
+    <?php include 'header.php'; ?>
+    
+    <div class="container-fluid mt-4">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 sidebar p-0">
-                <div class="p-3 text-center">
-                    <h4>FlowQuest</h4>
-                    <p class="small mb-0">Panel Administracyjny</p>
-                </div>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.php">
-                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="articles.php">
-                            <i class="bi bi-file-earmark-text me-2"></i> Artykuły
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="categories.php">
-                            <i class="bi bi-tags me-2"></i> Kategorie
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="forms.php">
-                            <i class="bi bi-envelope me-2"></i> Formularze
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="settings.php">
-                            <i class="bi bi-gear me-2"></i> Ustawienia
-                        </a>
-                    </li>
-                    <li class="nav-item mt-4">
-                        <a class="nav-link" href="logout.php">
-                            <i class="bi bi-box-arrow-right me-2"></i> Wyloguj
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <?php include 'sidebar.php'; ?>
             
-            <!-- Główna zawartość -->
-            <div class="col-md-10 p-0">
-                <!-- Header -->
-                <div class="header p-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0">Dashboard</h3>
-                        <div class="text-muted">
-                            Witaj, <strong><?= h($_SESSION['admin_username'] ?? 'Admin') ?></strong>
-                            | <?= date('d.m.Y H:i') ?>
-                        </div>
-                    </div>
-                </div>
-                
+            <div class="col-md-9">
                 <!-- Zawartość -->
                 <div class="p-4">
                     <!-- Statystyki -->
