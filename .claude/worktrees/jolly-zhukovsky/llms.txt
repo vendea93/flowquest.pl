@@ -1,0 +1,57 @@
+# FlowQuest — Modular Business OS dla MŚP
+
+FlowQuest to modułowy system operacyjny dla małych i średnich firm. Łączy CRM, leady, pipeline, oferty, faktury, zadania, projekty, komentarze, czat i moduły branżowe w jednym środowisku pracy.
+
+## Główne strony
+
+- Strona główna: https://flowquest.pl/
+- Funkcje: https://flowquest.pl/funkcje.html
+- Oferta i pakiety: https://flowquest.pl/oferta.html
+- Kontakt: https://flowquest.pl/kontakt.html
+- Baza wiedzy: https://flowquest.pl/baza-wiedzy.html
+- O nas: https://flowquest.pl/o-nas.html
+- Monitoring: https://flowquest.pl/monitoring.html
+- Polityka prywatności: https://flowquest.pl/polityka-prywatnosci.html
+- Regulamin: https://flowquest.pl/regulamin.html
+
+## Pakiety
+
+- Core / case study: https://flowquest.pl/pakiety/core.html
+- Solo / case study: https://flowquest.pl/pakiety/solo.html
+- Teams / case study: https://flowquest.pl/pakiety/teams.html
+
+## Katalog branż
+
+- Hub branż: https://flowquest.pl/branze/index.html
+- Beauty i SPA: https://flowquest.pl/branze/beauty.html
+- Hotel: https://flowquest.pl/branze/hotel.html
+- Warsztat: https://flowquest.pl/branze/warsztat.html
+- Nieruchomości: https://flowquest.pl/branze/nieruchomosci.html
+- Logistyka: https://flowquest.pl/branze/logistyka.html
+- Kursy: https://flowquest.pl/branze/kursy.html
+- Gastronomia: https://flowquest.pl/branze/gastronomia.html
+- Serwis WWW: https://flowquest.pl/branze/serwis-www.html
+- E-commerce: https://flowquest.pl/branze/ecommerce.html
+- OZE i instalacje: https://flowquest.pl/branze/oze.html
+- Agencja i IT: https://flowquest.pl/branze/agencja.html
+- Rekrutacja: https://flowquest.pl/branze/rekrutacja.html
+- Medycyna: https://flowquest.pl/branze/medycyna.html
+- Eventy: https://flowquest.pl/branze/eventy.html
+- Konsultant: https://flowquest.pl/branze/konsultant.html
+- Budownictwo: https://flowquest.pl/branze/budownictwo.html
+- Handel B2B: https://flowquest.pl/branze/handel-b2b.html
+- Prawo: https://flowquest.pl/branze/prawo.html
+- Fitness: https://flowquest.pl/branze/fitness.html
+
+## Model oferty
+
+- Rdzeń systemu: CRM, klienci, leady, pipeline, kalendarz, oferty, faktury, zadania, projekty, komentarze i czat.
+- Każda branża: plan Basic plus 2–3 moduły odpowiadające realnym blokadom operacyjnym.
+- Demo: częściowo wypełnione przykładowymi danymi do pokazu procesu.
+- Wdrożenie klienta: czysta kopia template, bez przypadkowego bałaganu z wersji demo.
+
+## Kontakt i demo
+
+- Demo live: https://demo.flowquest.pl/
+- CRM / panel klienta: https://crm.flowquest.pl/
+- Formularz kontaktowy: https://flowquest.pl/kontakt.html

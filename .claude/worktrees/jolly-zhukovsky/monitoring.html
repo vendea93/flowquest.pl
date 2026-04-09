@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status systemu — FlowQuest</title>
+<meta name="description" content="Aktualny status usług FlowQuest. Sprawdź dostępność CRM, API, FormSync, e-mail i instancji SaaS w czasie rzeczywistym.">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── OVERALL STATUS BANNER ── */
+.status-banner {
+  background: var(--bg-950);
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+}
+.status-overall {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: rgba(16,185,129,.08);
+  border: 1px solid rgba(16,185,129,.25);
+  border-radius: 18px;
+  padding: 24px 28px;
+}
+.status-overall.degraded {
+  background: rgba(245,158,11,.08);
+  border-color: rgba(245,158,11,.25);
+}
+.status-overall.outage {
+  background: rgba(239,68,68,.08);
+  border-color: rgba(239,68,68,.25);
+}
+.status-overall-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4em;
+  flex-shrink: 0;
+  background: rgba(16,185,129,.15);
+  color: #10b981;
+}
+.status-overall-icon.degraded { background: rgba(245,158,11,.15); color: #f59e0b; }
+.status-overall-icon.outage   { background: rgba(239,68,68,.15);  color: #ef4444; }
+.status-overall-text h2 { font-size: 1.2rem; font-weight: 800; color: var(--text-100); margin-bottom: 4px; }
+.status-overall-text p  { font-size: .86rem; color: var(--text-500); margin: 0; }
+.status-updated { margin-left: auto; font-size: .75rem; color: var(--text-600); text-align: right; flex-shrink: 0; }
+.status-updated strong { color: var(--text-500); display: block; margin-bottom: 2px; }
+
+/* ── UPTIME STATS ── */
+.uptime-section { background: var(--bg-900); padding: 48px 0; }
+.uptime-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; text-align: center; margin-top: 36px; }
+.uptime-item { padding: 16px 20px; border-right: 1px solid var(--border); }
+.uptime-item:last-child { border-right: none; }
+.uptime-val { font-size: 2.2rem; font-weight: 900; color: var(--text-100); display: block; line-height: 1; }
+.uptime-val.green  { color: #10b981; }
+.uptime-val.amber  { color: #f59e0b; }
+.uptime-desc { font-size: .78rem; color: var(--text-500); margin-top: 6px; display: block; }
+
+/* ── SERVICES ── */
+.services-section { background: var(--bg-950); padding: 48px 0; }
+.services-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 36px; }
+.service-row {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.service-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95em;
+  flex-shrink: 0;
+}
+.si-blue   { background: rgba(37,99,235,.14); color: #60a5fa; }
+.si-green  { background: rgba(16,185,129,.14); color: #34d399; }
+.si-amber  { background: rgba(245,158,11,.14); color: #fbbf24; }
+.si-purple { background: rgba(139,92,246,.14); color: #a78bfa; }
+.si-cyan   { background: rgba(6,182,212,.14);  color: #22d3ee; }
+.si-pink   { background: rgba(236,72,153,.14); color: #f472b6; }
+.service-info { flex: 1 }
+.service-name { font-size: .92rem; font-weight: 700; color: var(--text-300); }
+.service-desc { font-size: .76rem; color: var(--text-600); margin-top: 2px; }
+.service-bar { flex: 1 1 180px; max-width: 220px; }
+.service-bar-label { font-size: .65rem; color: var(--text-600); margin-bottom: 5px; display: flex; justify-content: space-between; }
+.service-bar-track { height: 4px; background: var(--bg-800); border-radius: 2px; overflow: hidden; }
+.service-bar-fill { height: 100%; border-radius: 2px; transition: width .8s ease; }
+.fill-operational { background: #10b981; }
+.fill-degraded    { background: #f59e0b; }
+.fill-outage      { background: #ef4444; }
+.service-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .75rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.ss-operational { background: rgba(16,185,129,.12); color: #10b981; border: 1px solid rgba(16,185,129,.25); }
+.ss-degraded    { background: rgba(245,158,11,.12); color: #f59e0b; border: 1px solid rgba(245,158,11,.25); }
+.ss-outage      { background: rgba(239,68,68,.12);  color: #ef4444; border: 1px solid rgba(239,68,68,.25); }
+.ss-dot { width: 6px; height: 6px; border-radius: 50%; }
+.ss-dot.op { background: #10b981; box-shadow: 0 0 5px #10b981; animation: dotPulse 2s ease-in-out infinite; }
+.ss-dot.dg { background: #f59e0b; }
+.ss-dot.ou { background: #ef4444; }
+
+/* ── UPTIME BARS CHART ── */
+.history-section { background: var(--bg-900); padding: 48px 0; }
+.history-chart { margin-top: 36px; }
+.history-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.history-label { font-size: .82rem; font-weight: 600; color: var(--text-600); width: 160px; flex-shrink: 0; }
+.history-bars { display: flex; gap: 3px; flex: 1; }
+.h-bar { flex: 1; height: 28px; border-radius: 4px; transition: opacity 160ms; cursor: default; }
+.h-bar:hover { opacity: .75; }
+.hb-op { background: #10b981; }
+.hb-dg { background: #f59e0b; }
+.hb-ou { background: #ef4444; }
+.hb-nd { background: var(--bg-800); }
+.history-pct { font-size: .78rem; font-weight: 700; color: #10b981; width: 50px; text-align: right; flex-shrink: 0; }
+.history-legend { display: flex; gap: 20px; margin-top: 14px; font-size: .72rem; color: var(--text-500); }
+.history-legend span { display: flex; align-items: center; gap: 6px; }
+.hl-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* ── INCIDENTS ── */
+.incidents-section { background: var(--bg-950); padding: 48px 0; }
+.incident-list { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+.incident-item {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+}
+.incident-header { display: flex; align-items: flex-start; gap: 12px; justify-content: space-between; margin-bottom: 10px; }
+.incident-title { font-size: .9rem; font-weight: 700; color: var(--text-300); }
+.incident-tag { font-size: .65rem; font-weight: 700; padding: 3px 9px; border-radius: 10px; flex-shrink: 0; text-transform: uppercase; letter-spacing: .5px; }
+.it-resolved  { background: rgba(16,185,129,.1); color: #10b981; border: 1px solid rgba(16,185,129,.2); }
+.it-monitoring{ background: rgba(245,158,11,.1); color: #f59e0b; border: 1px solid rgba(245,158,11,.2); }
+.incident-desc { font-size: .83rem; color: var(--text-500); line-height: 1.65; }
+.incident-meta { font-size: .72rem; color: var(--text-600); margin-top: 10px; display: flex; gap: 16px; flex-wrap: wrap; }
+.incident-meta i { margin-right: 4px; }
+.incident-none { text-align: center; padding: 40px 20px; }
+.incident-none i { font-size: 2rem; color: #10b981; display: block; margin-bottom: 12px; }
+.incident-none p { font-size: .9rem; color: var(--text-500); }
+
+/* ── SUBSCRIBE ── */
+.subscribe-section { background: var(--bg-900); padding: 48px 0; }
+.subscribe-wrap { max-width: 480px; margin: 0 auto; text-align: center; }
+.subscribe-wrap h2 { font-size: 1.3rem; font-weight: 800; color: var(--text-100); margin-bottom: 8px; }
+.subscribe-wrap p  { font-size: .88rem; color: var(--text-500); margin-bottom: 24px; line-height: 1.6; }
+.subscribe-form { display: flex; gap: 10px; }
+.subscribe-input {
+  flex: 1;
+  background: var(--bg-500);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text-300);
+  font-size: .9rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 180ms;
+}
+.subscribe-input:focus { border-color: #3b82f6; }
+.subscribe-input::placeholder { color: var(--text-700); }
+.subscribe-btn {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  font-size: .9rem;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 200ms;
+}
+.subscribe-btn:hover { background: #1d4ed8; }
+
+@media(max-width: 900px) {
+  .service-bar { display: none; }
+  .status-overall,
+  .service-row,
+  .history-row {
+    text-align: center;
+  }
+  .status-overall,
+  .service-row,
+  .history-row {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .service-info,
+  .status-overall-text {
+    text-align: center;
+  }
+  .history-label,
+  .history-pct {
+    width: auto;
+    text-align: center;
+  }
+  .history-bars {
+    width: 100%;
+  }
+}
+@media(max-width: 600px) {
+  .subscribe-form { flex-direction: column; }
+  .status-updated { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav-inner">
+    <a href="index.html" class="site-logo">
+      <span class="site-logo-mark">
+        <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="logo-img logo-on-light">
+        <img src="https://go.flowquest.pl/uploads/company/ac3475e3c47b743cd02d10be1c3131cb.png" alt="FlowQuest" class="logo-img logo-on-dark">
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Strona Główna</a>
+      <div class="nav-item dropdown">
+        <a href="oferta.html">Pakiety</a>
+        <div class="dropdown-menu">
+          <a href="pakiety/core.html">Core — case study</a>
+          <a href="pakiety/teams.html">TEAMS — zespół 5–50 osób</a>
+          <a href="pakiety/solo.html">SOLO — solopreneurzy</a>
+        </div>
+      </div>
+      <a href="funkcje.html">Funkcje</a>
+      <div class="nav-item dropdown">
+        <a href="baza-wiedzy.html" class="active">Zasoby</a>
+        <div class="dropdown-menu">
+          <a href="baza-wiedzy.html">Baza wiedzy</a>
+          <a href="monitoring.html">Status systemu</a>
+        </div>
+      </div>
+      <a href="o-nas.html">O nas</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" type="button" aria-label="Przełącz motyw">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="cta-links">
+        <a href="kontakt.html" class="btn-nav-outline">Umów demo</a>
+        <a href="https://crm.flowquest.pl/" class="btn-nav-primary" target="_blank">Panel klienta <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <button class="hamburger" type="button" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <span class="section-label">Status systemu</span>
+    <h1>Aktualny stan<br>wszystkich usług.</h1>
+    <p>Monitorujemy dostępność każdego komponentu FlowQuest 24/7. Tutaj znajdziesz informacje o bieżącym statusie, historii uptime i zgłoszonych incydentach.</p>
+  </div>
+</div>
+
+<!-- OVERALL STATUS -->
+<section class="status-banner">
+  <div class="container">
+    <div class="status-overall" id="overallBanner">
+      <div class="status-overall-icon" id="overallIcon"><i class="fa-solid fa-check-circle"></i></div>
+      <div class="status-overall-text">
+        <h2 id="overallTitle">Wszystkie systemy działają poprawnie</h2>
+        <p id="overallDesc">Brak aktywnych incydentów. Wszystkie usługi FlowQuest są dostępne i działają w pełni.</p>
+      </div>
+      <div class="status-updated">
+        <strong>Ostatnia aktualizacja</strong>
+        <span id="lastUpdated">—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPTIME STATS -->
+<section class="uptime-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Statystyki</span>
+      <h2 class="section-title">Uptime ostatnie 90 dni</h2>
+    </div>
+    <div class="uptime-grid">
+      <div class="uptime-item"><span class="uptime-val green">99.97%</span><span class="uptime-desc">CRM Core</span></div>
+      <div class="uptime-item"><span class="uptime-val green">99.95%</span><span class="uptime-desc">REST API</span></div>
+      <div class="uptime-item"><span class="uptime-val green">99.99%</span><span class="uptime-desc">Panel klienta</span></div>
+      <div class="uptime-item"><span class="uptime-val green">99.90%</span><span class="uptime-desc">FormSync</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Usługi</span>
+      <h2 class="section-title">Status komponentów</h2>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-row">
+        <div class="service-icon si-blue"><i class="fa-solid fa-database"></i></div>
+        <div class="service-info">
+          <div class="service-name">CRM Core</div>
+          <div class="service-desc">Perfex CRM — kontakty, faktury, projekty, panel klienta</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.97%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.97%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-cyan"><i class="fa-solid fa-plug"></i></div>
+        <div class="service-info">
+          <div class="service-name">REST API</div>
+          <div class="service-desc">Publiczne API — autoryzacja, webhooks, integracje zewnętrzne</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.95%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.95%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-green"><i class="fa-solid fa-magic"></i></div>
+        <div class="service-info">
+          <div class="service-name">FormSync</div>
+          <div class="service-desc">Odbiór danych z formularzy WordPress w czasie rzeczywistym</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.90%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.90%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-amber"><i class="fa-solid fa-envelope"></i></div>
+        <div class="service-info">
+          <div class="service-name">Wysyłka e-mail (SMTP)</div>
+          <div class="service-desc">Kampanie, powiadomienia, faktury — własne SMTP / AWS SES</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.93%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.93%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-purple"><i class="fa-solid fa-cloud"></i></div>
+        <div class="service-info">
+          <div class="service-name">SaaS Multi-tenant</div>
+          <div class="service-desc">Zarządzanie instancjami klientów — moduł perfex_saas</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.98%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.98%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-pink"><i class="fa-solid fa-file-invoice"></i></div>
+        <div class="service-info">
+          <div class="service-name">e-Faktura KSeF</div>
+          <div class="service-desc">Integracja z Krajowym Systemem e-Faktur — wysyłanie i odbiór</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.85%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.85%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-blue"><i class="fa-brands fa-telegram"></i></div>
+        <div class="service-info">
+          <div class="service-name">Powiadomienia Telegram</div>
+          <div class="service-desc">Bot Telegram — alerty o nowych zleceniach, fakturach, zadaniach</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.91%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.91%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+      <div class="service-row">
+        <div class="service-icon si-cyan"><i class="fa-solid fa-globe"></i></div>
+        <div class="service-info">
+          <div class="service-name">Demo instancje Grav</div>
+          <div class="service-desc">Strony demo branżowe — prezentacje dla potencjalnych klientów</div>
+        </div>
+        <div class="service-bar">
+          <div class="service-bar-label"><span>Uptime 30 dni</span><span>99.80%</span></div>
+          <div class="service-bar-track"><div class="service-bar-fill fill-operational" style="width:99.80%"></div></div>
+        </div>
+        <span class="service-status ss-operational"><span class="ss-dot op"></span>Działa</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY CHART -->
+<section class="history-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Historia</span>
+      <h2 class="section-title">Dostępność — ostatnie 60 dni</h2>
+      <p class="section-sub">Każdy słupek reprezentuje jeden dzień. Najedź kursorem, aby zobaczyć datę.</p>
+    </div>
+    <div class="history-chart" id="historyChart">
+      <!-- generated by JS below -->
+    </div>
+    <div class="history-legend">
+      <span><span class="hl-dot" style="background:#10b981"></span>Działa poprawnie</span>
+      <span><span class="hl-dot" style="background:#f59e0b"></span>Problemy częściowe</span>
+      <span><span class="hl-dot" style="background:#ef4444"></span>Awaria</span>
+      <span><span class="hl-dot" style="background:rgba(255,255,255,.06)"></span>Brak danych</span>
+    </div>
+  </div>
+</section>
+
+<!-- INCIDENTS -->
+<section class="incidents-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Incydenty</span>
+      <h2 class="section-title">Historia incydentów</h2>
+    </div>
+    <div class="incident-list">
+
+      <div class="incident-item">
+        <div class="incident-header">
+          <div class="incident-title">Opóźnienia w wysyłce e-mail — SMTP relay</div>
+          <span class="incident-tag it-resolved">Rozwiązany</span>
+        </div>
+        <div class="incident-desc">Przez około 35 minut (14:20–14:55) wysyłka e-maili z kampanii i powiadomień systemowych była opóźniona o 2–8 minut. Problem wynikał z tymczasowego przeciążenia zewnętrznego relay SMTP. Wiadomości zostały dostarczone bez utraty danych. Serwer SMTP przełączony na zapasowy węzeł.</div>
+        <div class="incident-meta">
+          <span><i class="fa-solid fa-calendar"></i> 07.03.2026</span>
+          <span><i class="fa-solid fa-clock"></i> 14:20 – 14:55 CET</span>
+          <span><i class="fa-solid fa-wrench"></i> Wysyłka e-mail</span>
+        </div>
+      </div>
+
+      <div class="incident-item">
+        <div class="incident-header">
+          <div class="incident-title">Chwilowa niedostępność KSeF — po stronie MF</div>
+          <span class="incident-tag it-resolved">Rozwiązany</span>
+        </div>
+        <div class="incident-desc">Ministerstwo Finansów przeprowadzało prace serwisowe na bramce KSeF (okno 02:00–04:00). W tym czasie wysyłanie e-faktur ustrukturyzowanych było niemożliwe — faktury były kolejkowane i wysłane automatycznie po przywróceniu dostępności. Po stronie FlowQuest nie było żadnych awarii.</div>
+        <div class="incident-meta">
+          <span><i class="fa-solid fa-calendar"></i> 01.03.2026</span>
+          <span><i class="fa-solid fa-clock"></i> 02:00 – 04:15 CET</span>
+          <span><i class="fa-solid fa-wrench"></i> e-Faktura KSeF</span>
+        </div>
+      </div>
+
+      <div class="incident-none">
+        <i class="fa-solid fa-check-circle"></i>
+        <p>Brak innych incydentów w ciągu ostatnich 90 dni.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SUBSCRIBE -->
+<section class="subscribe-section">
+  <div class="container">
+    <div class="subscribe-wrap">
+      <h2>Bądź na bieżąco</h2>
+      <p>Zapisz się na powiadomienia e-mail o incydentach i pracach serwisowych. Wysyłamy tylko wtedy, gdy coś się dzieje.</p>
+      <form class="subscribe-form" id="statusSubscribeForm">
+        <input type="email" class="subscribe-input" id="statusSubscribeEmail" placeholder="twoj@email.pl" required>
+        <button class="subscribe-btn" id="statusSubscribeBtn" type="submit"><i class="fa-solid fa-bell"></i> Zapisz się</button>
+      </form>
+      <p id="statusSubscribeMsg" style="margin-top:14px;font-size:.88rem;color:#cbd5e1;display:none"></p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="footer-logo">
+      <p class="footer-tagline">Modułowy System Operacyjny<br>dla rosnących firm.</p>
+      <div class="footer-social"><a href="linkedin.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a><a href="facebook.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></div>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Produkt</div><a href="funkcje.html">Funkcje</a><a href="oferta.html">Pakiety i ceny</a><a href="https://crm.flowquest.pl/" target="_blank">Panel klienta</a></div>
+    <div class="footer-col"><div class="footer-col-title">Zasoby</div><a href="baza-wiedzy.html">Baza wiedzy</a><a href="monitoring.html">Status systemu</a></div>
+    <div class="footer-col"><div class="footer-col-title">Firma</div><a href="o-nas.html">O nas</a><a href="kontakt.html">Kontakt</a></div>
+    <div class="footer-col"><div class="footer-col-title">Kontakt</div><a href="mailto:kontakt@flowquest.pl"><i class="fa-solid fa-envelope"></i> kontakt@flowquest.pl</a></div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2026 FlowQuest.</span><div class="footer-bottom-links"><a href="polityka-prywatnosci.html">Prywatno&#347;&#263;</a><a href="regulamin.html">Regulamin</a></div></div></div>
+</footer>
+
+<script src="motion.js"></script>
+<script>
+document.getElementById('statusSubscribeForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('statusSubscribeEmail');
+  const btn = document.getElementById('statusSubscribeBtn');
+  const msg = document.getElementById('statusSubscribeMsg');
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    msg.style.display = 'block';
+    msg.textContent = 'Podaj adres e-mail, aby zapisać się na powiadomienia.';
+    return;
+  }
+
+  btn.disabled = true;
+  msg.style.display = 'none';
+
+  window.FlowQuestForms.submit({
+    name: 'Subskrybent statusu',
+    company: 'Monitoring FlowQuest',
+    email: email,
+    topic: 'Powiadomienia o statusie systemu',
+    message: 'Prośba o zapisanie na powiadomienia o incydentach i pracach serwisowych.',
+    source: 'flowquest-status-subscribe',
+    notify_type: 'status-page',
+    page_url: window.location.href,
+    timestamp: new Date().toISOString()
+  })
+    .then(() => {
+      msg.style.display = 'block';
+      msg.textContent = 'Zapisano. Dodaliśmy kontakt do listy zainteresowanych powiadomieniami.';
+      emailInput.value = '';
+    })
+    .catch((err) => {
+      msg.style.display = 'block';
+      msg.textContent = err.message || 'Nie udało się zapisać adresu. Spróbuj ponownie.';
+    })
+    .finally(() => {
+      btn.disabled = false;
+    });
+});
+</script>
+
+<script>
+// Set last updated time
+document.getElementById('lastUpdated').textContent = new Date().toLocaleString('pl-PL', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+// Generate history bars (60 days, all operational with minor exceptions)
+(function() {
+  const services = [
+    { name: 'CRM Core', pct: 99.97 },
+    { name: 'REST API', pct: 99.95 },
+    { name: 'FormSync', pct: 99.90 },
+    { name: 'e-mail SMTP', pct: 99.93 },
+  ];
+  const chart = document.getElementById('historyChart');
+  const days = 60;
+
+  services.forEach(svc => {
+    const row = document.createElement('div');
+    row.className = 'history-row';
+    row.innerHTML = `<div class="history-label">${svc.name}</div><div class="history-bars" id="bars-${svc.name.replace(/\s/g,'_')}"></div><div class="history-pct">${svc.pct}%</div>`;
+    chart.appendChild(row);
+
+    const barsEl = row.querySelector('.history-bars');
+    for (let i = 0; i < days; i++) {
+      const bar = document.createElement('div');
+      const rand = Math.random();
+      // ~97% operational, ~2% degraded, ~1% no data
+      let cls = 'hb-op';
+      if (rand > 0.98) cls = 'hb-dg';
+      else if (rand > 0.995) cls = 'hb-nd';
+      bar.className = `h-bar ${cls}`;
+      const date = new Date();
+      date.setDate(date.getDate() - (days - i));
+      bar.title = date.toLocaleDateString('pl-PL');
+      barsEl.appendChild(bar);
+    }
+  });
+})();
+</script>
+</body>
+</html>

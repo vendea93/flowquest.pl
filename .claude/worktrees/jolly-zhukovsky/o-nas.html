@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O nas — FlowQuest</title>
+<meta name="description" content="FlowQuest — misja, wizja i historia firmy. Tworzymy modułowy system operacyjny dla MŚP, który eliminuje chaos i pozwala skupić się na wzroście.">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── MISSION ── */
+.mission-section { padding: 80px 0; background: var(--bg-900); }
+.mission-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.mission-content h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; color: var(--text-300); margin: 0 0 20px; line-height: 1.15; }
+.mission-content h2 span { color: var(--blue); }
+.mission-content p { font-size: .97rem; color: var(--text-500); line-height: 1.8; margin: 0 0 16px; }
+.mission-visual {
+  background: var(--bg-800);
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.mission-visual::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(37,99,235,.15), transparent 70%);
+}
+.mv-quote {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-300);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  position: relative;
+}
+.mv-quote::before { content: '\201C'; font-size: 3rem; color: #3b82f6; line-height: 0; vertical-align: -0.5em; margin-right: 6px; }
+.mv-author { display: flex; align-items: center; gap: 12px; }
+.mv-avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #818cf8); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: .9em; }
+.mv-name { font-weight: 700; color: var(--text-100); font-size: .9rem; }
+.mv-role { font-size: .75rem; color: var(--text-600); margin-top: 2px; }
+
+/* ── VALUES ── */
+.values-section { padding: 80px 0; background: var(--bg-950); }
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
+.value-card {
+  padding: 32px 26px;
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: all 230ms;
+}
+.value-card:hover { border-color: rgba(59,130,246,.3); box-shadow: 0 8px 28px rgba(37,99,235,.12); transform: translateY(-4px); }
+.value-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3em; margin-bottom: 18px; }
+.vi-blue { background: rgba(37,99,235,.1); color: #2563eb; }
+.vi-green { background: rgba(16,185,129,.1); color: #10b981; }
+.vi-amber { background: rgba(245,158,11,.1); color: #f59e0b; }
+.vi-purple { background: rgba(139,92,246,.1); color: #8b5cf6; }
+.vi-pink { background: rgba(236,72,153,.1); color: #ec4899; }
+.vi-cyan { background: rgba(6,182,212,.1); color: #06b6d4; }
+.value-card h3 { font-size: 1rem; font-weight: 700; color: var(--text-300); margin: 0 0 10px; }
+.value-card p { font-size: .86rem; color: var(--text-600); line-height: 1.65; margin: 0; }
+
+/* ── STORY TIMELINE ── */
+.story-section { padding: 80px 0; background: var(--bg-900); }
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #3b82f6, #818cf8); }
+.tl-item { position: relative; padding-bottom: 40px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot { position: absolute; left: -30px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: #3b82f6; border: 3px solid var(--bg-900); box-shadow: 0 0 0 2px #3b82f6; }
+.tl-year { font-size: .72rem; font-weight: 700; color: #3b82f6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.tl-item h3 { font-size: 1rem; font-weight: 700; color: var(--text-300); margin: 0 0 8px; }
+.tl-item p { font-size: .87rem; color: var(--text-600); line-height: 1.65; margin: 0; max-width: 560px; }
+
+/* ── STATS ── */
+.about-stats { padding: 60px 0; background: var(--bg-800); }
+.about-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; text-align: center; }
+.as-item { padding: 12px 20px; border-right: 1px solid var(--border); }
+.as-item:last-child { border-right: none; }
+.as-val { font-size: 2.2rem; font-weight: 900; color: var(--text-100); display: block; line-height: 1; }
+.as-val em { color: #3b82f6; font-style: normal; }
+.as-desc { font-size: .78rem; color: var(--text-500); margin-top: 6px; display: block; }
+
+/* ── WHY FLOWQUEST ── */
+.why-section { padding: 80px 0; background: var(--bg-950); }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start; margin-top: 48px; }
+.why-item { display: flex; gap: 16px; padding: 24px; background: var(--bg-500); border: 1px solid var(--border); border-radius: 14px; }
+.why-num { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, rgba(37,99,235,.2), rgba(59,130,246,.1)); color: #60a5fa; font-weight: 800; font-size: 1.1em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.why-text h3 { font-size: .95rem; font-weight: 700; color: var(--text-300); margin: 0 0 8px; }
+.why-text p { font-size: .84rem; color: var(--text-500); line-height: 1.65; margin: 0; }
+
+@media(max-width: 900px) {
+  .mission-grid, .why-grid { grid-template-columns: 1fr; }
+  .about-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .mission-content,
+  .mission-visual,
+  .value-card,
+  .why-item {
+    text-align: center;
+  }
+  .mv-author,
+  .why-item {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media(max-width: 600px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="site-logo">
+      <span class="site-logo-mark">
+        <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="logo-img logo-on-light">
+        <img src="https://go.flowquest.pl/uploads/company/ac3475e3c47b743cd02d10be1c3131cb.png" alt="FlowQuest" class="logo-img logo-on-dark">
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Strona Główna</a>
+      <div class="nav-item dropdown">
+        <a href="oferta.html">Pakiety</a>
+        <div class="dropdown-menu">
+          <a href="pakiety/core.html">Core — case study</a>
+          <a href="pakiety/teams.html">TEAMS — zespół 5–50 osób</a>
+          <a href="pakiety/solo.html">SOLO — solopreneurzy</a>
+        </div>
+      </div>
+      <a href="funkcje.html">Funkcje</a>
+      <div class="nav-item dropdown">
+        <a href="baza-wiedzy.html">Zasoby</a>
+        <div class="dropdown-menu">
+          <a href="baza-wiedzy.html">Baza wiedzy</a>
+          <a href="monitoring.html">Status systemu</a>
+        </div>
+      </div>
+      <a href="o-nas.html" class="active">O nas</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" type="button" aria-label="Przełącz motyw">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="cta-links">
+        <a href="kontakt.html" class="btn-nav-outline">Umów demo</a>
+        <a href="https://crm.flowquest.pl/" class="btn-nav-primary" target="_blank">Panel klienta <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <button class="hamburger" type="button" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <span class="section-label">O nas</span>
+    <h1>Budujemy narzędzia,<br>które realnie pomagają.</h1>
+    <p>FlowQuest powstał z frustracji. Właściciele MŚP tracili czas na żonglowanie kilkoma narzędziami, Excel-ami i rozsianą dokumentacją. Stworzyliśmy jedno rozwiązanie, które zastępuje je wszystkie.</p>
+  </div>
+</div>
+
+<!-- MISSION -->
+<section class="mission-section">
+  <div class="container mission-grid">
+    <div class="mission-content">
+      <span class="section-label">Nasza misja</span>
+      <h2>Dać każdej polskiej firmie MŚP narzędzia, które dotąd miały tylko <span>duże korporacje.</span></h2>
+      <p>Przez lata oprogramowanie klasy enterprise było dostępne tylko dla firm z budżetem na drogie licencje i kilkumiesięczne wdrożenia. Mniejsze firmy skazane były na niekompatybilne narzędzia, Excel-e i chaos.</p>
+      <p>FlowQuest to zmienia. Modułowa architektura pozwala zacząć od zera — z darmowym rdzeniem — i rozbudowywać dokładnie w takim tempie, w jakim rośnie firma. Bez przeróstu, bez śmietnika funkcji.</p>
+      <p><strong>Wizja:</strong> Stać się standardem zarządzania dla firm 10–50 pracowników w Polsce. System, który "po prostu działa" — bez IT-mana na pełny etat.</p>
+    </div>
+    <div class="mission-visual">
+      <p class="mv-quote">Właściciel firmy powinien spędzać czas na rozwijaniu biznesu, nie na szukaniu informacji w pięciu różnych miejscach.</p>
+      <div class="mv-author">
+        <div class="mv-avatar">FQ</div>
+        <div>
+          <div class="mv-name">Zespół FlowQuest</div>
+          <div class="mv-role">Modułowy System Operacyjny dla Biznesu</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="about-stats">
+  <div class="container about-stats-grid">
+    <div class="as-item"><span class="as-val"><em>10</em></span><span class="as-desc">Obsługiwanych branż</span></div>
+    <div class="as-item"><span class="as-val"><em>59</em></span><span class="as-desc">Dostępnych modułów</span></div>
+    <div class="as-item"><span class="as-val"><em>100%</em></span><span class="as-desc">Firm na własnych danych</span></div>
+    <div class="as-item"><span class="as-val"><em>24h</em></span><span class="as-desc">Czas standardowego wdrożenia</span></div>
+  </div>
+</div>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Nasze wartości</span>
+      <h2 class="section-title dark">Czym kierujemy się na co dzień</h2>
+      <p class="section-sub dark">Wartości nie są nam potrzebne na ścianie. Działamy według nich przy każdej decyzji produktowej i każdym kontakcie z klientem.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon vi-blue"><i class="fa-solid fa-puzzle-piece"></i></div>
+        <h3>Modularność</h3>
+        <p>Nie narzucamy gotowych pakietów "all-in-one". Każda firma jest inna — dajemy klocki, z których budujesz dokładnie to, czego potrzebujesz.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-green"><i class="fa-solid fa-seedling"></i></div>
+        <h3>Skalowalność bez bólu</h3>
+        <p>System rośnie razem z firmą. Nie ma "sufitu" funkcji, nie trzeba migrować do innego narzędzia gdy przychodzi 20. pracownik.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-amber"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Twoje dane, Twój serwer</h3>
+        <p>Pełna własność danych. Możliwość instalacji na własnym VPS — nikt nie ma dostępu do Twoich danych bez Twojej zgody.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-purple"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Partnerstwo, nie vendor lock-in</h3>
+        <p>Nie uzależniamy od siebie. Pełny eksport danych, otwarte API, możliwość odejścia bez utraty historii firmy.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-pink"><i class="fa-solid fa-bolt"></i></div>
+        <h3>Szybkość wdrożenia</h3>
+        <p>Standardowe wdrożenie w 24h. Nie tracimy czasu klientów na wielomiesięczne projekty — dostarczamy wartość od pierwszego dnia.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon vi-cyan"><i class="fa-solid fa-headset"></i></div>
+        <h3>Wsparcie po polsku</h3>
+        <p>Obsługa klienta po polsku, przez prawdziwych ludzi. Nie chatbot, nie ticket system z tygodniowym czasem odpowiedzi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY TIMELINE -->
+<section class="story-section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div>
+        <span class="section-label">Nasza historia</span>
+        <h2 class="section-title dark" style="margin-bottom:40px">Jak powstał FlowQuest</h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Początki</div>
+            <h3>Problem, który musieliśmy rozwiązać</h3>
+            <p>Pracując z firmami MŚP zauważyliśmy powtarzający się wzorzec: właściciel używa 5-8 różnych narzędzi, które nie rozmawiają ze sobą. Dane giną. Czas się marnuje.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Budowanie rdzenia</div>
+            <h3>Wybór Perfex CRM jako fundamentu</h3>
+            <p>Zamiast budować od zera, wybraliśmy sprawdzoną platformę open-source. Dodaliśmy warstwę modułowości branżowej i polskie integracje (KSeF, lokalne bramki płatności).</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Ekosystem branżowy</div>
+            <h3>10 branż, 59 modułów</h3>
+            <p>Rozmawialiśmy z setkami firm z różnych sektorów. Każda branża miała własne bolączki. Tak powstały gotowe pakiety: Technik PRO, Budowa Control, Klinika Flow i inne.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">Dziś i jutro</div>
+            <h3>SaaS, AI i automatyzacje</h3>
+            <p>FlowQuest ewoluuje w kierunku w pełni zautomatyzowanego systemu z AI. Agenci kategoryzują leady, generują oferty, wysyłają powiadomienia — bez ingerencji człowieka.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="section-label">Dlaczego my</span>
+        <h2 class="section-title dark" style="margin-bottom:40px">Co wyróżnia FlowQuest</h2>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="why-item">
+            <div class="why-num">1</div>
+            <div class="why-text"><h3>Polska platforma, polskie realia</h3><p>KSeF, polskie bramki płatności, RODO, obsługa w języku polskim. Rozumiemy specyfikę lokalnego rynku.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">2</div>
+            <div class="why-text"><h3>Rdzeń bezpłatny, zawsze</h3><p>Pełny CRM, faktury, projekty i panel klienta są bezpłatne. To nie jest tricky "freemium" — to realny, działający system.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">3</div>
+            <div class="why-text"><h3>Instalacja lub SaaS — Twój wybór</h3><p>Chcesz pełną kontrolę? Instalujemy na Twoim serwerze. Wolisz komfort? Instancja SaaS gotowa w 15 minut.</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-num">4</div>
+            <div class="why-text"><h3>Wdrożenie w 24 godziny</h3><p>Bez wielomiesięcznych projektów. Konfigurujemy system, importujemy dane, szkolimy zespół — i startujemy.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,#1e40af,#2563eb);padding:64px 0;text-align:center">
+  <div class="container">
+    <h2 style="color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:0 0 14px">Chcesz poznać nas lepiej?</h2>
+    <p style="color:rgba(255,255,255,.84);font-size:1rem;margin:0 0 28px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7">Umów się na 30-minutową rozmowę. Opowiemy o systemie i odpowiemy na każde pytanie.</p>
+    <a href="kontakt.html" style="background:#fff;color:#1d4ed8;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;box-shadow:0 4px 20px rgba(0,0,0,.2)"><i class="fa-solid fa-calendar-check"></i> Umów rozmowę</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="footer-logo">
+      <p class="footer-tagline">Modułowy System Operacyjny<br>dla rosnących firm.</p>
+      <div class="footer-social"><a href="linkedin.html"><i class="fa-brands fa-linkedin"></i></a><a href="facebook.html"><i class="fa-brands fa-facebook"></i></a></div>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Produkt</div><a href="funkcje.html">Funkcje</a><a href="oferta.html">Pakiety i ceny</a><a href="https://crm.flowquest.pl/" target="_blank">Panel klienta</a></div>
+    <div class="footer-col"><div class="footer-col-title">Zasoby</div><a href="baza-wiedzy.html">Baza wiedzy</a><a href="monitoring.html">Status systemu</a></div>
+    <div class="footer-col"><div class="footer-col-title">Firma</div><a href="o-nas.html">O nas</a><a href="kontakt.html">Kontakt</a></div>
+    <div class="footer-col"><div class="footer-col-title">Kontakt</div><a href="mailto:kontakt@flowquest.pl"><i class="fa-solid fa-envelope"></i> kontakt@flowquest.pl</a></div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2026 FlowQuest.</span><div class="footer-bottom-links"><a href="polityka-prywatnosci.html">Prywatno&#347;&#263;</a><a href="regulamin.html">Regulamin</a></div></div></div>
+</footer>
+
+<script src="motion.js"></script>
+</body>
+</html>

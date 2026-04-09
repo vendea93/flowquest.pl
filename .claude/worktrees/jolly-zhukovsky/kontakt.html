@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt i demo — FlowQuest</title>
+<meta name="description" content="Skontaktuj się z FlowQuest. Umów bezpłatne demo, zadaj pytanie lub poproś o wycenę wdrożenia dla swojej branży.">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ── CONTACT LAYOUT ── */
+.contact-section { padding: 72px 0; background: var(--bg-900); }
+.contact-grid { display: grid; grid-template-columns: minmax(280px, .95fr) minmax(0, 1.35fr); gap: clamp(28px, 4vw, 48px); align-items: start; }
+
+/* CONTACT INFO */
+.contact-info { display: flex; flex-direction: column; gap: 24px; }
+.contact-card {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 200ms;
+}
+.contact-card-text { min-width: 0; }
+.contact-card:hover { border-color: rgba(37,99,235,.35); box-shadow: 0 4px 20px rgba(37,99,235,.1); }
+.contact-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1em; flex-shrink: 0;
+}
+.cci-blue { background: rgba(37,99,235,.12); color: #60a5fa; }
+.cci-green { background: rgba(16,185,129,.12); color: #34d399; }
+.cci-amber { background: rgba(245,158,11,.12); color: #fbbf24; }
+.contact-card-text h3 { font-size: .9rem; font-weight: 700; color: var(--text-300); margin: 0 0 4px; }
+.contact-card-text p { font-size: .84rem; color: var(--text-500); margin: 0; line-height: 1.5; }
+.contact-card-text a { color: #3b82f6; text-decoration: none; font-weight: 500; }
+.contact-card-text a:hover { color: #60a5fa; text-decoration: underline; }
+
+/* Why us mini-list */
+.why-mini { background: var(--bg-900); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.why-mini-title { font-size: .72rem; font-weight: 700; color: var(--text-600); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+.why-mini-list { display: flex; flex-direction: column; gap: 10px; }
+.wml-item { display: flex; align-items: flex-start; gap: 10px; }
+.wml-item i { color: #10b981; margin-top: 2px; flex-shrink: 0; }
+.wml-item span { font-size: .83rem; color: var(--text-500); line-height: 1.5; }
+.wml-item span strong { color: var(--text-400); font-weight: 600; }
+
+/* FORM */
+.contact-form-wrap {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+}
+.form-title { font-size: 1.3rem; font-weight: 800; color: var(--text-300); margin: 0 0 6px; }
+.form-subtitle { font-size: .88rem; color: var(--text-600); margin: 0 0 30px; line-height: 1.5; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-group label { font-size: .8rem; font-weight: 600; color: var(--text-400); }
+.form-group label .req { color: #ef4444; margin-left: 2px; }
+.form-control {
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: .9rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-300);
+  background: var(--bg-900);
+  transition: border-color 160ms, box-shadow 160ms;
+  outline: none;
+  width: 100%;
+}
+.form-control:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.12); }
+.form-control::placeholder { color: var(--text-700); }
+select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-color: var(--bg-900); padding-right: 36px; }
+textarea.form-control { resize: vertical; min-height: 110px; }
+
+.form-check { display: flex; align-items: flex-start; gap: 10px; font-size: .8rem; color: var(--text-500); line-height: 1.5; margin-bottom: 24px; }
+.form-check input[type=checkbox] { width: 16px; height: 16px; margin-top: 1px; flex-shrink: 0; accent-color: var(--blue); cursor: pointer; }
+.form-check a { color: var(--blue); text-decoration: none; }
+.form-check a:hover { text-decoration: underline; }
+
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: all 200ms;
+  box-shadow: 0 4px 16px rgba(37,99,235,.3);
+}
+.btn-submit:hover { box-shadow: 0 8px 24px rgba(37,99,235,.45); transform: translateY(-1px); }
+.btn-submit:disabled { opacity: .7; cursor: not-allowed; transform: none; }
+
+.form-note { text-align: center; font-size: .75rem; color: var(--text-600); margin-top: 14px; line-height: 1.5; }
+.form-note i { margin-right: 4px; }
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 48px 20px;
+}
+.form-success i { font-size: 3rem; color: #10b981; margin-bottom: 16px; display: block; }
+.form-success h3 { font-size: 1.3rem; font-weight: 800; color: var(--text-300); margin-bottom: 10px; }
+.form-success p { font-size: .9rem; color: var(--text-600); line-height: 1.65; max-width: 360px; margin: 0 auto; }
+
+/* ── QUICK OPTIONS ── */
+.options-section { padding: 64px 0; background: var(--bg-950); }
+.options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 40px; }
+.option-card {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  transition: all 240ms;
+}
+.option-card:hover { border-color: rgba(59,130,246,.3); background: var(--bg-700); box-shadow: 0 6px 24px rgba(37,99,235,.12); transform: translateY(-3px); }
+.option-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.3em; margin: 0 auto 18px; }
+.oi-blue { background: rgba(37,99,235,.12); color: #60a5fa; }
+.oi-green { background: rgba(16,185,129,.12); color: #34d399; }
+.oi-amber { background: rgba(245,158,11,.12); color: #fbbf24; }
+.option-card h3 { font-size: .98rem; font-weight: 700; color: var(--text-300); margin: 0 0 10px; }
+.option-card p { font-size: .84rem; color: var(--text-500); line-height: 1.65; margin: 0 0 18px; }
+.option-link { color: var(--blue); font-size: .85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 160ms; }
+.option-link:hover { gap: 8px; }
+
+@media(max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-card,
+  .why-mini,
+  .contact-form-wrap {
+    text-align: center;
+  }
+  .contact-card {
+    flex-direction: column;
+    align-items: center;
+  }
+  .wml-item {
+    justify-content: center;
+  }
+  .form-title,
+  .form-subtitle {
+    text-align: center;
+  }
+}
+@media(max-width: 600px) {
+  .contact-form-wrap { padding: 24px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="site-logo">
+      <span class="site-logo-mark">
+        <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="logo-img logo-on-light">
+        <img src="https://go.flowquest.pl/uploads/company/ac3475e3c47b743cd02d10be1c3131cb.png" alt="FlowQuest" class="logo-img logo-on-dark">
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Strona Główna</a>
+      <div class="nav-item dropdown">
+        <a href="oferta.html">Pakiety</a>
+        <div class="dropdown-menu">
+          <a href="pakiety/core.html">Core — case study</a>
+          <a href="pakiety/teams.html">TEAMS — zespół 5–50 osób</a>
+          <a href="pakiety/solo.html">SOLO — solopreneurzy</a>
+        </div>
+      </div>
+      <a href="funkcje.html">Funkcje</a>
+      <div class="nav-item dropdown">
+        <a href="baza-wiedzy.html">Zasoby</a>
+        <div class="dropdown-menu">
+          <a href="baza-wiedzy.html">Baza wiedzy</a>
+          <a href="monitoring.html">Status systemu</a>
+        </div>
+      </div>
+      <a href="o-nas.html">O nas</a>
+      <a href="kontakt.html" class="active">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" type="button" aria-label="Przełącz motyw">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="cta-links">
+        <a href="kontakt.html" class="btn-nav-outline">Umów demo</a>
+        <a href="https://crm.flowquest.pl/" class="btn-nav-primary" target="_blank">Panel klienta <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <button class="hamburger" type="button" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <span class="section-label">Kontakt</span>
+    <h1>Porozmawiajmy<br>o Twoim biznesie.</h1>
+    <p>Umów bezpłatne demo, zadaj pytanie o pakiety lub poproś o indywidualną wycenę wdrożenia. Odpowiadamy w ciągu kilku godzin w dni robocze.</p>
+  </div>
+</div>
+
+<!-- QUICK OPTIONS -->
+<section class="options-section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:0">
+      <span class="section-label">Jak możemy pomóc?</span>
+      <h2 class="section-title dark">Wybierz temat kontaktu</h2>
+    </div>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-icon oi-blue"><i class="fa-solid fa-rocket"></i></div>
+        <h3>Bezpłatne demo</h3>
+        <p>Pokażemy system na żywo — skonfigurowany pod Twoją branżę. 30 minut, zero zobowiązań. Odejdziesz z konkretnymi odpowiedziami.</p>
+        <a href="#contact-form" class="option-link">Umów demo <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="option-card">
+        <div class="option-icon oi-green"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3>Wycena wdrożenia</h3>
+        <p>Opisz swoje potrzeby — przygotujemy szczegółową wycenę instalacji na serwerze lub instancji SaaS. Bez ukrytych kosztów.</p>
+        <a href="#contact-form" class="option-link">Zapytaj o wycenę <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="option-card">
+        <div class="option-icon oi-amber"><i class="fa-solid fa-question-circle"></i></div>
+        <h3>Pytanie techniczne</h3>
+        <p>Integracje, migracja danych, specyficzne wymagania branżowe? Nasz zespół techniczny chętnie odpowie na każde pytanie.</p>
+        <a href="#contact-form" class="option-link">Zadaj pytanie <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact-form">
+  <div class="container contact-grid">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info">
+      <div class="contact-card">
+        <div class="contact-card-icon cci-blue"><i class="fa-solid fa-envelope"></i></div>
+        <div class="contact-card-text">
+          <h3>E-mail</h3>
+          <p><a href="mailto:kontakt@flowquest.pl">kontakt@flowquest.pl</a><br>Odpowiadamy w ciągu 2–4h</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon cci-green"><i class="fa-solid fa-phone"></i></div>
+        <div class="contact-card-text">
+          <h3>Telefon</h3>
+          <p><a href="tel:+48000000000">+48 000 000 000</a><br>Pon–Pt, 9:00–17:00</p>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon cci-amber"><i class="fa-solid fa-location-dot"></i></div>
+        <div class="contact-card-text">
+          <h3>Siedziba</h3>
+          <p>Polska<br>Obsługujemy klientów zdalnie w całym kraju</p>
+        </div>
+      </div>
+
+      <div class="why-mini">
+        <div class="why-mini-title">Dlaczego warto się odezwać</div>
+        <div class="why-mini-list">
+          <div class="wml-item"><i class="fa-solid fa-check-circle"></i><span><strong>Zero presji sprzedażowej</strong> — demo to prezentacja, nie prezentacja z twardym zamknięciem</span></div>
+          <div class="wml-item"><i class="fa-solid fa-check-circle"></i><span><strong>Demo na Twoich danych</strong> — importujemy przykładowe dane z Twojej branży</span></div>
+          <div class="wml-item"><i class="fa-solid fa-check-circle"></i><span><strong>Konkretna odpowiedź w 30 minut</strong> — czy FlowQuest pasuje do Twojej firmy, czy nie</span></div>
+          <div class="wml-item"><i class="fa-solid fa-check-circle"></i><span><strong>Bez umów długoterminowych</strong> — miesięczny abonament, anulowanie w dowolnym momencie</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap">
+      <div id="formContent">
+        <div class="form-title">Wyślij zapytanie</div>
+        <p class="form-subtitle">Wypełnij formularz — skontaktujemy się z Tobą w ciągu jednego dnia roboczego, aby umówić rozmowę lub odpowiedzieć na pytania.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Imię i nazwisko <span class="req">*</span></label>
+              <input type="text" class="form-control" id="name" placeholder="Jan Kowalski" required>
+            </div>
+            <div class="form-group">
+              <label>Firma <span class="req">*</span></label>
+              <input type="text" class="form-control" id="company" placeholder="Nazwa firmy" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Adres e-mail <span class="req">*</span></label>
+              <input type="email" class="form-control" id="email" placeholder="jan@firma.pl" required>
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" class="form-control" id="phone" placeholder="+48 600 000 000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Branża <span class="req">*</span></label>
+            <select class="form-control" id="industry" required>
+              <option value="">— Wybierz branżę —</option>
+              <option value="hvac">HVAC / OZE / Instalacje</option>
+              <option value="budownictwo">Budownictwo / Deweloperka</option>
+              <option value="medycyna">Medycyna / Zdrowie</option>
+              <option value="prawo">Prawo / Kancelaria</option>
+              <option value="agencja">Agencja / IT / Software</option>
+              <option value="logistyka">Logistyka / Transport</option>
+              <option value="nieruchomosci">Nieruchomości</option>
+              <option value="ecommerce">E-commerce B2B</option>
+              <option value="fitness">Fitness / Sport</option>
+              <option value="beauty">Beauty / SPA / Wellness</option>
+              <option value="inna">Inna branża</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Temat zapytania</label>
+            <select class="form-control" id="topic">
+              <option value="demo">Bezpłatne demo systemu</option>
+              <option value="wycena">Wycena wdrożenia</option>
+              <option value="pakiety">Pytanie o pakiety i ceny</option>
+              <option value="techniczne">Pytanie techniczne / integracje</option>
+              <option value="saas">Instancja SaaS</option>
+              <option value="inne">Inne</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Liczba pracowników w firmie</label>
+            <select class="form-control" id="employees">
+              <option value="">— Wybierz zakres —</option>
+              <option value="1">Samodzielna działalność (1 osoba)</option>
+              <option value="2-5">2–5 pracowników</option>
+              <option value="6-15">6–15 pracowników</option>
+              <option value="16-50">16–50 pracowników</option>
+              <option value="50+">Powyżej 50 pracowników</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Wiadomość <span class="req">*</span></label>
+            <textarea class="form-control" id="message" placeholder="Opisz swoje potrzeby, branżę, z czym masz wyzwania — im więcej napiszesz, tym lepiej przygotujemy się do rozmowy." required></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="consent" required>
+            <label for="consent">Wyrażam zgodę na przetwarzanie moich danych osobowych przez FlowQuest w celu odpowiedzi na zapytanie, zgodnie z <a href="polityka-prywatnosci.html">Polityk&#261; Prywatno&#347;ci</a>. Dane nie będą przekazywane osobom trzecim. <span class="req">*</span></label>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fa-solid fa-paper-plane"></i>
+            Wyślij zapytanie
+          </button>
+          <p class="form-note"><i class="fa-solid fa-lock"></i> Twoje dane są bezpieczne i nie będą używane w celach marketingowych bez zgody.</p>
+          <div id="formError" style="display:none;margin-top:14px;padding:12px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;color:#b91c1c;font-size:.84rem"></div>
+        </form>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <i class="fa-solid fa-check-circle"></i>
+        <h3>Wiadomość wysłana!</h3>
+        <p>Dziękujemy za kontakt. Skontaktujemy się z Tobą w ciągu jednego dnia roboczego, aby umówić rozmowę lub odpowiedzieć na Twoje pytania.</p>
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:#2563eb;font-weight:600;font-size:.9rem;text-decoration:none"><i class="fa-solid fa-house"></i> Wróć na stronę główną</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="footer-logo">
+      <p class="footer-tagline">Modułowy System Operacyjny<br>dla rosnących firm.</p>
+      <div class="footer-social"><a href="linkedin.html"><i class="fa-brands fa-linkedin"></i></a><a href="facebook.html"><i class="fa-brands fa-facebook"></i></a></div>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Produkt</div><a href="funkcje.html">Funkcje</a><a href="oferta.html">Pakiety i ceny</a><a href="https://crm.flowquest.pl/" target="_blank">Panel klienta</a></div>
+    <div class="footer-col"><div class="footer-col-title">Zasoby</div><a href="baza-wiedzy.html">Baza wiedzy</a><a href="monitoring.html">Status systemu</a></div>
+    <div class="footer-col"><div class="footer-col-title">Firma</div><a href="o-nas.html">O nas</a><a href="kontakt.html">Kontakt</a></div>
+    <div class="footer-col"><div class="footer-col-title">Kontakt</div><a href="mailto:kontakt@flowquest.pl"><i class="fa-solid fa-envelope"></i> kontakt@flowquest.pl</a></div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2026 FlowQuest.</span><div class="footer-bottom-links"><a href="polityka-prywatnosci.html">Prywatno&#347;&#263;</a><a href="regulamin.html">Regulamin</a></div></div></div>
+</footer>
+
+<script src="motion.js"></script>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const errorEl = document.getElementById('formError');
+  errorEl.style.display = 'none';
+
+  // Basic validation
+  const name = document.getElementById('name').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const industry = document.getElementById('industry').value;
+  const message = document.getElementById('message').value.trim();
+  const consent = document.getElementById('consent').checked;
+
+  if (!name || !company || !email || !industry || !message) {
+    errorEl.textContent = 'Proszę wypełnić wszystkie wymagane pola oznaczone gwiazdką (*).';
+    errorEl.style.display = 'block';
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    errorEl.textContent = 'Proszę podać poprawny adres e-mail.';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!consent) {
+    errorEl.textContent = 'Wymagana jest zgoda na przetwarzanie danych osobowych.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  // Submit button loading state
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Wysyłanie...';
+
+  const formData = {
+    name: name,
+    company: company,
+    email: email,
+    phone: document.getElementById('phone').value.trim(),
+    industry: industry,
+    topic: document.getElementById('topic').value,
+    employees: document.getElementById('employees').value,
+    message: message,
+    source: 'flowquest-website-contact',
+    page_url: window.location.href,
+    timestamp: new Date().toISOString()
+  };
+
+  window.FlowQuestForms.submit(formData)
+    .then(() => {
+      showSuccess();
+    })
+    .catch(err => {
+      errorEl.textContent = err.message || 'Nie udało się wysłać formularza. Spróbuj ponownie.';
+      errorEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Wyślij zapytanie';
+    });
+});
+
+function showSuccess() {
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('contact-form').offsetTop - 80, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

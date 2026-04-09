@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "title": "Jak FlowQuest skrócił czas ofertowania w firmie OZE o 40%",
+    "slug": "flowquest-oze-ofertowanie",
+    "category": "HVAC & OZE",
+    "tag": "case-study",
+    "excerpt": "Firma instalacyjna z Warszawy obsługująca 80 montaży miesięcznie. Po wdrożeniu FlowQuest czas od zapytania do wysłanej oferty skrócił się z 3 dni do 4 godzin.",
+    "content": "Firma instalacyjna z Warszawy obsługująca 80 montaży miesięcznie borykała się z chaosem: oferty powstawały w Excelu, harmonogramy ekip były w innym arkuszu, a klienci czekali średnio 3 dni na wycenę. Po wdrożeniu FlowQuest z pakietem Technik PRO:\n\n- Automatyczne generowanie oferty na podstawie adresu i mocy instalacji\n- Śledzenie, czy klient otworzył ofertę i kiedy wymaga follow-upu\n- Mobilny dostęp do harmonogramów dla każdej ekipy terenowej\n- Automatyczne przypomnienia o przeglądach i płatnościach\n\nEfekt: czas ofertowania skrócił się z 3 dni do 4 godzin. 32% mniej telefonów do kierowników. 18% wyższy wskaźnik konwersji ofert.",
+    "modules": "CRM, harmonogramy, automatyzacje, oferty",
+    "result": "40% szybsze ofertowanie",
+    "author": "FlowQuest Team",
+    "date": "2026-03-10",
+    "published": true
+  },
+  {
+    "id": "2",
+    "title": "Beauty Expert: jak salon zredukował no-show o 47% w 30 dni",
+    "slug": "beauty-expert-no-show",
+    "category": "Beauty & SPA",
+    "tag": "case-study",
+    "excerpt": "Studio urody w Krakowie traciło miesięcznie kilkanaście tysięcy złotych na pustych terminach. Automatyczne SMS-y i e-maile FlowQuest zmieniły wszystko.",
+    "content": "Studio urody w Krakowie z 6 stylistkami i pełnym kalendarzem notowało 22% wskaźnik no-show — to kilkanaście tysięcy złotych marży miesięcznie wyrzucone w błoto. Po wdrożeniu Beauty Expert:\n\n- Automatyczne SMS 48h i 2h przed wizytą\n- Karta klienta z historią zabiegów, zdjęciami przed/po i preferencjami\n- Automatyczna kampania reaktywacyjna dla klientów nieobecnych ponad 60 dni\n- Upsell po wizycie: propozycja kolejnego zabiegu dopasowana do historii\n\nEfekt po 30 dniach: no-show spadł z 22% do 11.7%. Przychód z powtórnych wizyt wzrósł o 37%.",
+    "modules": "CRM, automatyzacje SMS/e-mail, karty klientów",
+    "result": "47% mniej no-show",
+    "author": "FlowQuest Team",
+    "date": "2026-03-01",
+    "published": true
+  },
+  {
+    "id": "3",
+    "title": "CRM bez lock-in: dlaczego własność danych to nowy standard w 2026",
+    "slug": "crm-bez-lock-in-wlasnosc-danych",
+    "category": "Transformacja cyfrowa",
+    "tag": "artykuł",
+    "excerpt": "Firmy, które przeszły na SaaS 5 lat temu, teraz płacą coraz wyższe ceny za narzędzia, których nie mogą opuścić. Własność danych zmienia układ sił.",
+    "content": "W 2026 roku średni koszt systemu SaaS klasy korporacyjnej dla 20-osobowej firmy przekracza 2000 USD miesięcznie. Co gorsza: Twoje dane są u dostawcy, eksport jest utrudniony, a każda podwyżka cen to zakładnik.\n\nPerfex CRM, na którym opiera się FlowQuest, jest rozwiązaniem self-hosted. Dane leżą na Twoim serwerze. Możesz eksportować, migrować, integrować — bez pytania o zgodę.\n\n5-letni TCO FlowQuest vs. alternatywy:\n- Salesforce Essentials (20 użytkowników): ~180 000 PLN przez 5 lat\n- Pipedrive Advanced: ~120 000 PLN\n- FlowQuest TEAMS: od 10 740 PLN\n\nRóżnica: 90-95% oszczędności przy zachowaniu pełnej funkcjonalności.",
+    "modules": "Wszystkie pakiety",
+    "result": "TCO niższy o 40-95%",
+    "author": "FlowQuest Team",
+    "date": "2026-02-20",
+    "published": true
+  }
+]

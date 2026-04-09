@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funkcje systemu — FlowQuest</title>
+<meta name="description" content="59 modułów, jeden system. Poznaj wszystkie funkcje FlowQuest: CRM, fakturowanie, HR, projekty, AI, automatyzacje i wiele więcej.">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Filter tabs */
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.filter-btn {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  color: var(--text-600);
+  font-size: .8rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 160ms;
+}
+.filter-btn:hover { border-color: rgba(59,130,246,.4); color: #2563eb; background: rgba(37,99,235,.07); }
+.filter-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+/* Modules grid */
+.modules-section { padding: 72px 0; background: var(--bg-900); }
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.module-card {
+  background: var(--bg-500);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  transition: all 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(37,99,235,0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.module-card:hover { 
+  border-color: rgba(59,130,246,.4); 
+  box-shadow: 0 8px 32px rgba(37,99,235,.15); 
+  transform: translateY(-4px);
+}
+.module-card:hover::before {
+  opacity: 1;
+}
+.module-card[data-hidden="true"] { 
+  display: none; 
+  animation: fadeOut 0.3s ease;
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(10px); }
+}
+.module-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.module-icon-wrap {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95em; flex-shrink: 0;
+}
+.mc-blue { background: rgba(37,99,235,.14); color: #60a5fa; }
+.mc-green { background: rgba(16,185,129,.14); color: #34d399; }
+.mc-amber { background: rgba(245,158,11,.14); color: #fbbf24; }
+.mc-purple { background: rgba(139,92,246,.14); color: #a78bfa; }
+.mc-pink { background: rgba(236,72,153,.14); color: #f472b6; }
+.mc-cyan { background: rgba(6,182,212,.14); color: #22d3ee; }
+.module-name { font-size: .9rem; font-weight: 700; color: var(--text-300); }
+.module-slug { font-size: .68rem; color: var(--text-600); font-family: monospace; }
+.module-desc { font-size: .82rem; color: var(--text-600); line-height: 1.6; margin-bottom: 10px; }
+.module-cat-tag {
+  display: inline-block;
+  font-size: .67rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.tag-crm { background: #eff6ff; color: #2563eb; }
+.tag-finanse { background: #f0fdf4; color: #15803d; }
+.tag-hr { background: #fdf4ff; color: #9333ea; }
+.tag-projekty { background: #fff7ed; color: #c2410c; }
+.tag-ai { background: #fdf2f8; color: #be185d; }
+.tag-integracje { background: #f0f9ff; color: #0369a1; }
+.tag-komunikacja { background: #fefce8; color: #a16207; }
+.tag-core { background: #f1f5f9; color: #475569; }
+
+/* Feature highlight sections */
+.highlight-section { padding: 72px 0; background: var(--bg-950); }
+.highlight-section:nth-child(even) { background: var(--bg-900); }
+.highlight-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.highlight-grid.reverse { direction: rtl; }
+.highlight-grid.reverse > * { direction: ltr; }
+.highlight-visual {
+  background: var(--bg-800);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+}
+.hv-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.hv-title { font-size: .75rem; font-weight: 700; color: var(--text-500); text-transform: uppercase; letter-spacing: 1px; }
+.hv-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; }
+.hv-list { display: flex; flex-direction: column; gap: 10px; }
+.hv-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-700); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px;
+}
+.hv-item-icon { width: 32px; height: 32px; border-radius: 8px; background: rgba(37,99,235,.15); color: #3b82f6; display: flex; align-items: center; justify-content: center; font-size: .85em; flex-shrink: 0; }
+.hv-item-text { font-size: .78rem; color: var(--text-400); flex: 1; }
+.hv-item-text strong { color: var(--text-300); display: block; font-weight: 600; }
+.hv-item-status { font-size: .65rem; font-weight: 700; padding: 3px 8px; border-radius: 8px; }
+.status-done { background: rgba(16,185,129,.15); color: #10b981; }
+.status-prog { background: rgba(245,158,11,.15); color: #f59e0b; }
+.status-wait { background: rgba(100,116,139,.15); color: #64748b; }
+
+.highlight-content { }
+.highlight-content .section-label { display: block; margin-bottom: 10px; }
+.highlight-content h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 800; color: var(--text-100); margin: 0 0 14px; line-height: 1.2; }
+.highlight-content p { font-size: .92rem; color: var(--text-600); line-height: 1.7; margin: 0 0 24px; }
+.feature-bullet-list { display: flex; flex-direction: column; gap: 10px; }
+.feature-bullet { display: flex; align-items: flex-start; gap: 10px; font-size: .87rem; color: var(--text-500); }
+.feature-bullet i { color: #10b981; margin-top: 2px; flex-shrink: 0; }
+
+/* Count banner */
+.count-banner {
+  background: linear-gradient(135deg, var(--bg-700), var(--bg-600));
+  padding: 48px 0;
+}
+.count-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0;
+  text-align: center;
+}
+.cb-item { padding: 12px 20px; border-right: 1px solid var(--border); }
+.cb-item:last-child { border-right: none; }
+.cb-val { font-size: 2.4rem; font-weight: 900; color: var(--text-100); display: block; line-height: 1; }
+.cb-val em { color: #3b82f6; font-style: normal; }
+.cb-desc { font-size: .78rem; color: var(--text-500); margin-top: 6px; display: block; }
+
+@media(max-width: 900px) {
+  .highlight-grid { grid-template-columns: 1fr; }
+  .highlight-grid.reverse { direction: ltr; }
+  .count-banner-grid { grid-template-columns: repeat(2, 1fr); }
+  .highlight-content,
+  .highlight-visual,
+  .module-card {
+    text-align: center;
+  }
+  .module-header,
+  .hv-header,
+  .hv-item,
+  .feature-bullet {
+    justify-content: center;
+  }
+}
+@media(max-width: 640px) {
+  .count-banner-grid { grid-template-columns: 1fr; }
+  .filter-bar { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href="index.html" class="site-logo">
+      <span class="site-logo-mark">
+        <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="logo-img logo-on-light">
+        <img src="https://go.flowquest.pl/uploads/company/ac3475e3c47b743cd02d10be1c3131cb.png" alt="FlowQuest" class="logo-img logo-on-dark">
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Strona Główna</a>
+      <div class="nav-item dropdown">
+        <a href="oferta.html">Pakiety</a>
+        <div class="dropdown-menu">
+          <a href="pakiety/core.html">Core — case study</a>
+          <a href="pakiety/teams.html">TEAMS — zespół 5–50 osób</a>
+          <a href="pakiety/solo.html">SOLO — solopreneurzy</a>
+        </div>
+      </div>
+      <a href="funkcje.html" class="active">Funkcje</a>
+      <div class="nav-item dropdown">
+        <a href="baza-wiedzy.html">Zasoby</a>
+        <div class="dropdown-menu">
+          <a href="baza-wiedzy.html">Baza wiedzy</a>
+          <a href="monitoring.html">Status systemu</a>
+        </div>
+      </div>
+      <a href="o-nas.html">O nas</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" type="button" aria-label="Przełącz motyw">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="cta-links">
+        <a href="kontakt.html" class="btn-nav-outline">Umów demo</a>
+        <a href="https://crm.flowquest.pl/" class="btn-nav-primary" target="_blank">Panel klienta <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    <button class="hamburger" type="button" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container page-hero-inner">
+    <span class="section-label">Funkcje systemu</span>
+    <h1>59 modułów.<br>Jeden ekosystem.</h1>
+    <p>Od zarządzania leadami po AI generującą kosztorysy — FlowQuest łączy wszystko, czego potrzebuje firma z sektora MŚP w jeden spójny system.</p>
+  </div>
+</div>
+
+<!-- COUNT BANNER -->
+<div class="count-banner">
+  <div class="container count-banner-grid">
+    <div class="cb-item"><span class="cb-val"><em>59</em></span><span class="cb-desc">Modułów do wyboru</span></div>
+    <div class="cb-item"><span class="cb-val"><em>10</em></span><span class="cb-desc">Pakietów branżowych</span></div>
+    <div class="cb-item"><span class="cb-val"><em>1</em></span><span class="cb-desc">Zintegrowany system</span></div>
+    <div class="cb-item"><span class="cb-val"><em>0</em></span><span class="cb-desc">Dodatkowych narzędzi</span></div>
+  </div>
+</div>
+
+<!-- HIGHLIGHT 1: CRM & Sales -->
+<section class="highlight-section">
+  <div class="container highlight-grid">
+    <div class="highlight-content">
+      <span class="section-label">CRM i Sprzedaż</span>
+      <h2>Pełna kontrola nad lejkiem sprzedaży</h2>
+      <p>Od pierwszego kontaktu przez ofertę i umowę aż po fakturę — każdy etap sprzedaży w jednym systemie. Żaden lead nie przepadnie.</p>
+      <div class="feature-bullet-list">
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Kontakty i firmy z pełną historią komunikacji</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Wizualny pipeline sprzedaży (Kanban)</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Oferty i kosztorysy z e-podpisem klienta</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Umowy z integracją elektronicznego podpisu</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Kampanie e-mail z własną domeną SMTP</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Formularze lead-gen integrowane z WordPress</div>
+      </div>
+    </div>
+    <div class="highlight-visual">
+      <div class="hv-header"><span class="hv-title">Pipeline sprzedaży</span><span class="hv-dot"></span></div>
+      <div class="hv-list">
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-user-plus"></i></div><div class="hv-item-text"><strong>Nowy lead — ABC Sp. z o.o.</strong>Formularz kontaktowy WP</div><span class="hv-item-status status-wait">Nowy</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-file-contract"></i></div><div class="hv-item-text"><strong>Oferta #145 — HVAC Kowalski</strong>Czeka na akceptację</div><span class="hv-item-status status-prog">Oczekuje</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-handshake"></i></div><div class="hv-item-text"><strong>Umowa podpisana — MedClinic</strong>Start projektu: 15.03</div><span class="hv-item-status status-done">Zamknięte</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-chart-line"></i></div><div class="hv-item-text"><strong>Przychód Q1: 84 200 PLN</strong>+23% vs poprzedni kwartał</div><span class="hv-item-status status-done">+23%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT 2: Invoicing (reversed) -->
+<section class="highlight-section">
+  <div class="container highlight-grid reverse">
+    <div class="highlight-content">
+      <span class="section-label">Finanse i Rozliczenia</span>
+      <h2>Faktury, płatności, rachunkowość</h2>
+      <p>Pełna obsługa finansowa firmy bez zewnętrznego księgowego na co dzień. Od wystawienia faktury po windykację i raporty finansowe.</p>
+      <div class="feature-bullet-list">
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Faktury VAT, proforma, zaliczkowe, korygujące</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> e-Faktura (KSeF) — pełna zgodność z przepisami</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Integracja Stripe, PayU, iDEAL — płatności online</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Automatyczne przypomnienia o zaległych płatnościach</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Raporty przychodów, kosztów, rentowności</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Moduł zakupów (purchase) i budżetowanie</div>
+      </div>
+    </div>
+    <div class="highlight-visual">
+      <div class="hv-header"><span class="hv-title">Przegląd finansów</span><span class="hv-dot"></span></div>
+      <div class="hv-list">
+        <div class="hv-item"><div class="hv-item-icon" style="background:rgba(16,185,129,.15);color:#10b981"><i class="fa-solid fa-check-double"></i></div><div class="hv-item-text"><strong>FV/2026/03/0041 — Opłacona</strong>12 400 PLN netto</div><span class="hv-item-status status-done">Opłacona</span></div>
+        <div class="hv-item"><div class="hv-item-icon" style="background:rgba(245,158,11,.15);color:#f59e0b"><i class="fa-solid fa-clock"></i></div><div class="hv-item-text"><strong>FV/2026/03/0042 — Termin: 20.03</strong>8 700 PLN netto</div><span class="hv-item-status status-prog">Oczekuje</span></div>
+        <div class="hv-item"><div class="hv-item-icon" style="background:rgba(239,68,68,.15);color:#ef4444"><i class="fa-solid fa-exclamation-circle"></i></div><div class="hv-item-text"><strong>FV/2026/02/0038 — Przeterminowana</strong>5 200 PLN netto — 12 dni po terminie</div><span class="hv-item-status" style="background:rgba(239,68,68,.15);color:#ef4444">+12 dni</span></div>
+        <div class="hv-item"><div class="hv-item-icon" style="background:rgba(37,99,235,.15);color:#3b82f6"><i class="fa-solid fa-chart-bar"></i></div><div class="hv-item-text"><strong>Przychód marzec 2026</strong>Prognoza: 94 500 PLN</div><span class="hv-item-status status-done">Prognoza</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT 3: Projects -->
+<section class="highlight-section">
+  <div class="container highlight-grid">
+    <div class="highlight-content">
+      <span class="section-label">Projekty i Operacje</span>
+      <h2>Zarządzaj projektami jak profesjonalista</h2>
+      <p>Gantt, Kanban, kamienie milowe, timesheety. Klient widzi postęp w czasie rzeczywistym przez własny panel — bez maili i telefonów.</p>
+      <div class="feature-bullet-list">
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Wykresy Gantta z zależnościami zadań</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Timesheety i karty pracy — ewidencja czasu</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Resource Workload — planowanie obciążenia ekip</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Panel klienta — podgląd statusów na żywo</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Automatyzacje — wyzwalacze akcji po zdarzeniach</div>
+        <div class="feature-bullet"><i class="fa-solid fa-check-circle"></i> Raporty czasu pracy i rentowności projektów</div>
+      </div>
+    </div>
+    <div class="highlight-visual">
+      <div class="hv-header"><span class="hv-title">Projekty aktywne</span><span class="hv-dot"></span></div>
+      <div class="hv-list">
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-hammer"></i></div><div class="hv-item-text"><strong>Remont biura Nowak — 45%</strong>Deadline: 30.04.2026</div><span class="hv-item-status status-prog">W toku</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-wind"></i></div><div class="hv-item-text"><strong>Klimatyzacja hal — 78%</strong>Deadline: 20.03.2026</div><span class="hv-item-status status-prog">W toku</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-laptop-code"></i></div><div class="hv-item-text"><strong>Wdrożenie CRM — 92%</strong>Deadline: 15.03.2026</div><span class="hv-item-status status-done">Finalizacja</span></div>
+        <div class="hv-item"><div class="hv-item-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="hv-item-text"><strong>Suma godzin w marcu</strong>247h / 12 pracowników</div><span class="hv-item-status status-wait">Raport</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES CATALOG -->
+<section class="modules-section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:36px">
+      <span class="section-label">Katalog modułów</span>
+      <h2 class="section-title dark">Wszystkie 59 modułów systemu</h2>
+      <p class="section-sub dark">Wybierz kategorię i sprawdź, co możesz dodać do swojej instancji.</p>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterModules('all', this)">Wszystkie (59)</button>
+      <button class="filter-btn" onclick="filterModules('core', this)">Core</button>
+      <button class="filter-btn" onclick="filterModules('crm', this)">CRM</button>
+      <button class="filter-btn" onclick="filterModules('finanse', this)">Finanse</button>
+      <button class="filter-btn" onclick="filterModules('hr', this)">HR</button>
+      <button class="filter-btn" onclick="filterModules('projekty', this)">Projekty</button>
+      <button class="filter-btn" onclick="filterModules('ai', this)">AI &amp; Auto</button>
+      <button class="filter-btn" onclick="filterModules('integracje', this)">Integracje</button>
+      <button class="filter-btn" onclick="filterModules('komunikacja', this)">Komunikacja</button>
+    </div>
+    <div class="modules-grid">
+      <!-- CORE -->
+      <div class="module-card" data-cat="core"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-cube"></i></div><div><div class="module-name">Perfex CRM Core</div><div class="module-slug">core</div></div></div><p class="module-desc">Serce systemu. Kontakty, firmy, pipeline, faktury, projekty, panel klienta. Bezpłatny w każdej instancji.</p><span class="module-cat-tag tag-core">Core</span></div>
+      <div class="module-card" data-cat="core"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-globe"></i></div><div><div class="module-name">Zillapage</div><div class="module-slug">zillapage</div></div></div><p class="module-desc">Kreator stron landing page. Buduj strony ofertowe bez kodu — wbudowany w system.</p><span class="module-cat-tag tag-core">Core</span></div>
+      <div class="module-card" data-cat="core"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-envelope-open-text"></i></div><div><div class="module-name">Email Builder</div><div class="module-slug">email_builder</div></div></div><p class="module-desc">Edytor szablonów e-mail z drag&amp;drop. Profesjonalne wiadomości bez HTML.</p><span class="module-cat-tag tag-core">Core</span></div>
+
+      <!-- CRM -->
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-map"></i></div><div><div class="module-name">Account Planning</div><div class="module-slug">account_planning</div></div></div><p class="module-desc">Strategiczne planowanie kont klientów. Mapy relacji, cele, inicjatywy. Idealne dla kancelarii i agencji.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-phone-volume"></i></div><div><div class="module-name">Call Logs</div><div class="module-slug">call_logs</div></div></div><p class="module-desc">Dziennik połączeń z klientami. Integracja z centralką, historia rozmów, nagrania.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-brands fa-facebook"></i></div><div><div class="module-name">Facebook Leads</div><div class="module-slug">facebook_leads</div></div></div><p class="module-desc">Automatyczny import leadów z Facebook Lead Ads bezpośrednio do CRM. Zero ręcznej pracy.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-chart-pie"></i></div><div><div class="module-name">Goals &amp; OKR</div><div class="module-slug">goals</div></div></div><p class="module-desc">Zarządzanie celami firmowymi metodą OKR. Śledź postęp, mierz wyniki.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-inbox"></i></div><div><div class="module-name">Mailbox</div><div class="module-slug">mailbox</div></div></div><p class="module-desc">Skrzynka pocztowa wbudowana w CRM. Obsługuj e-maile bez wychodzenia z systemu.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+      <div class="module-card" data-cat="crm"><div class="module-header"><div class="module-icon-wrap mc-blue"><i class="fa-solid fa-poll"></i></div><div><div class="module-name">Surveys</div><div class="module-slug">surveys</div></div></div><p class="module-desc">Ankiety satysfakcji klientów i NPS. Zbieranie opinii Google i wewnętrzne raporty.</p><span class="module-cat-tag tag-crm">CRM</span></div>
+
+      <!-- FINANSE -->
+      <div class="module-card" data-cat="finanse"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-solid fa-calculator"></i></div><div><div class="module-name">Accounting</div><div class="module-slug">accounting</div></div></div><p class="module-desc">Moduł rachunkowości. Konta, centrum kosztów, budżetowanie, raporty P&amp;L.</p><span class="module-cat-tag tag-finanse">Finanse</span></div>
+      <div class="module-card" data-cat="finanse"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-solid fa-file-invoice"></i></div><div><div class="module-name">e-Faktura (KSeF)</div><div class="module-slug">einvoice</div></div></div><p class="module-desc">Pełna integracja z Krajowym Systemem e-Faktur. Wysyłanie i odbieranie faktur ustrukturyzowanych.</p><span class="module-cat-tag tag-finanse">Finanse</span></div>
+      <div class="module-card" data-cat="finanse"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-solid fa-shopping-cart"></i></div><div><div class="module-name">Purchase</div><div class="module-slug">purchase</div></div></div><p class="module-desc">Zarządzanie zamówieniami zakupowymi. Dostawcy, faktury kosztowe, budżety działów.</p><span class="module-cat-tag tag-finanse">Finanse</span></div>
+      <div class="module-card" data-cat="finanse"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-solid fa-warehouse"></i></div><div><div class="module-name">Warehouse</div><div class="module-slug">warehouse</div></div></div><p class="module-desc">Zarządzanie magazynem. Stany, ruchy, rezerwacje, inwentaryzacja. Dla firm z produkcją i instalacjami.</p><span class="module-cat-tag tag-finanse">Finanse</span></div>
+      <div class="module-card" data-cat="integracje"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-brands fa-wordpress"></i></div><div><div class="module-name">WooCommerce Sync</div><div class="module-slug">woocommerce</div></div></div><p class="module-desc">Synchronizacja zamówień, produktów i klientów z WooCommerce. Idealne dla sklepów B2B.</p><span class="module-cat-tag tag-integracje">Integracje</span></div>
+      <div class="module-card" data-cat="finanse"><div class="module-header"><div class="module-icon-wrap mc-green"><i class="fa-solid fa-store"></i></div><div><div class="module-name">Omni Sales</div><div class="module-slug">omni_sales</div></div></div><p class="module-desc">Sprzedaż wielokanałowa. Połącz sklep online, sprzedaż bezpośrednią i B2B w jednym interfejsie.</p><span class="module-cat-tag tag-finanse">Finanse</span></div>
+
+      <!-- HR -->
+      <div class="module-card" data-cat="hr"><div class="module-header"><div class="module-icon-wrap mc-purple"><i class="fa-solid fa-users"></i></div><div><div class="module-name">HRM</div><div class="module-slug">hrm</div></div></div><p class="module-desc">Moduł HR. Kartoteki pracownicze, urlopy, nieobecności, oceny okresowe, dokumenty.</p><span class="module-cat-tag tag-hr">HR</span></div>
+      <div class="module-card" data-cat="hr"><div class="module-header"><div class="module-icon-wrap mc-purple"><i class="fa-solid fa-id-card"></i></div><div><div class="module-name">HR Profile</div><div class="module-slug">hr_profile</div></div></div><p class="module-desc">Rozszerzone profile pracownicze. Umiejętności, certyfikaty, ścieżki kariery.</p><span class="module-cat-tag tag-hr">HR</span></div>
+      <div class="module-card" data-cat="hr"><div class="module-header"><div class="module-icon-wrap mc-purple"><i class="fa-solid fa-clock"></i></div><div><div class="module-name">Timesheets</div><div class="module-slug">timesheets</div></div></div><p class="module-desc">Ewidencja czasu pracy. Karty pracy, rozliczenie projektów, eksport do kadr.</p><span class="module-cat-tag tag-hr">HR</span></div>
+      <div class="module-card" data-cat="hr"><div class="module-header"><div class="module-icon-wrap mc-purple"><i class="fa-solid fa-user-plus"></i></div><div><div class="module-name">Recruitment</div><div class="module-slug">recruitment</div></div></div><p class="module-desc">Zarządzanie rekrutacją. Ogłoszenia, aplikacje, etapy rozmów, onboarding.</p><span class="module-cat-tag tag-hr">HR</span></div>
+      <div class="module-card" data-cat="hr"><div class="module-header"><div class="module-icon-wrap mc-purple"><i class="fa-solid fa-chart-gantt"></i></div><div><div class="module-name">Resource Workload</div><div class="module-slug">resource_workload</div></div></div><p class="module-desc">Wizualizacja obciążenia pracowników. Planowanie zasobów, konflikty terminów.</p><span class="module-cat-tag tag-hr">HR</span></div>
+
+      <!-- PROJEKTY -->
+      <div class="module-card" data-cat="projekty"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-calendar-alt"></i></div><div><div class="module-name">Appointly</div><div class="module-slug">appointly</div></div></div><p class="module-desc">Rezerwacja wizyt i spotkań online. Kalendarze, powiadomienia, integracja z Google Calendar.</p><span class="module-cat-tag tag-projekty">Projekty</span></div>
+      <div class="module-card" data-cat="projekty"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-database"></i></div><div><div class="module-name">Backup</div><div class="module-slug">backup</div></div></div><p class="module-desc">Automatyczny backup danych systemu. Harmonogram, przechowywanie, przywracanie jednym kliknięciem.</p><span class="module-cat-tag tag-projekty">Projekty</span></div>
+      <div class="module-card" data-cat="projekty"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-cogs"></i></div><div><div class="module-name">Automation Manager</div><div class="module-slug">automation_manager</div></div></div><p class="module-desc">Wizualny kreator automatyzacji. Reguły, wyzwalacze, akcje — bez programowania.</p><span class="module-cat-tag tag-projekty">Projekty</span></div>
+      <div class="module-card" data-cat="projekty"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-tools"></i></div><div><div class="module-name">Fixed Equipment</div><div class="module-slug">fixed_equipment</div></div></div><p class="module-desc">Ewidencja środków trwałych i sprzętu. Amortyzacja, serwis, historia przypisań.</p><span class="module-cat-tag tag-projekty">Projekty</span></div>
+
+      <!-- AI -->
+      <div class="module-card" data-cat="ai"><div class="module-header"><div class="module-icon-wrap mc-pink"><i class="fa-solid fa-robot"></i></div><div><div class="module-name">OpenAI Integration</div><div class="module-slug">openai</div></div></div><p class="module-desc">AI wbudowane w CRM. Generowanie ofert, kategoryzacja leadów, kosztorysy, odpowiedzi na e-maile.</p><span class="module-cat-tag tag-ai">AI</span></div>
+      <div class="module-card" data-cat="ai"><div class="module-header"><div class="module-icon-wrap mc-pink"><i class="fa-solid fa-magic"></i></div><div><div class="module-name">Form Sync</div><div class="module-slug">form_sync</div></div></div><p class="module-desc">Wieloetapowy formularz WordPress (FlowQuest Wizard) przesyła dane do CRM w czasie rzeczywistym.</p><span class="module-cat-tag tag-ai">AI &amp; Auto</span></div>
+      <div class="module-card" data-cat="ai"><div class="module-header"><div class="module-icon-wrap mc-pink"><i class="fa-solid fa-bell"></i></div><div><div class="module-name">Custom Notifications</div><div class="module-slug">custom_notifications</div></div></div><p class="module-desc">Własne powiadomienia push, e-mail i SMS. Wyzwalacze na zdarzenia w systemie.</p><span class="module-cat-tag tag-ai">Automatyzacje</span></div>
+
+      <!-- INTEGRACJE -->
+      <div class="module-card" data-cat="integracje"><div class="module-header"><div class="module-icon-wrap mc-cyan"><i class="fa-solid fa-plug"></i></div><div><div class="module-name">REST API</div><div class="module-slug">api</div></div></div><p class="module-desc">Pełne API REST do integracji z zewnętrznymi systemami. Webhooks, OAuth, dokumentacja Swagger.</p><span class="module-cat-tag tag-integracje">Integracje</span></div>
+      <div class="module-card" data-cat="integracje"><div class="module-header"><div class="module-icon-wrap mc-cyan"><i class="fa-brands fa-telegram"></i></div><div><div class="module-name">Telegram Notification</div><div class="module-slug">telegram_notification</div></div></div><p class="module-desc">Powiadomienia do kanałów i botów Telegram. Alerty o nowych zleceniach, płatnościach, zadaniach.</p><span class="module-cat-tag tag-integracje">Integracje</span></div>
+      <div class="module-card" data-cat="integracje"><div class="module-header"><div class="module-icon-wrap mc-cyan"><i class="fa-solid fa-cloud"></i></div><div><div class="module-name">Perfex SaaS</div><div class="module-slug">perfex_saas</div></div></div><p class="module-desc">Multi-tenant — zarządzaj wieloma niezależnymi instancjami klientów z jednego panelu.</p><span class="module-cat-tag tag-integracje">Integracje</span></div>
+
+      <!-- KOMUNIKACJA -->
+      <div class="module-card" data-cat="komunikacja"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-comments"></i></div><div><div class="module-name">PRChat</div><div class="module-slug">prchat</div></div></div><p class="module-desc">Wewnętrzny chat dla zespołu i klientów. Kanały tematyczne, wiadomości bezpośrednie.</p><span class="module-cat-tag tag-komunikacja">Komunikacja</span></div>
+      <div class="module-card" data-cat="komunikacja"><div class="module-header"><div class="module-icon-wrap mc-amber"><i class="fa-solid fa-book-open"></i></div><div><div class="module-name">Wiki</div><div class="module-slug">wiki</div></div></div><p class="module-desc">Firmowa baza wiedzy. Artykuły, procedury, dokumentacja wewnętrzna z wyszukiwaniem.</p><span class="module-cat-tag tag-komunikacja">Komunikacja</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,#1e40af,#2563eb);padding:64px 0;text-align:center">
+  <div class="container">
+    <h2 style="color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin:0 0 14px">Gotowy na demo?</h2>
+    <p style="color:rgba(255,255,255,.84);font-size:1rem;margin:0 0 28px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7">Pokażemy Ci system na żywo — skonfigurowany pod Twoją branżę. Bez zobowiązań, w 30 minut.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="kontakt.html" style="background:#fff;color:#1d4ed8;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:12px;text-decoration:none;display:inline-flex;align-items:center;gap:9px"><i class="fa-solid fa-calendar-check"></i> Umów demo</a>
+      <a href="oferta.html" style="color:#fff;font-weight:600;font-size:.95rem;padding:14px 24px;border-radius:12px;text-decoration:none;border:2px solid rgba(255,255,255,.35);display:inline-flex;align-items:center;gap:8px"><i class="fa-solid fa-briefcase"></i> Zobacz pakiety</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="footer-logo">
+      <p class="footer-tagline">Modułowy System Operacyjny<br>dla rosnących firm.</p>
+      <div class="footer-social"><a href="linkedin.html"><i class="fa-brands fa-linkedin"></i></a><a href="facebook.html"><i class="fa-brands fa-facebook"></i></a></div>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Produkt</div><a href="funkcje.html">Funkcje</a><a href="oferta.html">Pakiety i ceny</a><a href="https://crm.flowquest.pl/" target="_blank">Panel klienta</a></div>
+    <div class="footer-col"><div class="footer-col-title">Zasoby</div><a href="baza-wiedzy.html">Baza wiedzy</a><a href="monitoring.html">Status systemu</a></div>
+    <div class="footer-col"><div class="footer-col-title">Firma</div><a href="o-nas.html">O nas</a><a href="kontakt.html">Kontakt</a></div>
+    <div class="footer-col"><div class="footer-col-title">Kontakt</div><a href="mailto:kontakt@flowquest.pl"><i class="fa-solid fa-envelope"></i> kontakt@flowquest.pl</a></div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner"><span>&copy; 2026 FlowQuest.</span><div class="footer-bottom-links"><a href="polityka-prywatnosci.html">Prywatno&#347;&#263;</a><a href="regulamin.html">Regulamin</a></div></div></div>
+</footer>
+
+<script>
+function filterModules(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.module-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.removeAttribute('data-hidden');
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+<script src="motion.js"></script>
+</body>
+</html>

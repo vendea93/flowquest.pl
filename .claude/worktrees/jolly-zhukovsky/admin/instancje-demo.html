@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowQuest — Panel Instancji</title>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="../shared.css">
+<style>
+body.private-instances {
+  background:
+    radial-gradient(circle at top right, rgba(37,99,235,.18), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(16,185,129,.12), transparent 24%),
+    var(--bg-800);
+  min-height: 100vh;
+}
+
+.instances-main {
+  padding: 108px 0 64px;
+}
+
+.instances-shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.instances-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.instances-panel,
+.instances-note,
+.instance-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: 0 18px 60px rgba(15, 23, 42, .08);
+}
+
+:root[data-theme='dark'] .instances-panel,
+:root[data-theme='dark'] .instances-note,
+:root[data-theme='dark'] .instance-card {
+  background: linear-gradient(180deg, rgba(10,17,33,.92), rgba(15,23,42,.88));
+  box-shadow: 0 24px 60px rgba(2, 6, 23, .45);
+}
+
+.instances-panel {
+  padding: 32px;
+}
+
+.instances-note {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.private-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, .10);
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.instances-title {
+  font-family: 'Manrope', 'Inter', sans-serif;
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.05;
+  color: var(--text-100);
+  margin: 16px 0 12px;
+}
+
+.instances-copy {
+  max-width: 780px;
+  color: var(--text-500);
+  font-size: 17px;
+}
+
+.instances-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.instances-kpi {
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(37,99,235,.07);
+  border: 1px solid rgba(37,99,235,.14);
+}
+
+.instances-kpi strong {
+  display: block;
+  color: var(--text-100);
+  font: 800 24px/1 'Manrope', 'Inter', sans-serif;
+  margin-bottom: 6px;
+}
+
+.instances-kpi span,
+.instances-note p,
+.instances-note li {
+  color: var(--text-500);
+}
+
+.instances-note h2,
+.instances-section h2,
+.instance-card h3 {
+  color: var(--text-100);
+  font-family: 'Manrope', 'Inter', sans-serif;
+}
+
+.instances-note ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.instances-note li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.instances-note i {
+  color: var(--blue);
+  margin-top: 3px;
+}
+
+.instances-section {
+  margin-top: 34px;
+}
+
+.instances-section h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.instances-section p {
+  color: var(--text-500);
+  margin-bottom: 18px;
+}
+
+.instances-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.instance-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 252px;
+}
+
+.instance-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.instance-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  box-shadow: 0 12px 24px rgba(37,99,235,.22);
+  font-size: 19px;
+}
+
+.instance-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.06);
+  color: var(--text-500);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+:root[data-theme='dark'] .instance-type {
+  background: rgba(255,255,255,.06);
+}
+
+.instance-card h3 {
+  font-size: 24px;
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.instance-card p {
+  color: var(--text-500);
+  font-size: 15px;
+}
+
+.instance-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.instance-meta span {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(37,99,235,.08);
+  color: var(--text-400);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.instance-actions {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.instance-actions a {
+  text-decoration: none;
+}
+
+.instance-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-weight: 800;
+  font-size: 14px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.instance-btn:hover {
+  transform: translateY(-2px);
+}
+
+.instance-btn.primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(37,99,235,.22);
+}
+
+.instance-btn.secondary {
+  background: transparent;
+  color: var(--text-300);
+  border-color: var(--border-light);
+}
+
+.instance-btn.secondary:hover {
+  background: var(--nav-link-hover);
+}
+
+.utility-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.utility-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: var(--text-300);
+  background: rgba(15,23,42,.05);
+  border: 1px solid var(--border);
+  font-weight: 700;
+}
+
+:root[data-theme='dark'] .utility-links a {
+  background: rgba(255,255,255,.05);
+}
+
+@media (max-width: 1080px) {
+  .instances-hero,
+  .instances-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .instances-main {
+    padding-top: 92px;
+  }
+
+  .instances-hero,
+  .instances-grid,
+  .instances-kpis,
+  .instance-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .instances-shell {
+    padding: 0 18px;
+  }
+}
+</style>
+</head>
+<body class="private-instances">
+<main class="instances-main">
+  <div class="instances-shell">
+    <section class="instances-hero">
+      <div class="instances-panel">
+        <span class="private-badge"><i class="fa-solid fa-lock"></i> Prywatny panel roboczy</span>
+        <h1 class="instances-title">Panel instancji FlowQuest</h1>
+        <p class="instances-copy">To jest wewnętrzny panel skrótów do wszystkich tenantów demo i template. Klikasz nazwę branży, przechodzisz na login tej instancji i tam wybierasz jednego z trzech użytkowników demo.</p>
+        <div class="instances-kpis">
+          <div class="instances-kpi"><strong>14</strong><span>gotowych par branżowych demo + template</span></div>
+          <div class="instances-kpi"><strong>3</strong><span>konta demo na każdej instancji: właściciel, pracownik, klient</span></div>
+          <div class="instances-kpi"><strong>1</strong><span>wspólny punkt wejścia do całej fabryki demo</span></div>
+        </div>
+        <div class="utility-links">
+          <a href="https://crm.flowquest.pl/admin/saas/companies" target="_blank" rel="noopener"><i class="fa-solid fa-building"></i> Panel SaaS</a>
+          <a href="https://go.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><i class="fa-solid fa-briefcase"></i> GO</a>
+          <a href="https://demo.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Root demo</a>
+        </div>
+      </div>
+      <aside class="instances-note">
+        <h2>Jak tego używać</h2>
+        <p>Każdy kafelek ma dwa skróty: publiczne demo oraz czysty template. Demo pokazuje zasiane dane. Template jest bazą do klonowania klientom.</p>
+        <ul>
+          <li><i class="fa-solid fa-circle-check"></i><span>`Demo login` otwiera ekran logowania instancji z bocznym panelem kont demo.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i><span>`Template login` otwiera czysty szablon danej branży.</span></li>
+          <li><i class="fa-solid fa-circle-check"></i><span>Strona nie jest nigdzie podlinkowana i ma ustawione `noindex`.</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="instances-section">
+      <h2>Instancje branżowe</h2>
+      <p>Każda karta prowadzi bezpośrednio do ekranu logowania odpowiedniego tenantu.</p>
+      <div class="instances-grid">
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-spa"></i></div><span class="instance-type">Beauty</span></div>
+          <div><h3>Beauty</h3><p>Zabiegi, wizyty, follow-up, feedback i landing page dla salonów oraz SPA.</p></div>
+          <div class="instance-meta"><span>appointly</span><span>feedback</span><span>landing</span></div>
+          <div class="instance-actions"><a href="https://beauty.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://beautytemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-hotel"></i></div><span class="instance-type">Hotel</span></div>
+          <div><h3>Hotel</h3><p>Pokoje, rezerwacje, goście, usługi dodatkowe i eventy cateringowe.</p></div>
+          <div class="instance-meta"><span>hotel</span><span>catering</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://hotel.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://hoteltemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><span class="instance-type">Warsztat</span></div>
+          <div><h3>Warsztaty</h3><p>Zlecenia, pojazdy, części, dostawcy i komentarze serwisowe.</p></div>
+          <div class="instance-meta"><span>workshop</span><span>purchase</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://warsztat.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://warsztattemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-building"></i></div><span class="instance-type">Nieruchomości</span></div>
+          <div><h3>Nieruchomości</h3><p>Oferty, agenci, leady, requesty i reputacja biura w jednym tenantcie.</p></div>
+          <div class="instance-meta"><span>realestate</span><span>feedback</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://nieruchomosci.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://nieruchomoscitemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-truck-fast"></i></div><span class="instance-type">Logistyka</span></div>
+          <div><h3>Logistyka</h3><p>Przesyłki, odbiorcy, alerty i obsługa dostawców z komentarzami i zadaniami.</p></div>
+          <div class="instance-meta"><span>logistic</span><span>purchase</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://logistyka.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://logistykatemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-graduation-cap"></i></div><span class="instance-type">Kursy</span></div>
+          <div><h3>Kursy</h3><p>Kursy, sekcje, landing page i formularze zapisowe z ruchem leadowym.</p></div>
+          <div class="instance-meta"><span>flexacademy</span><span>landing</span><span>form sync</span></div>
+          <div class="instance-actions"><a href="https://kursy.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://kursytemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-utensils"></i></div><span class="instance-type">Gastronomia</span></div>
+          <div><h3>Gastronomia</h3><p>Rezerwacje, degustacje, wizyty i eventy cateringowe w jednym scenariuszu demo.</p></div>
+          <div class="instance-meta"><span>catering</span><span>appointly</span><span>feedback</span></div>
+          <div class="instance-actions"><a href="https://gastronomia.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://gastronomiatemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-globe"></i></div><span class="instance-type">Serwis WWW</span></div>
+          <div><h3>Serwis WWW</h3><p>Opieka nad stronami, taski SLA, logi i pakiety utrzymaniowe dla klientów.</p></div>
+          <div class="instance-meta"><span>website management</span><span>form sync</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://serwiswww.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://serwiswwwtemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-cart-shopping"></i></div><span class="instance-type">Ecommerce</span></div>
+          <div><h3>Ecommerce</h3><p>Sprzedaż, magazyn, omni i księgowość w jednej instancji testowej.</p></div>
+          <div class="instance-meta"><span>omni sales</span><span>warehouse</span><span>accounting</span></div>
+          <div class="instance-actions"><a href="https://ecommerce.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://ecommercetemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-solar-panel"></i></div><span class="instance-type">OZE</span></div>
+          <div><h3>OZE</h3><p>Leady instalacyjne, etapy wdrożeń, projekty i landingi pod kampanie.</p></div>
+          <div class="instance-meta"><span>projects</span><span>landing</span><span>form sync</span></div>
+          <div class="instance-actions"><a href="https://oze.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://ozetemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-bullhorn"></i></div><span class="instance-type">Agencja</span></div>
+          <div><h3>Agencja</h3><p>Kampanie, content, projekty, czat i landing page w jednym workflow.</p></div>
+          <div class="instance-meta"><span>projects</span><span>chat</span><span>landing</span></div>
+          <div class="instance-actions"><a href="https://agencja.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://agencjatemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-user-group"></i></div><span class="instance-type">Rekrutacja</span></div>
+          <div><h3>Rekrutacja</h3><p>Kandydaci, onboarding, czasy pracy i dokumenty HR w środowisku demo.</p></div>
+          <div class="instance-meta"><span>hr</span><span>timesheets</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://rekrutacja.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://rekrutacjatemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-stethoscope"></i></div><span class="instance-type">Medycyna</span></div>
+          <div><h3>Medycyna</h3><p>Wizyty, follow-up, komentarze i feedback pacjentów w uporządkowanym panelu.</p></div>
+          <div class="instance-meta"><span>appointly</span><span>feedback</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://medycyna.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://medycynatemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+        <article class="instance-card">
+          <div class="instance-top"><div class="instance-icon"><i class="fa-solid fa-calendar-days"></i></div><span class="instance-type">Eventy</span></div>
+          <div><h3>Eventy</h3><p>Eventy, projekty, zadania i obsługa zespołu z komponentem cateringowym.</p></div>
+          <div class="instance-meta"><span>catering</span><span>projects</span><span>chat</span></div>
+          <div class="instance-actions"><a href="https://eventy.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn primary"><i class="fa-solid fa-play"></i> Demo login</span></a><a href="https://eventytemplate.flowquest.pl/admin/authentication" target="_blank" rel="noopener"><span class="instance-btn secondary"><i class="fa-solid fa-copy"></i> Template login</span></a></div>
+        </article>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,3028 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowQuest — CRM, który zamienia chaos operacyjny w porządek</title>
+<meta name="description" content="FlowQuest porządkuje sprzedaż, projekty, finanse i pracę zespołu w jednym modularnym CRM dla MŚP. Wdrożenie w 24h, pakiety branżowe i demo dopasowane do procesu.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://flowquest.pl/">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flowquest.pl/">
+<meta property="og:title" content="FlowQuest — CRM, który zamienia chaos operacyjny w porządek">
+<meta property="og:description" content="Modułowy Business OS dla MŚP. 59 modułów, 10 branż, wdrożenie w 24h. Core bezpłatny.">
+<meta property="og:image" content="https://flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FlowQuest — Modular Business OS">
+<meta name="twitter:description" content="Zamień chaos operacyjny w cyfrowy porządek. CRM od 0 PLN.">
+<meta name="theme-color" content="#2563eb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ════ @PROPERTY ANIMATED GRADIENTS ════ */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --hue {
+  syntax: '<number>';
+  initial-value: 230;
+  inherits: false;
+}
+@property --shimmer {
+  syntax: '<percentage>';
+  initial-value: -100%;
+  inherits: false;
+}
+
+@keyframes spin-angle { to { --angle: 360deg; } }
+@keyframes hue-drift  { to { --hue: 260; } }
+@keyframes shimmer    { to { --shimmer: 200%; } }
+@keyframes float      { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes pulse-soft { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+@keyframes slide-up   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ════ SMOOTH GLOBAL TRANSITIONS ════ */
+.hero { will-change: transform, opacity; }
+.section-label { will-change: opacity, transform; }
+.bento-card, .pkg-card, .step-card { will-change: transform; }
+
+/* Floating accent for trust icons */
+@media(min-width:601px) {
+  .trust-icon { animation: float 4s ease-in-out infinite; }
+  .trust-item:nth-child(3) .trust-icon { animation-delay: .5s; }
+  .trust-item:nth-child(5) .trust-icon { animation-delay: 1s; }
+  .trust-item:nth-child(7) .trust-icon { animation-delay: 1.5s; }
+  .trust-item:nth-child(9) .trust-icon { animation-delay: 2s; }
+}
+
+/* ════ PAGE-LEVEL THEME VARIABLES ════ */
+:root {
+  --pg-bg-deep:        #f8fafc;
+  --pg-bg-mid:         #f1f5f9;
+  --pg-card-bg:        #ffffff;
+  --pg-card-deep:      #f4f7fa;
+  --pg-featured-bg:    #eff6ff;
+  --pg-text-heading:   #0f172a;
+  --pg-text-body:      #1e293b;
+  --pg-text-muted:     #64748b;
+  --pg-text-dim:       #94a3b8;
+  --pg-border:         rgba(15, 23, 42, 0.09);
+  --pg-border-subtle:  rgba(15, 23, 42, 0.06);
+  --pg-border-stats:   rgba(15, 23, 42, 0.07);
+  --pg-ghost-color:    #475569;
+  --pg-ghost-border:   rgba(15, 23, 42, 0.15);
+  --pg-ghost-hover-bg: rgba(15, 23, 42, 0.05);
+  --pg-ghost-hover-cl: #1e293b;
+  --pg-proof-sep:      rgba(15, 23, 42, 0.10);
+  --pg-hover-bg:       rgba(15, 23, 42, 0.04);
+  --pg-step-hover-border: rgba(37, 99, 235, 0.35);
+}
+:root[data-theme='dark'] {
+  --pg-bg-deep:        #030712;
+  --pg-bg-mid:         #070d1a;
+  --pg-card-bg:        #0b1426;
+  --pg-card-deep:      #07111f;
+  --pg-featured-bg:    #0d1f42;
+  --pg-text-heading:   #ffffff;
+  --pg-text-body:      #e2e8f0;
+  --pg-text-muted:     #94a3b8;
+  --pg-text-dim:       #64748b;
+  --pg-border:         rgba(255, 255, 255, 0.07);
+  --pg-border-subtle:  rgba(255, 255, 255, 0.06);
+  --pg-border-stats:   rgba(255, 255, 255, 0.05);
+  --pg-ghost-color:    #94a3b8;
+  --pg-ghost-border:   rgba(255, 255, 255, 0.10);
+  --pg-ghost-hover-bg: rgba(255, 255, 255, 0.05);
+  --pg-ghost-hover-cl: #ffffff;
+  --pg-proof-sep:      rgba(255, 255, 255, 0.08);
+  --pg-hover-bg:       rgba(255, 255, 255, 0.04);
+  --pg-step-hover-border: rgba(37, 99, 235, 0.4);
+}
+
+/* ════ GLOBAL OVERRIDES FOR THIS PAGE ════ */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--pg-bg-deep);
+  color: var(--pg-text-body);
+  overflow-x: clip;
+}
+main { overflow-x: clip; }
+
+.hero-h1,
+.s-title,
+.cta-finale h2,
+.p-name,
+.p-price-num,
+.stat-big,
+.impact-value,
+.faq-question,
+.btn-cta-glow,
+.btn-ghost,
+.btn-p,
+.btn-nav-outline,
+.btn-nav-primary,
+.kpi-val {
+  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+}
+
+/* ════════════════════════════════
+   HERO — DARK PREMIUM
+   ════════════════════════════════ */
+.hero {
+  /* Scoped dark theme — CSS custom props override */
+  --pg-text-heading:  #ffffff;
+  --pg-text-body:     #e2e8f0;
+  --pg-text-muted:    #94a3b8;
+  --pg-border-subtle: rgba(255,255,255,.07);
+  --pg-ghost-color:   #cbd5e1;
+  --pg-ghost-border:  rgba(255,255,255,.18);
+  --pg-ghost-hover-bg: rgba(255,255,255,.06);
+  --pg-ghost-hover-cl: #ffffff;
+
+  min-height: auto;
+  display: block;
+  background:
+    radial-gradient(ellipse 120% 80% at 70% 10%, oklch(38% 0.18 265 / .55) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 10% 80%, oklch(45% 0.15 152 / .18) 0%, transparent 55%),
+    linear-gradient(170deg, #060d1c 0%, #0a1530 50%, #060d1c 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 116px 0 60px;
+}
+
+/* Subtle dot-grid background */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 20%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Blue spotlight glow */
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, oklch(52% 0.22 260 / .28) 0%, transparent 68%);
+  top: -120px; right: -80px;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: float 12s ease-in-out infinite;
+}
+.hero-glow-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse, oklch(55% 0.16 195 / .16) 0%, transparent 68%);
+  bottom: -40px; left: -60px;
+  filter: blur(70px);
+  animation-delay: 4s;
+  animation-duration: 14s;
+}
+/* Gradient border at bottom of hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,150,255,.35) 30%, rgba(99,150,255,.35) 70%, transparent);
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(400px, .95fr);
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: clamp(540px, 68vh, 680px);
+}
+.hero-copy {
+  max-width: 620px;
+}
+
+/* ── Eyebrow tag ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(99,150,255,.3);
+  background: rgba(37,99,235,.18);
+  color: #93c5fd;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: 7px 16px 7px 12px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #60a5fa;
+  box-shadow: 0 0 10px #3b82f6, 0 0 4px #60a5fa;
+  animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+/* ── Headline ── */
+.hero-h1 {
+  font-size: clamp(3.2rem, 5.8vw, 4.8rem);
+  font-weight: 800;
+  line-height: .94;
+  letter-spacing: -0.04em;
+  color: var(--pg-text-heading);
+  margin: 0 0 24px;
+  text-wrap: balance;
+}
+
+/* Conic-gradient text for accent word */
+.conic-text {
+  background: conic-gradient(from var(--angle), #2563eb, #6366f1, #06b6d4, #2563eb);
+  animation: spin-angle 8s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Sub ── */
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--pg-text-muted);
+  line-height: 1.78;
+  max-width: 580px;
+  margin: 0 0 28px;
+  text-wrap: pretty;
+  letter-spacing: -0.005em;
+}
+
+.hero-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #cbd5e1;
+  font-size: .77rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+.hero-chip i {
+  color: #60a5fa;
+  font-size: .9em;
+}
+
+/* ── Actions ── */
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+/* Primary CTA button */
+.btn-cta-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 14px 30px;
+  border-radius: 11px;
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-decoration: none;
+  background: #2563eb;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,.12), 0 4px 16px rgba(37,99,235,.35), inset 0 1px 0 rgba(255,255,255,.12);
+  transition: background 200ms ease, box-shadow 320ms cubic-bezier(.22,1,.36,1), transform 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn-cta-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.12) 50%, transparent 60%);
+  transform: translateX(var(--shimmer));
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+.btn-cta-glow:hover {
+  background: #1d4ed8;
+  box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 8px 24px rgba(37,99,235,.45), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 11px;
+  font-weight: 600;
+  font-size: .93rem;
+  letter-spacing: -0.01em;
+  color: #cbd5e1;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+.btn-ghost:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,.24);
+  background: rgba(255,255,255,.08);
+  transform: translateY(-1px);
+}
+
+/* ── Proof bar ── */
+.proof-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.proof-avatars { display: flex; }
+.proof-av {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--pg-bg-deep);
+  background: var(--pg-card-bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .58rem; font-weight: 800;
+  color: var(--pg-text-muted);
+  margin-left: -7px;
+}
+.proof-av:first-child { margin-left: 0; }
+.proof-stars { display: flex; gap: 2px; }
+.proof-stars i { color: #60a5fa; font-size: .78em; }
+.proof-label { font-size: .75rem; color: #64748b; }
+.proof-label b { color: #cbd5e1; font-weight: 700; }
+.proof-sep { width: 1px; height: 20px; background: rgba(255,255,255,.12); }
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .72rem;
+  color: #64748b;
+}
+.live-badge .live-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; animation: dotPulse 2s ease-in-out infinite; }
+
+.hero-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+.hero-signal {
+  padding: 16px 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 4px 24px rgba(0,0,0,.25);
+}
+.hero-signal strong {
+  display: block;
+  font-size: .93rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 6px;
+}
+.hero-signal span {
+  display: block;
+  color: #64748b;
+  font-size: .81rem;
+  line-height: 1.58;
+}
+
+/* ════ DASHBOARD MOCKUP ════ */
+.dash-wrap {
+  position: relative;
+  padding: 24px 28px 30px 34px;
+  animation: fadeInRight .8s ease .2s both;
+}
+.dash-wrap::before,
+.dash-wrap::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.dash-wrap::before {
+  width: 220px;
+  height: 220px;
+  top: 10px;
+  right: -10px;
+  background: radial-gradient(circle, rgba(37,99,235,.22), transparent 70%);
+  filter: blur(24px);
+}
+.dash-wrap::after {
+  width: 180px;
+  height: 180px;
+  left: 0;
+  bottom: 0;
+  background: radial-gradient(circle, rgba(16,185,129,.12), transparent 70%);
+  filter: blur(24px);
+}
+
+/* Animated conic border */
+.dash-border-wrap {
+  position: relative;
+  border-radius: 16px;
+  padding: 1px;
+  background: conic-gradient(from var(--angle), rgba(37,99,235,.5), rgba(99,102,241,.3), rgba(6,182,212,.3), rgba(37,99,235,.5));
+  animation: spin-angle 10s linear infinite;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, .3), 0 0 60px rgba(37,99,235,.08);
+  max-width: 560px;
+  margin-left: auto;
+}
+
+.dash-shell {
+  background: #0b1426;
+  border-radius: 17px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+.dash-bar {
+  background: #0f1f38;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.db-dots { display: flex; gap: 6px; }
+.db-dot { width: 9px; height: 9px; border-radius: 50%; }
+.db-dot-r { background: #ef4444; }
+.db-dot-y { background: #f59e0b; }
+.db-dot-g { background: #10b981; }
+.db-url {
+  flex: 1;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: .68rem;
+  color: #334155;
+  display: flex; align-items: center; gap: 6px;
+}
+.db-url i { color: #10b981; font-size: .75em; }
+
+.dash-content { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+
+.dash-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.kpi {
+  background: #0f1f38;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  padding: 12px;
+  container-type: inline-size;
+}
+.kpi-label { font-size: .6rem; color: #334155; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+.kpi-val { font-size: 1.5rem; font-weight: 800; color: #fff; line-height: 1; display: block; }
+.kpi-delta { font-size: .62rem; display: inline-flex; align-items: center; gap: 3px; margin-top: 4px; }
+.delta-up { color: #10b981; }
+
+.dash-projects { display: flex; flex-direction: column; gap: 7px; }
+.dp-heading { font-size: .62rem; font-weight: 700; color: #1e3a5f; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 2px; }
+.dp-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.04);
+  border-radius: 8px;
+  padding: 9px 12px;
+}
+.dp-name { font-size: .72rem; color: #64748b; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dp-bar { height: 4px; width: 80px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; flex-shrink: 0; }
+.dp-fill { height: 100%; border-radius: 2px; }
+.fill-b { background: #2563eb; }
+.fill-g { background: #10b981; }
+.fill-v { background: #7c3aed; }
+.dp-pct { font-size: .68rem; color: #475569; font-weight: 700; width: 28px; text-align: right; flex-shrink: 0; }
+
+.dash-alert {
+  display: flex; align-items: center; gap: 9px;
+  background: rgba(16,185,129,.06);
+  border: 1px solid rgba(16,185,129,.18);
+  border-radius: 9px;
+  padding: 9px 12px;
+}
+.dash-alert i { color: #10b981; font-size: .85em; flex-shrink: 0; }
+.dash-alert-txt { font-size: .7rem; color: #475569; line-height: 1.4; }
+.dash-alert-txt b { color: #34d399; }
+
+/* Floating cards */
+.float-card {
+  position: absolute;
+  background: #0f1f38;
+  border: 1px solid rgba(37,99,235,.3);
+  border-radius: 11px;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.6);
+  z-index: 5;
+  white-space: nowrap;
+}
+.float-card-icon { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .85em; flex-shrink: 0; }
+.float-card-text strong { color: #fff; font-size: .72rem; font-weight: 700; display: block; }
+.float-card-text span { color: #475569; font-size: .66rem; }
+.fc-top { top: -4px; right: 2px; animation: float 5s ease-in-out infinite; border-color: rgba(16,185,129,.35); }
+.fc-bot { bottom: 8px; left: 0; animation: float 6s ease-in-out infinite; animation-delay: 2s; border-color: rgba(124,58,237,.35); }
+
+/* ════════════════════════════════
+   STATS BAR
+   ════════════════════════════════ */
+.stats-bar {
+  background: var(--pg-bg-mid);
+  border-top: 1px solid var(--pg-border-stats);
+  border-bottom: 1px solid var(--pg-border-stats);
+}
+.stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+}
+.stat-cell {
+  padding: 30px 24px;
+  text-align: center;
+  border-right: 1px solid var(--pg-border-stats);
+  position: relative;
+  transition: background 250ms;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: rgba(37,99,235,.04); }
+.stat-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,.4), transparent);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+.stat-cell:hover::after { opacity: 1; }
+.stat-big { font-size: 2.4rem; font-weight: 800; color: var(--pg-text-heading); display: block; line-height: 1; letter-spacing: -0.04em; }
+.stat-big em { color: #3b82f6; font-style: normal; }
+.stat-lbl { font-size: .74rem; color: var(--pg-text-muted); margin-top: 8px; display: block; font-weight: 600; letter-spacing: 0.01em; line-height: 1.5; }
+
+/* ════════════════════════════════
+   SECTION HEADINGS (Bold, dark bg)
+   ════════════════════════════════ */
+.s-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: .66rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(37,99,235,.06);
+  border: 1px solid rgba(37,99,235,.12);
+}
+.s-label::before { display: none; }
+
+.s-title {
+  font-size: clamp(1.85rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  color: var(--pg-text-heading);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+.s-sub {
+  font-size: .95rem;
+  color: var(--pg-text-muted);
+  line-height: 1.76;
+  margin: 0 0 44px;
+  max-width: 540px;
+  text-wrap: pretty;
+}
+.tc { text-align: center; }
+.tc .s-sub { margin-inline: auto; }
+
+/* ════════════════════════════════
+   HOW IT WORKS — HORIZONTAL STEPS
+   ════════════════════════════════ */
+section.steps-section { padding: 88px 0; background: var(--pg-bg-mid); }
+
+.steps-track {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr 48px 1fr;
+  align-items: center;
+  gap: 0;
+  margin-top: 56px;
+}
+.step-box {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pg-card-bg) 92%, white 8%), var(--pg-card-bg));
+  border: 1px solid var(--pg-border);
+  border-radius: 18px;
+  padding: 30px 24px;
+  container-type: inline-size;
+  transition: border-color 280ms ease, box-shadow 380ms cubic-bezier(.22,1,.36,1), transform 380ms cubic-bezier(.22,1,.36,1);
+}
+.step-box:hover {
+  border-color: var(--pg-step-hover-border);
+  box-shadow: 0 0 0 1px rgba(37,99,235,.08), 0 8px 28px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.step-num-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(37,99,235,.1);
+  border: 1px solid rgba(37,99,235,.25);
+  font-size: 1rem; font-weight: 800; color: #3b82f6;
+  margin-bottom: 18px;
+}
+.step-box h3 { font-size: .97rem; font-weight: 700; color: var(--pg-text-heading); margin: 0 0 10px; line-height: 1.3; }
+.step-box p  { font-size: .84rem; color: var(--pg-text-muted); line-height: 1.7; margin: 0; }
+.step-connector {
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(37,99,235,.4);
+  font-size: .8em;
+}
+
+/* ════════════════════════════════
+   FEATURES BENTO GRID
+   ════════════════════════════════ */
+section.features-section { padding: 88px 0; background: var(--pg-bg-deep); }
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto;
+  gap: 12px;
+  margin-top: 52px;
+}
+
+.bento-card {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.028));
+  border: 1px solid var(--pg-border);
+  border-radius: 18px;
+  padding: 28px;
+  container-type: inline-size;
+  transition: border-color 300ms ease, box-shadow 400ms cubic-bezier(.22,1,.36,1), transform 400ms cubic-bezier(.22,1,.36,1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px) saturate(1.05);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
+}
+.bento-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.bento-card:hover { border-color: rgba(37,99,235,.25); box-shadow: 0 2px 8px rgba(0,0,0,.15), 0 8px 32px rgba(0,0,0,.2); transform: translateY(-2px); }
+.bento-card:hover::before { opacity: 1; }
+.bento-card:has(.bento-wide-visual) {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+/* Individual bento colors */
+.bc-1::before { background: linear-gradient(90deg,transparent,#2563eb,transparent); }
+.bc-2::before { background: linear-gradient(90deg,transparent,#10b981,transparent); }
+.bc-3::before { background: linear-gradient(90deg,transparent,#f59e0b,transparent); }
+.bc-4::before { background: linear-gradient(90deg,transparent,#8b5cf6,transparent); }
+.bc-5::before { background: linear-gradient(90deg,transparent,#06b6d4,transparent); }
+.bc-6::before { background: linear-gradient(90deg,transparent,#ec4899,transparent); }
+
+/* Grid placement */
+.bento-card:nth-child(1) { grid-column: span 2; }
+.bento-card:nth-child(2) { grid-column: span 2; }
+.bento-card:nth-child(3) { grid-column: span 2; }
+.bento-card:nth-child(4) { grid-column: span 3; }
+.bento-card:nth-child(5) { grid-column: span 3; }
+
+.b-icon {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.05em;
+  margin-bottom: 18px;
+  transition: transform 350ms cubic-bezier(.22,1,.36,1);
+}
+.bento-card:hover .b-icon { transform: scale(1.06) translateY(-2px); }
+
+.bi-b { background: rgba(37,99,235,.12); color: #60a5fa; }
+.bi-g { background: rgba(16,185,129,.12); color: #34d399; }
+.bi-a { background: rgba(245,158,11,.12); color: #fbbf24; }
+.bi-p { background: rgba(139,92,246,.12); color: #c4b5fd; }
+.bi-c { background: rgba(6,182,212,.12); color: #67e8f9; }
+.bi-k { background: rgba(236,72,153,.12); color: #f9a8d4; }
+
+.bento-card h3 { font-size: .95rem; font-weight: 700; color: var(--pg-text-heading); margin: 0 0 8px; letter-spacing: -0.01em; }
+.bento-card p  { font-size: .84rem; color: var(--pg-text-muted); line-height: 1.72; margin: 0; }
+
+/* Wide card extra visual */
+.bento-wide-visual {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.bento-tag {
+  font-size: .67rem; font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+}
+.bt-b { background: rgba(37,99,235,.08); border-color: rgba(37,99,235,.25); color: #93c5fd; }
+.bt-g { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.25); color: #6ee7b7; }
+.bt-p { background: rgba(139,92,246,.08); border-color: rgba(139,92,246,.25); color: #c4b5fd; }
+
+/* ════════════════════════════════
+   PACKAGES
+   ════════════════════════════════ */
+section.pkg-section { padding: 88px 0; background: var(--pg-bg-mid); }
+
+.pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+  margin-top: 52px;
+}
+
+.p-card {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pg-card-bg) 90%, white 10%), var(--pg-card-bg));
+  border: 1px solid var(--pg-border);
+  border-radius: 20px;
+  padding: 30px 24px;
+  display: grid;
+  align-content: start;
+  container-type: inline-size;
+  transition: border-color 280ms ease, box-shadow 380ms cubic-bezier(.22,1,.36,1), transform 380ms cubic-bezier(.22,1,.36,1);
+  position: relative;
+  overflow: hidden;
+}
+.p-card:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(15,23,42,.04), 0 12px 36px rgba(15,23,42,.1); }
+.p-card.p-featured {
+  background: var(--pg-featured-bg);
+  border: 1px solid rgba(37,99,235,.35);
+  box-shadow: 0 0 0 1px rgba(37,99,235,.1), inset 0 1px 0 rgba(37,99,235,.1), 0 16px 48px rgba(37,99,235,.15);
+}
+.p-card.p-featured:hover { box-shadow: 0 0 0 1px rgba(37,99,235,.25), inset 0 1px 0 rgba(37,99,235,.12), 0 20px 56px rgba(37,99,235,.25); transform: translateY(-3px); }
+.p-card:has(.p-hot) {
+  padding-top: 34px;
+}
+
+.p-hot {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: #2563eb;
+  color: #fff; font-size: .64rem; font-weight: 700;
+  padding: 5px 16px; border-radius: 20px;
+  white-space: nowrap; text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 2px 12px rgba(37,99,235,.4);
+}
+
+.p-tier { font-size: .66rem; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 8px; }
+.p-card:not(.p-featured) .p-tier { color: #3b82f6; }
+.p-card.p-featured .p-tier { color: #60a5fa; }
+
+.p-name { font-size: 1.25rem; font-weight: 800; color: var(--pg-text-heading); margin: 0 0 6px; letter-spacing: -0.02em; }
+.p-desc { font-size: .84rem; color: var(--pg-text-muted); line-height: 1.55; margin: 0 0 22px; }
+.p-card.p-featured .p-desc { color: var(--pg-text-muted); }
+
+.p-price { padding: 18px 0; border-block: 1px solid var(--pg-border); margin-bottom: 22px; display: flex; align-items: baseline; gap: 4px; }
+.p-card.p-featured .p-price { border-color: rgba(37,99,235,.2); }
+.p-price-num { font-size: 1.9rem; font-weight: 800; color: var(--pg-text-heading); line-height: 1; letter-spacing: -0.03em; }
+.p-price-unit { font-size: .8rem; color: var(--pg-text-muted); font-weight: 500; }
+.p-card.p-featured .p-price-unit { color: var(--pg-text-muted); }
+
+.p-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 0 0 26px; }
+.p-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: .83rem; color: var(--pg-text-muted); line-height: 1.5; }
+.p-feats li i { flex-shrink: 0; margin-top: 2px; color: #1d4ed8; font-size: .82em; }
+.p-card.p-featured .p-feats li { color: #64748b; }
+.p-card.p-featured .p-feats li i { color: #10b981; }
+
+.btn-p {
+  display: block; width: 100%;
+  padding: 13px; border-radius: 11px;
+  font-weight: 700; font-size: .9rem;
+  text-align: center; text-decoration: none;
+  border: none; cursor: pointer; font-family: inherit;
+  transition: all 220ms;
+}
+.btn-p-outline { background: transparent; border: 1px solid var(--pg-border); color: var(--pg-text-muted); }
+.btn-p-outline:hover { border-color: var(--border-light); color: var(--pg-text-body); background: var(--pg-hover-bg); }
+.btn-p-solid { background: #2563eb; color: #fff; box-shadow: 0 4px 16px rgba(37,99,235,.35); }
+.btn-p-solid:hover { background: #1d4ed8; box-shadow: 0 6px 24px rgba(37,99,235,.55); transform: translateY(-1px); }
+.btn-p-invert { background: #fff; color: #1e3a8a; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+.btn-p-invert:hover { box-shadow: 0 8px 24px rgba(0,0,0,.45); transform: translateY(-1px); }
+
+/* ════════════════════════════════
+   INDUSTRIES MARQUEE
+   ════════════════════════════════ */
+section.ind-section { padding: 88px 0; background: var(--pg-bg-deep); }
+
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 52px;
+}
+
+.ind-tile {
+  aspect-ratio: 1;
+  background: var(--pg-card-deep);
+  border: 1px solid var(--pg-border-subtle);
+  border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 280ms ease, box-shadow 400ms cubic-bezier(.22,1,.36,1), transform 400ms cubic-bezier(.22,1,.36,1);
+}
+/* clip-path reveal on hover */
+.ind-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--ic, #3b82f6) 6%, transparent);
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 500ms cubic-bezier(.22,1,.36,1);
+}
+.ind-tile:hover::after { clip-path: circle(150% at 50% 50%); }
+.ind-tile:hover { border-color: color-mix(in srgb, var(--ic, #3b82f6) 32%, transparent); transform: translateY(-2px); box-shadow: 0 4px 16px color-mix(in srgb, var(--ic, #3b82f6) 14%, transparent); }
+
+.ind-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--ic, #3b82f6) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ic, #3b82f6) 28%, transparent);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  color: var(--ic, #3b82f6);
+  position: relative;
+  z-index: 1;
+  transition: transform 220ms ease;
+}
+.ind-tile:hover .ind-icon { transform: scale(1.1); }
+.ind-name { font-size: .78rem; font-weight: 700; color: var(--pg-text-body); text-align: center; line-height: 1.3; position: relative; z-index: 1; }
+.ind-pkg-name { font-size: .65rem; color: var(--blue-300); font-weight: 700; position: relative; z-index: 1; letter-spacing: .3px; }
+
+/* ════════════════════════════════
+   PAS / GEO BLOCKS
+   ════════════════════════════════ */
+/* ═══ PAS Section — Timeline Layout ═══ */
+.pas-section {
+  padding: 88px 0;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--blue) 10%, transparent), transparent 30%),
+    linear-gradient(180deg, var(--pg-bg-mid), var(--pg-bg-deep));
+}
+.pas-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  margin-bottom: 56px;
+}
+/* Linia pionowa łącząca kroki */
+.pas-timeline::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 28px;
+  bottom: 28px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--pg-border), rgba(37,99,235,.25), var(--pg-border));
+  border-radius: 2px;
+  opacity: .5;
+}
+.pas-step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 28px 0;
+  position: relative;
+}
+.pas-step + .pas-step {
+  border-top: 1px solid var(--pg-border-subtle);
+}
+.pas-step-num {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--pg-text-muted);
+  background: var(--pg-card-bg);
+  border: 1px solid var(--pg-border);
+  position: relative;
+  z-index: 1;
+  transition: border-color 280ms ease, box-shadow 280ms ease;
+}
+[data-pas="problem"] .pas-step-num { border-color: var(--pg-border); color: var(--pg-text-muted); }
+[data-pas="agitacja"] .pas-step-num { border-color: var(--pg-border); color: var(--pg-text-muted); }
+[data-pas="rozwiazanie"] .pas-step-num { border-color: rgba(37,99,235,.25); color: #3b82f6; }
+.pas-step:hover .pas-step-num {
+  box-shadow: 0 4px 20px rgba(37,99,235,.12);
+}
+.pas-step-content {
+  padding-top: 4px;
+}
+.pas-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  margin-bottom: 10px;
+}
+.pas-step h3 {
+  color: var(--pg-text-heading);
+  font-size: 1.35rem;
+  letter-spacing: -.4px;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+.pas-step p {
+  color: var(--pg-text-muted);
+  line-height: 1.72;
+  margin: 0;
+  max-width: 640px;
+  font-size: .95rem;
+}
+
+/* ═══ Impact Strip — pod PAS ═══ */
+.impact-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 32px 36px;
+  background: var(--pg-card-bg);
+  border: 1px solid var(--pg-border);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 4px 16px rgba(15,23,42,.06);
+}
+.impact-strip-item {
+  text-align: center;
+  padding: 4px 12px;
+}
+.impact-strip-val {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+  color: var(--pg-text-heading);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.impact-strip-lbl {
+  display: block;
+  font-size: .78rem;
+  color: var(--pg-text-muted);
+  line-height: 1.4;
+}
+.impact-strip-sep {
+  width: 1px;
+  height: 40px;
+  background: var(--pg-border);
+  flex-shrink: 0;
+}
+
+/* ═══ Shared card styles (vertical-card, faq-shell) ═══ */
+.vertical-card,
+.faq-shell {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--pg-card-bg) 90%, white 10%), var(--pg-card-bg));
+  border: 1px solid rgba(15,23,42,.1);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 4px 16px rgba(15,23,42,.06);
+  backdrop-filter: blur(16px) saturate(1.04);
+  -webkit-backdrop-filter: blur(16px) saturate(1.04);
+  transition: box-shadow 350ms cubic-bezier(.22,1,.36,1), transform 350ms cubic-bezier(.22,1,.36,1), border-color 280ms ease;
+}
+:root[data-theme='dark'] .vertical-card,
+:root[data-theme='dark'] .faq-shell {
+  background:
+    linear-gradient(180deg, rgba(30,41,59,.5), rgba(15,23,42,.42));
+  border-color: rgba(255,255,255,.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 6px 20px rgba(0,0,0,.25);
+}
+.vertical-card:hover {
+  box-shadow: 0 2px 4px rgba(15,23,42,.04), 0 8px 28px rgba(15,23,42,.1);
+  transform: translateY(-2px);
+  border-color: rgba(37,99,235,.18);
+}
+.vertical-card h3,
+.faq-shell h2 {
+  color: var(--pg-text-heading);
+  letter-spacing: -.4px;
+}
+.vertical-card p {
+  color: var(--pg-text-body);
+  line-height: 1.72;
+  margin: 0;
+}
+
+.featured-verticals {
+  padding: 88px 0;
+  background: var(--pg-bg-mid);
+}
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+.vertical-card {
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+}
+.vertical-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, color-mix(in srgb, var(--blue) 16%, transparent), transparent 42%);
+  pointer-events: none;
+}
+.vertical-card > * { position: relative; z-index: 1; }
+.vertical-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 168px);
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+.vertical-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 800;
+  color: #1e40af;
+  background: rgba(37,99,235,.1);
+  border: 1.5px solid rgba(37,99,235,.25);
+  line-height: 1.35;
+}
+:root[data-theme='dark'] .vertical-badge {
+  color: #93c5fd;
+  background: rgba(59,130,246,.15);
+  border-color: rgba(59,130,246,.3);
+}
+.vertical-badge i {
+  font-size: 1.05em;
+}
+.vertical-metric {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--pg-text-heading);
+  text-align: right;
+  line-height: 1.45;
+  text-wrap: balance;
+  align-self: center;
+}
+.vertical-points {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.vertical-points li {
+  display: flex;
+  gap: 10px;
+  color: var(--pg-text-body);
+  line-height: 1.6;
+  font-size: .92rem;
+}
+.vertical-points i {
+  color: var(--green);
+  margin-top: 4px;
+}
+
+.faq-section {
+  padding: 88px 0;
+  background: linear-gradient(180deg, var(--pg-bg-mid), var(--pg-bg-deep));
+}
+.faq-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 34px;
+  container-type: inline-size;
+}
+.faq-shell .s-sub {
+  max-width: none;
+  margin-bottom: 28px;
+}
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+.faq-item {
+  padding: 22px 24px;
+  border-radius: 18px;
+  border: 1px solid var(--pg-border-subtle);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.52), rgba(255,255,255,.26));
+  backdrop-filter: blur(14px) saturate(1.02);
+  -webkit-backdrop-filter: blur(14px) saturate(1.02);
+  container-type: inline-size;
+}
+:root[data-theme='dark'] .faq-item {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.022));
+}
+.faq-question {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--pg-text-heading);
+  letter-spacing: -.3px;
+  margin: 0 0 8px;
+}
+.faq-answer {
+  color: var(--pg-text-muted);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ════════════════════════════════
+   TESTIMONIALS
+   ════════════════════════════════ */
+section.testi-section { padding: 88px 0; background: var(--pg-bg-mid); }
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+  margin-top: 52px;
+}
+
+.t-card {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.62));
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 18px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  transition: border-color 280ms ease, transform 380ms cubic-bezier(.22,1,.36,1), box-shadow 380ms cubic-bezier(.22,1,.36,1);
+}
+.t-card:hover { border-color: rgba(37,99,235,.18); transform: translateY(-2px); box-shadow: 0 2px 4px rgba(15,23,42,.03), 0 14px 34px rgba(15,23,42,.08); }
+:root[data-theme='dark'] .t-card {
+  background:
+    linear-gradient(180deg, rgba(30,41,59,.56), rgba(15,23,42,.5));
+  border-color: rgba(148,163,184,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 10px 28px rgba(0,0,0,.24);
+}
+.t-card { container-type: inline-size; }
+.t-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 14px; right: 18px;
+  font-size: 3.5rem; line-height: 1;
+  color: rgba(37,99,235,.06);
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+.t-stars { display: flex; gap: 2px; margin-bottom: 14px; }
+.t-stars i { color: #3b82f6; font-size: .82em; }
+.t-quote {
+  font-size: .88rem;
+  color: var(--pg-text-muted);
+  line-height: 1.78;
+  margin: 0 0 22px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,255,255,.18));
+  border: 1px solid rgba(255,255,255,.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+:root[data-theme='dark'] .t-quote {
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  border-color: rgba(148,163,184,.12);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+.t-author { display: flex; align-items: center; gap: 11px; }
+.t-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .82em; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.t-name { font-size: .84rem; font-weight: 700; color: var(--pg-text-heading); }
+.t-role { font-size: .72rem; color: var(--pg-text-dim); margin-top: 1px; }
+
+/* ════════════════════════════════
+   CTA FINALE
+   ════════════════════════════════ */
+.cta-finale {
+  padding: 100px 0;
+  background: var(--pg-bg-deep);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-finale::before {
+  content: '';
+  position: absolute;
+  width: 800px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(37,99,235,.15) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* Animated border on CTA section */
+.cta-finale::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 50% 50%, #000 0%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 80% at 50% 50%, #000 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.cta-inner { position: relative; z-index: 1; }
+
+.cta-finale h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--pg-text-heading);
+  letter-spacing: -0.035em;
+  margin: 0 0 18px;
+  text-wrap: balance;
+  line-height: 1.08;
+}
+.cta-finale p {
+  font-size: 1.02rem;
+  color: var(--pg-text-muted);
+  max-width: 460px;
+  margin: 0 auto 36px;
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+.cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+@container (max-width: 320px) {
+  .step-box {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .step-box h3 {
+    font-size: .9rem;
+  }
+}
+
+@container (max-width: 340px) {
+  .bento-card {
+    padding: 22px 20px;
+    border-radius: 16px;
+  }
+
+  .bento-card h3 {
+    font-size: .9rem;
+  }
+
+  .bento-card p {
+    font-size: .8rem;
+  }
+}
+
+@container (max-width: 340px) {
+  .p-card {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .p-name {
+    font-size: 1.08rem;
+  }
+
+  .p-price-num {
+    font-size: 1.65rem;
+  }
+}
+
+@container (max-width: 340px) {
+  .vertical-card {
+    padding: 22px 20px;
+  }
+
+  .vertical-top {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .vertical-metric {
+    text-align: left;
+    align-self: start;
+  }
+}
+
+@container (max-width: 480px) {
+  .faq-shell {
+    padding: 24px 20px;
+  }
+}
+
+@container (max-width: 360px) {
+  .faq-item {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .faq-question {
+    font-size: .94rem;
+  }
+
+  .faq-answer {
+    font-size: .86rem;
+  }
+}
+
+@container (max-width: 340px) {
+  .t-card {
+    padding: 20px 18px;
+  }
+
+  .t-quote {
+    padding: 13px 14px;
+    font-size: .84rem;
+  }
+}
+
+/* ════ KEYFRAMES ════ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.5); opacity: .7; }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ═══ HERO ENTRY ANIMATIONS ═══ */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroSlideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroScale {
+  from { opacity: 0; transform: scale(.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: .3; }
+  50% { opacity: .55; }
+}
+
+.hero .eyebrow {
+  animation: heroSlideRight .8s cubic-bezier(.16,1,.3,1) .1s both;
+}
+.hero .hero-h1 {
+  animation: heroFadeUp .9s cubic-bezier(.16,1,.3,1) .25s both;
+}
+.hero .hero-sub {
+  animation: heroFadeUp .9s cubic-bezier(.16,1,.3,1) .45s both;
+}
+.hero .hero-chip-row {
+  animation: heroFadeUp .8s cubic-bezier(.16,1,.3,1) .6s both;
+}
+.hero .hero-actions {
+  animation: heroFadeUp .8s cubic-bezier(.16,1,.3,1) .75s both;
+}
+.hero .proof-bar {
+  animation: heroFadeUp .7s cubic-bezier(.16,1,.3,1) .9s both;
+}
+.hero .hero-signal-grid {
+  animation: heroScale .9s cubic-bezier(.16,1,.3,1) 1.05s both;
+}
+.hero-glow {
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+/* ═══ STAGGER REVEAL — karty, kafelki ═══ */
+.scroll-reveal[data-delay="1"] { transition-delay: .1s; }
+.scroll-reveal[data-delay="2"] { transition-delay: .2s; }
+.scroll-reveal[data-delay="3"] { transition-delay: .3s; }
+.scroll-reveal[data-delay="4"] { transition-delay: .4s; }
+.scroll-reveal[data-delay="5"] { transition-delay: .5s; }
+
+/* ═══ SCROLL-REVEAL — slide from left/right ═══ */
+.reveal-left { opacity: 0; transform: translateX(-28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal-right { opacity: 0; transform: translateX(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ════ SCROLL-DRIVEN ANIMATION (CSS3 modern) ════ */
+@supports (animation-timeline: scroll()) {
+  .scroll-reveal {
+    animation: fadeInUpSD linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 24%;
+  }
+  @keyframes fadeInUpSD {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+/* Fallback for unsupported browsers */
+@supports not (animation-timeline: scroll()) {
+  .scroll-reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .scroll-reveal.visible { opacity: 1; transform: none; }
+}
+
+/* ════ RESPONSIVE ════ */
+
+/* ── Tablet landscape ── */
+@media(max-width: 1100px) {
+  .nav-inner { margin-top: 10px; }
+  .hero-inner { grid-template-columns: 1fr; min-height: auto; gap: 32px; }
+  .hero { padding-top: 110px; padding-bottom: 56px; }
+  .hero-copy { max-width: none; }
+  .dash-wrap { display: none; }
+  .bento { grid-template-columns: repeat(3, 1fr); }
+  .bento-card:nth-child(n) { grid-column: span 1; }
+  .impact-strip { grid-template-columns: 1fr 1fr; gap: 20px; padding: 24px; }
+  .impact-strip-sep { display: none; }
+  .steps-track { grid-template-columns: 1fr; gap: 16px; }
+  .step-connector { display: none; }
+  .pkg-grid { gap: 14px; }
+  .module-showcase-inner { grid-template-columns: 1fr; }
+  .module-callout { min-height: auto; }
+  .industry-article-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Tablet portrait ── */
+@media(max-width: 900px) {
+  .site-logo-caption { display: none; }
+  .pkg-grid { grid-template-columns: 1fr; max-width: 480px; margin-inline: auto; }
+  .ind-grid { grid-template-columns: repeat(3, 1fr); }
+  .impact-strip { grid-template-columns: 1fr; }
+}
+
+/* ── Phablet ── */
+@media(max-width: 720px) {
+  .ind-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions .btn-cta-glow,
+  .hero-actions .btn-ghost { width: 100%; justify-content: center; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .industry-article-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Mobile ── */
+@media(max-width: 640px) {
+  .nav-inner { padding: 0 14px; border-radius: 18px; }
+  .site-logo-mark { min-width: 0; }
+  .logo-img { height: 26px; }
+  .logo-wordmark { font-size: .84rem; }
+
+  .hero { 
+    padding-top: 96px; 
+    padding-bottom: 40px; 
+    background:
+      radial-gradient(ellipse 120% 80% at 70% 10%, oklch(38% 0.18 265 / .45) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, oklch(45% 0.15 152 / .15) 0%, transparent 55%),
+      linear-gradient(170deg, #060d1c 0%, #0a1530 50%, #060d1c 100%);
+  }
+  .hero-copy { 
+    text-align: center; 
+    padding: 0 16px;
+  }
+  .hero-h1 { 
+    font-size: clamp(2.2rem, 8vw, 2.9rem); 
+    letter-spacing: -1.5px; 
+    line-height: 1.1;
+  }
+  .hero-sub { 
+    font-size: 1rem; 
+    line-height: 1.7;
+    padding: 0 10px;
+  }
+  .hero-chip { 
+    padding: 8px 14px; 
+    font-size: .75rem; 
+    backdrop-filter: blur(20px);
+  }
+  .eyebrow,
+  .hero-chip-row,
+  .proof-bar,
+  .live-badge { 
+    justify-content: center; 
+    flex-wrap: wrap;
+  }
+  .hero-signal { 
+    padding: 18px; 
+    border-radius: 20px;
+    backdrop-filter: blur(25px);
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-big { font-size: 2rem; }
+  .step-box,
+  .bento-card,
+  .p-card,
+  .vertical-card,
+  .industry-article,
+  .t-card,
+  .faq-shell,
+  .faq-item {
+    text-align: center;
+  }
+  .step-num-badge,
+  .b-icon,
+  .vertical-badge,
+  .t-stars {
+    margin-inline: auto;
+  }
+  .p-price,
+  .t-author {
+    justify-content: center;
+  }
+  .p-feats li,
+  .vertical-points li,
+  .industry-article-meta span {
+    justify-content: center;
+    text-align: left;
+  }
+
+  .bento { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bento-card { padding: 18px; }
+  .bento-card:nth-child(4),
+  .bento-card:nth-child(5) { grid-column: span 2; }
+
+  .ind-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .ind-tile { aspect-ratio: auto; min-height: 90px; padding: 14px 8px; }
+  .ind-icon { width: 40px; height: 40px; font-size: 1rem; }
+
+  .pkg-grid { max-width: 100%; }
+  .p-card.p-featured { transform: none; }
+  .p-card.p-featured:hover { transform: translateY(-4px); }
+
+  .vertical-card { padding: 20px; }
+  .vertical-top {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .vertical-metric {
+    text-align: left;
+    align-self: start;
+  }
+  .industry-article-grid { grid-template-columns: 1fr; }
+  .industry-article { padding: 20px; border-radius: 18px; }
+  .t-card { padding: 20px; }
+  .t-quote { padding: 14px 15px; border-radius: 14px; }
+
+  .pas-step { grid-template-columns: 48px 1fr; gap: 16px; }
+  .pas-step-num { width: 48px; height: 48px; font-size: .9rem; border-radius: 14px; }
+  .pas-timeline::before { left: 23px; }
+  .pas-step h3 { font-size: 1.15rem; }
+  .impact-strip { grid-template-columns: 1fr 1fr; gap: 16px; padding: 20px; }
+  .impact-strip-sep { display: none; }
+  .impact-strip-val { font-size: 1.3rem; }
+
+  .faq-shell { padding: 18px; }
+  .faq-item { padding: 16px 18px; }
+
+  .cta-row { flex-direction: column; align-items: center; }
+  .cta-row .btn-cta-glow,
+  .cta-row .btn-ghost { width: 100%; max-width: 340px; justify-content: center; }
+
+  .demo-strip-inner { flex-direction: column; gap: 10px; text-align: center; }
+  .demo-strip-left { justify-content: center; }
+  .demo-strip-btn { width: 100%; max-width: 300px; justify-content: center; }
+}
+
+/* ── Small phone ── */
+@media(max-width: 420px) {
+  .hero-h1 { font-size: 2rem; letter-spacing: -1px; }
+  .bento { grid-template-columns: 1fr; }
+  .bento-card:nth-child(n) { grid-column: span 1; }
+  .ind-grid { grid-template-columns: repeat(2, 1fr); }
+  .proof-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .proof-sep { display: none; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom-inner { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-bottom-links { justify-content: center; }
+}
+</style>
+
+<!-- ════ SCHEMA.ORG JSON-LD — GEO/AEO 2026 ════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://flowquest.pl/#organization",
+      "name": "FlowQuest",
+      "legalName": "FlowQuest",
+      "url": "https://flowquest.pl",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png"
+      },
+      "description": "FlowQuest to modułowy system operacyjny dla MŚP oparty na Perfex CRM. Porządkuje sprzedaż, projekty, finanse i pracę zespołu w jednym kokpicie. Wdrożenie w 24h.",
+      "foundingDate": "2023",
+      "areaServed": ["PL", "GB"],
+      "serviceArea": {
+        "@type": "Place",
+        "name": "Polska i Wielka Brytania"
+      },
+      "sameAs": [
+        "https://crm.flowquest.pl"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://flowquest.pl/kontakt.html",
+        "availableLanguage": ["Polish", "English"]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "30",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://flowquest.pl/#software",
+      "name": "FlowQuest — Modular Business OS",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://flowquest.pl",
+      "provider": { "@id": "https://flowquest.pl/#organization" },
+      "description": "Modułowy system CRM/ERP dla MŚP. Zamienia chaos operacyjny w cyfrowy porządek dzięki 59 modułom i 10 pakietom branżowym. Oparty na Perfex CRM z pełną własnością danych.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "FlowQuest Core",
+          "price": "0",
+          "priceCurrency": "PLN",
+          "description": "Pełna platforma CRM bez opłat — dla każdej instancji, na zawsze."
+        },
+        {
+          "@type": "Offer",
+          "name": "FlowQuest SOLO",
+          "price": "79",
+          "priceCurrency": "PLN",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "79",
+            "priceCurrency": "PLN",
+            "unitCode": "MON"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "FlowQuest TEAMS",
+          "price": "179",
+          "priceCurrency": "PLN",
+          "priceSpecification": {
+            "@type": "UnitPriceSpecification",
+            "price": "179",
+            "priceCurrency": "PLN",
+            "unitCode": "MON"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://flowquest.pl/#website",
+      "url": "https://flowquest.pl",
+      "name": "FlowQuest",
+      "description": "Modułowy Business OS dla MŚP — porządkuje sprzedaż, projekty i finanse w jednym systemie.",
+      "publisher": { "@id": "https://flowquest.pl/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://flowquest.pl/baza-wiedzy.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://flowquest.pl/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Czy wdrożenie FlowQuest zatrzyma bieżącą pracę firmy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nie. Wdrażamy system etapami: najpierw porządkujemy najbardziej krytyczny proces, potem dokładamy kolejne moduły. Dzięki temu zespół nie musi uczyć się wszystkiego naraz, a firma nie wpada w przestój."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ile trwa uruchomienie podstawowej instancji FlowQuest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "W typowym scenariuszu startowym podstawowa konfiguracja zajmuje 24 godziny. Obejmuje to uruchomienie instancji, ustawienie ról, import danych startowych i dopięcie najważniejszych automatyzacji."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy FlowQuest działa na telefonie i w pracy terenowej?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tak. Interfejs jest responsywny i projektowany z myślą o obsłudze mobilnej, dzięki czemu handlowcy, technicy i właściciele firm mogą sprawdzać statusy, zadania i dokumenty bez wracania do biura."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Czy muszę kupić wszystkie moduły od razu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nie. Startujesz od rdzenia i dobierasz moduły wtedy, gdy są potrzebne biznesowo. Dzięki temu płacisz za realną wartość, a nie za funkcje, których nikt nie używa."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ile kosztuje FlowQuest w porównaniu do Salesforce, Pipedrive czy Monday?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FlowQuest Core jest bezpłatny. SOLO to od 79 PLN/mc, TEAMS od 179 PLN/mc. 5-letni koszt całkowity jest o 40-50% niższy niż systemów SaaS klasy korporacyjnej, przy pełnej własności danych i braku uzależnienia od jednego dostawcy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Jakie branże najczęściej wdrażają FlowQuest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FlowQuest jest szczególnie popularny w sektorach OZE i instalacji HVAC, Beauty i medycynie estetycznej oraz Hospitality i cateringu. System działa także w budownictwie, logistyce, prawie, nieruchomościach, e-commerce i fitness."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://flowquest.pl/#service-oze",
+      "name": "FlowQuest dla OZE i HVAC",
+      "serviceType": "CRM Implementation",
+      "provider": { "@id": "https://flowquest.pl/#organization" },
+      "description": "Modułowy CRM dla firm instalacyjnych OZE i HVAC. Zarządzanie ekipami terenowymi, automatyczne ofertowanie z uwzględnieniem dotacji, śledzenie statusów montaży i dokumentacja techniczna.",
+      "areaServed": "PL"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://flowquest.pl/#service-beauty",
+      "name": "FlowQuest dla Beauty i Medycyny Estetycznej",
+      "serviceType": "CRM Implementation",
+      "provider": { "@id": "https://flowquest.pl/#organization" },
+      "description": "System CRM dla salonów beauty i klinik estetycznych. Automatyczne przypomnienia SMS/e-mail redukujące no-show o 30-50%, karty klientów, historia zabiegów i kampanie lojalnościowe.",
+      "areaServed": "PL"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ════ CANVAS PARTICLE NETWORK ════ -->
+<canvas id="particleCanvas" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.04"></canvas>
+
+<!-- ════ HEADER ════ -->
+<header class="site-header" id="siteHeader">
+  <div class="container nav-inner">
+    <a href="index.html" class="site-logo" aria-label="FlowQuest">
+      <span class="site-logo-mark">
+        <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="logo-img logo-on-light">
+        <img src="https://go.flowquest.pl/uploads/company/ac3475e3c47b743cd02d10be1c3131cb.png" alt="FlowQuest" class="logo-img logo-on-dark">
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Strona Główna</a>
+      <div class="nav-item dropdown">
+        <a href="oferta.html">Pakiety</a>
+        <div class="dropdown-menu">
+          <a href="pakiety/core.html">Core — case study</a>
+          <a href="pakiety/teams.html">TEAMS — zespół 5–50 osób</a>
+          <a href="pakiety/solo.html">SOLO — solopreneurzy</a>
+        </div>
+      </div>
+      <a href="funkcje.html">Funkcje</a>
+      <div class="nav-item dropdown">
+        <a href="baza-wiedzy.html">Zasoby</a>
+        <div class="dropdown-menu">
+          <a href="baza-wiedzy.html">Baza wiedzy</a>
+          <a href="monitoring.html">Status systemu</a>
+        </div>
+      </div>
+      <a href="o-nas.html">O nas</a>
+      <a href="kontakt.html">Kontakt</a>
+      <div class="mobile-nav-cta">
+        <a href="kontakt.html" class="btn-nav-outline">Umów bezpłatny audyt</a>
+        <a href="https://demo.flowquest.pl/" class="btn-nav-primary" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Demo na żywo</a>
+      </div>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-toggle" type="button" aria-label="Przełącz motyw">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="cta-links">
+        <a href="kontakt.html" class="btn-nav-outline">Umów audyt</a>
+        <a href="https://demo.flowquest.pl/" class="btn-nav-primary" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Demo na żywo</a>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+      <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow hero-glow-2"></div>
+
+  <div class="container hero-inner">
+
+    <!-- Left: Copy -->
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Transformacja cyfrowa firm — ewolucja, nie rewolucja
+      </div>
+
+      <h1 class="hero-h1">
+        Zamień chaos operacyjny<br>
+        w <span class="conic-text">cyfrowy porządek</span><br>
+        swojej firmy.
+      </h1>
+
+      <p class="hero-sub">
+        FlowQuest spina leady, oferty, projekty, ekipy, dokumenty i finanse w jednym kokpicie. Zaczynasz od jednego procesu — system rośnie razem z Tobą, krok po kroku.
+      </p>
+
+      <div class="hero-chip-row" aria-label="Najważniejsze obszary systemu">
+        <span class="hero-chip"><i class="fa-solid fa-chart-column"></i> Sprzedaż i pipeline</span>
+        <span class="hero-chip"><i class="fa-solid fa-screwdriver-wrench"></i> Operacje i ekipy</span>
+        <span class="hero-chip"><i class="fa-solid fa-file-invoice"></i> Dokumenty i finanse</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="kontakt.html" class="btn-cta-glow">
+          <i class="fa-solid fa-magnifying-glass-chart"></i> Umów bezpłatny audyt
+        </a>
+        <a href="https://demo.flowquest.pl/" class="btn-ghost" target="_blank" rel="noopener">
+          <i class="fa-solid fa-play"></i> Wypróbuj demo na żywo
+        </a>
+      </div>
+
+      <div class="proof-bar">
+        <div class="proof-avatars">
+          <div class="proof-av">AK</div><div class="proof-av">MW</div>
+          <div class="proof-av">BL</div><div class="proof-av">PN</div>
+        </div>
+        <div class="proof-stars">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <span class="proof-label"><b>5.0</b> — 30+ firm uporządkowało procesy z FlowQuest</span>
+        <span class="proof-sep"></span>
+        <span class="live-badge"><span class="live-dot"></span>Demo dopasowane do branży</span>
+      </div>
+
+      <div class="hero-signal-grid">
+        <article class="hero-signal">
+          <strong>1 kokpit operacyjny</strong>
+          <span>Leady, status projektu, dokumenty i rozliczenia w jednym widoku dla całego zespołu.</span>
+        </article>
+        <article class="hero-signal">
+          <strong>Wdrożenie etapowe</strong>
+          <span>Najpierw porządkujemy najbardziej kosztowny proces, a dopiero potem rozwijamy kolejne moduły.</span>
+        </article>
+        <article class="hero-signal">
+          <strong>Gotowość mobilna</strong>
+          <span>Właściciel, handlowiec i ekipa terenowa mają ten sam stan sprawy także na telefonie.</span>
+        </article>
+      </div>
+    </div>
+
+    <!-- Right: Dashboard mockup -->
+    <div class="dash-wrap">
+      <div class="float-card fc-top">
+        <div class="float-card-icon" style="background:rgba(16,185,129,.12);color:#10b981"><i class="fa-solid fa-check-double"></i></div>
+        <div class="float-card-text">
+          <strong>Płatność zaksięgowana</strong>
+          <span>12 400 PLN — ABC Sp. z o.o.</span>
+        </div>
+      </div>
+
+      <div class="dash-border-wrap">
+        <div class="dash-shell">
+          <div class="dash-bar">
+            <div class="db-dots">
+              <div class="db-dot db-dot-r"></div>
+              <div class="db-dot db-dot-y"></div>
+              <div class="db-dot db-dot-g"></div>
+            </div>
+            <div class="db-url">
+              <i class="fa-solid fa-lock"></i>
+              crm.flowquest.pl/admin
+            </div>
+          </div>
+          <div class="dash-content">
+            <div class="dash-kpis">
+              <div class="kpi">
+                <div class="kpi-label">Projekty</div>
+                <span class="kpi-val">24</span>
+                <span class="kpi-delta delta-up"><i class="fa-solid fa-arrow-up" style="font-size:.6em"></i>+3 ten tydzień</span>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Nowe leady</div>
+                <span class="kpi-val">8</span>
+                <span class="kpi-delta delta-up"><i class="fa-solid fa-arrow-up" style="font-size:.6em"></i>+2 dzisiaj</span>
+              </div>
+              <div class="kpi">
+                <div class="kpi-label">Przychód</div>
+                <span class="kpi-val">94k</span>
+                <span class="kpi-delta delta-up"><i class="fa-solid fa-arrow-up" style="font-size:.6em"></i>+23% Q1</span>
+              </div>
+            </div>
+            <div class="dash-projects">
+              <div class="dp-heading">Postęp projektów</div>
+              <div class="dp-row">
+                <span class="dp-name">Montaż HVAC — Kowalski</span>
+                <div class="dp-bar"><div class="dp-fill fill-b" style="width:78%"></div></div>
+                <span class="dp-pct">78%</span>
+              </div>
+              <div class="dp-row">
+                <span class="dp-name">Remont biura — Nowak</span>
+                <div class="dp-bar"><div class="dp-fill fill-g" style="width:45%"></div></div>
+                <span class="dp-pct">45%</span>
+              </div>
+              <div class="dp-row">
+                <span class="dp-name">Wdrożenie CRM — TechBud</span>
+                <div class="dp-bar"><div class="dp-fill fill-v" style="width:92%"></div></div>
+                <span class="dp-pct">92%</span>
+              </div>
+            </div>
+            <div class="dash-alert">
+              <i class="fa-solid fa-circle-check"></i>
+              <div class="dash-alert-txt"><b>AI wygenerowała ofertę</b> dla leada Firma Budowlana XYZ — gotowa do wysyłki.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-card fc-bot">
+        <div class="float-card-icon" style="background:rgba(124,58,237,.12);color:#a78bfa"><i class="fa-solid fa-robot"></i></div>
+        <div class="float-card-text">
+          <strong>AI Lead Score: 92/100</strong>
+          <span>Wysoki potencjał konwersji</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════ TRUST BAR ════ -->
+<div class="trust-bar">
+  <div class="container trust-bar-inner">
+    <div class="trust-item"><span class="trust-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="trust-text"><span class="trust-label">Własność danych</span><span class="trust-sub">zawsze Twoja</span></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon"><i class="fa-solid fa-file-contract"></i></span><span class="trust-text"><span class="trust-label">Bez umowy</span><span class="trust-sub">na czas określony</span></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon"><i class="fa-solid fa-clock"></i></span><span class="trust-text"><span class="trust-label">Wdrożenie</span><span class="trust-sub">w 24 godziny</span></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon"><i class="fa-solid fa-headset"></i></span><span class="trust-text"><span class="trust-label">Wsparcie</span><span class="trust-sub">po polsku</span></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon"><i class="fa-solid fa-credit-card-alt"></i></span><span class="trust-text"><span class="trust-label">Core bezpłatny</span><span class="trust-sub">bez karty</span></span></div>
+  </div>
+</div>
+<style>
+.trust-bar {
+  background: var(--pg-bg-mid);
+  border-top: 1px solid var(--pg-border-subtle);
+  border-bottom: 1px solid var(--pg-border-subtle);
+  padding: 14px 0;
+}
+:root[data-theme='dark'] .trust-bar {
+  background: transparent;
+  border-color: rgba(255,255,255,.05);
+}
+.trust-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 20px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--pg-text-muted);
+  white-space: nowrap;
+}
+.trust-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(16,185,129,.1);
+  color: #10b981;
+  font-size: .75rem;
+  flex-shrink: 0;
+}
+.trust-sub {
+  display: none;
+}
+.trust-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--pg-border);
+  flex-shrink: 0;
+}
+@media(max-width:900px) {
+  .trust-bar-inner { justify-content: flex-start; gap: 6px 0; }
+  .trust-sep { display: none; }
+  .trust-item { padding: 4px 12px; font-size: .76rem; }
+}
+@media(max-width:600px) {
+  .trust-bar { padding: 32px 0; }
+  .trust-bar-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px;
+  }
+  .trust-sep { display: none; }
+  .trust-bar-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0 20px;
+  }
+  .trust-item {
+    display: grid;
+    grid-template-columns: 40px auto;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--pg-border-subtle);
+    white-space: normal;
+    width: 100%;
+    max-width: 240px;
+  }
+  .trust-item:last-child { border-bottom: none; }
+  .trust-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 1rem;
+    flex-shrink: 0;
+    background: rgba(37,99,235,.12);
+    color: #3b82f6;
+  }
+  .trust-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .trust-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--pg-text-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+  .trust-sub {
+    display: inline;
+    font-size: .85rem;
+    font-weight: 500;
+    color: var(--pg-text-body);
+    letter-spacing: 0;
+  }
+  .trust-sub::before { content: '— '; }
+}
+</style>
+
+<!-- ════ STATS ════ -->
+<div class="stats-bar">
+  <div class="container stats-inner">
+    <div class="stat-cell scroll-reveal">
+      <span class="stat-big"><em data-target="10">10</em></span>
+      <span class="stat-lbl">Gotowych scenariuszy branżowych</span>
+    </div>
+    <div class="stat-cell scroll-reveal">
+      <span class="stat-big"><em data-target="59">59</em></span>
+      <span class="stat-lbl">Modułów rozwijanych etapami</span>
+    </div>
+    <div class="stat-cell scroll-reveal">
+      <span class="stat-big"><em>8.71</em><span style="font-size:1.1rem;color:#3b82f6;font-weight:900">×</span></span>
+      <span class="stat-lbl">Średni zwrot z inwestycji w CRM</span>
+    </div>
+    <div class="stat-cell scroll-reveal">
+      <span class="stat-big"><em>24h</em></span>
+      <span class="stat-lbl">Standardowy start bez zatrzymania pracy</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════ DEMO STRIP ════ -->
+<div class="demo-strip">
+  <div class="container demo-strip-inner">
+    <span class="demo-strip-left">
+      <span class="live-dot"></span>
+      Demo systemu działa na żywo — bez rejestracji, bez zobowiązań
+    </span>
+    <div class="demo-strip-right">
+      <a href="https://demo.flowquest.pl/" class="demo-strip-btn" target="_blank" rel="noopener">
+        <i class="fa-solid fa-play"></i> Wypróbuj demo branżowe
+      </a>
+      <a href="kontakt.html" class="demo-strip-secondary">
+        Po demo — umów audyt <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<style>
+.demo-strip {
+  background: #0f172a;
+  padding: 16px 0;
+  position: relative;
+}
+.demo-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(37,99,235,.1) 0%, rgba(37,99,235,.04) 50%, rgba(37,99,235,.08) 100%);
+  pointer-events: none;
+}
+.demo-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.demo-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  position: relative;
+  z-index: 1;
+}
+.demo-strip-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1; }
+.demo-strip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #2563eb;
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 700;
+  padding: 9px 20px;
+  border-radius: 9px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 200ms ease, transform 200ms ease, box-shadow 300ms ease;
+  box-shadow: 0 1px 4px rgba(37,99,235,.35);
+}
+.demo-strip-btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,.45); }
+.demo-strip-secondary {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 200ms ease;
+  white-space: nowrap;
+}
+.demo-strip-secondary:hover { color: #93c5fd; }
+@media(max-width:640px) {
+  .demo-strip-inner { flex-direction: column; gap: 10px; text-align: center; }
+  .demo-strip-left { justify-content: center; }
+  .demo-strip-right { width: 100%; flex-direction: column; gap: 8px; }
+  .demo-strip-btn, .demo-strip-secondary { width: 100%; justify-content: center; text-align: center; }
+}
+</style>
+
+<!-- ════ PAS / OUTCOMES ════ -->
+<section class="pas-section">
+  <div class="container">
+    <div class="tc scroll-reveal" style="margin-bottom:48px">
+      <span class="s-label">Chaos vs porządek</span>
+      <h2 class="s-title">Kiedy firma rośnie, chaos rośnie szybciej niż przychód</h2>
+    </div>
+
+    <div class="pas-timeline">
+      <article class="pas-step reveal-left" data-pas="problem">
+        <div class="pas-step-num">01</div>
+        <div class="pas-step-content">
+          <div class="pas-kicker" style="color:#94a3b8">Problem</div>
+          <h3>Informacje giną między telefonem, Excelem i komunikatorami</h3>
+          <p>Lead trafia do handlowca, oferta żyje w mailu, harmonogram ekipy jest w innym miejscu, a właściciel firmy odzyskuje kontrolę dopiero wtedy, gdy klient pyta o opóźnienie.</p>
+        </div>
+      </article>
+      <article class="pas-step reveal-left" data-pas="agitacja" style="transition-delay:.15s">
+        <div class="pas-step-num">02</div>
+        <div class="pas-step-content">
+          <div class="pas-kicker" style="color:#64748b">Koszt bałaganu</div>
+          <h3>Każda nowa osoba w firmie to kolejna warstwa chaosu</h3>
+          <p>Ręczne przeklejanie danych wydłuża ofertowanie, psuje obsługę posprzedażową i sprawia, że firma boi się rosnąć — bo wzrost bez systemu oznacza utratę marży.</p>
+        </div>
+      </article>
+      <article class="pas-step reveal-left" data-pas="rozwiazanie" style="transition-delay:.3s">
+        <div class="pas-step-num">03</div>
+        <div class="pas-step-content">
+          <div class="pas-kicker" style="color:#3b82f6">Rozwiązanie</div>
+          <h3>FlowQuest staje się centralnym układem nerwowym firmy</h3>
+          <p>Jedna instancja łączy sprzedaż, operacje, finanse i komunikację. Zespół widzi ten sam stan sprawy, a właściciel podejmuje decyzje na podstawie danych, nie domysłów.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="impact-strip scroll-reveal">
+      <div class="impact-strip-item">
+        <span class="impact-strip-val" style="color:#3b82f6">8.71×</span>
+        <span class="impact-strip-lbl">Średni zwrot z inwestycji w CRM</span>
+      </div>
+      <div class="impact-strip-sep"></div>
+      <div class="impact-strip-item">
+        <span class="impact-strip-val">40%</span>
+        <span class="impact-strip-lbl">Szybsze ofertowanie po wdrożeniu</span>
+      </div>
+      <div class="impact-strip-sep"></div>
+      <div class="impact-strip-item">
+        <span class="impact-strip-val">24h</span>
+        <span class="impact-strip-lbl">Start bez zatrzymania pracy</span>
+      </div>
+      <div class="impact-strip-sep"></div>
+      <div class="impact-strip-item">
+        <span class="impact-strip-val">1</span>
+        <span class="impact-strip-lbl">Jedno źródło prawdy dla całej firmy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section class="steps-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Jak wdrażamy</span>
+      <h2 class="s-title">Trzy kroki do uporządkowania procesów</h2>
+      <p class="s-sub">Proces wdrożenia pokazujemy jako zmianę etapową: najpierw diagnoza, potem konfiguracja, na końcu spokojny start bez zatrzymywania bieżącej pracy.</p>
+    </div>
+    <div class="steps-track">
+      <div class="step-box scroll-reveal">
+        <div class="step-num-badge">01</div>
+        <h3>Audytujemy wąskie gardła i wybieramy scenariusz</h3>
+        <p>Na starcie zbieramy procesy, które dziś generują największy chaos, i dobieramy pakiet branżowy oraz moduły potrzebne na pierwszy etap.</p>
+      </div>
+      <div class="step-connector scroll-reveal"><i class="fa-solid fa-chevron-right" style="font-size:1.2em"></i></div>
+      <div class="step-box scroll-reveal">
+        <div class="step-num-badge">02</div>
+        <h3>Konfigurujemy proces pod branżę i zespół</h3>
+        <p>Importujemy dane, ustawiamy automatyzacje, role i formularze, a cały układ dopasowujemy do realnego sposobu pracy firmy, nie odwrotnie.</p>
+      </div>
+      <div class="step-connector scroll-reveal"><i class="fa-solid fa-chevron-right" style="font-size:1.2em"></i></div>
+      <div class="step-box scroll-reveal">
+        <div class="step-num-badge">03</div>
+        <h3>Startujesz bez przestoju i rozwijasz system etapami</h3>
+        <p>Po uruchomieniu dodajesz kolejne moduły wtedy, gdy firma jest gotowa. Dzięki temu skalujesz porządek, a nie poziom komplikacji.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FEATURES BENTO ════ -->
+<section class="features-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Funkcje</span>
+      <h2 class="s-title">Wszystko, czego potrzebuje<br>rosnąca firma</h2>
+      <p class="s-sub">Jeden system zamiast sześciu narzędzi. CRM, faktury, projekty, HR, AI — zintegrowane i gotowe.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card bc-1 scroll-reveal">
+        <div class="b-icon bi-b"><i class="fa-solid fa-briefcase"></i></div>
+        <h3>CRM i pipeline sprzedaży</h3>
+        <p>Kontakty, leady, pipeline Kanban. Automatyczne follow-upy. Historia komunikacji w jednym miejscu.</p>
+      </div>
+      <div class="bento-card bc-2 scroll-reveal">
+        <div class="b-icon bi-g"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <h3>Faktury i finanse</h3>
+        <p>VAT, proforma, zaliczkowe. e-Faktura KSeF. Integracje Stripe, PayU. Windykacja automatyczna.</p>
+      </div>
+      <div class="bento-card bc-3 scroll-reveal">
+        <div class="b-icon bi-a"><i class="fa-solid fa-diagram-project"></i></div>
+        <h3>Projekty i Gantt</h3>
+        <p>Zadania, kamienie milowe, wykresy Gantta. Timesheety. Panel klienta z podglądem na żywo.</p>
+      </div>
+      <div class="bento-card bc-4 scroll-reveal">
+        <div class="b-icon bi-p"><i class="fa-solid fa-users"></i></div>
+        <h3>HR i zarządzanie zespołem</h3>
+        <p>Ewidencja pracowników, urlopy, rekrutacja, onboarding. Resource workload — pełna widoczność obciążenia ekip. Wewnętrzna wiki i chat.</p>
+        <div class="bento-wide-visual">
+          <span class="bento-tag bt-p">hrm</span>
+          <span class="bento-tag bt-p">timesheets</span>
+          <span class="bento-tag bt-p">recruitment</span>
+          <span class="bento-tag bt-p">wiki</span>
+          <span class="bento-tag bt-p">prchat</span>
+        </div>
+      </div>
+      <div class="bento-card bc-5 scroll-reveal">
+        <div class="b-icon bi-c"><i class="fa-solid fa-robot"></i></div>
+        <h3>Automatyzacje i AI</h3>
+        <p>Reguły biznesowe, wyzwalacze, powiadomienia. OpenAI wbudowane — AI kategoryzuje leady, generuje kosztorysy, wysyła oferty. Integracja Telegram, REST API.</p>
+        <div class="bento-wide-visual">
+          <span class="bento-tag bt-b">openai</span>
+          <span class="bento-tag bt-g">automation</span>
+          <span class="bento-tag bt-b">api</span>
+          <span class="bento-tag bt-g">telegram</span>
+        </div>
+      </div>
+    </div>
+    <div class="tc" style="margin-top:28px">
+      <a href="funkcje.html" class="btn-ghost" style="display:inline-flex;margin:0 auto">Wszystkie 59 modułów <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MODULE CATEGORIES ════ -->
+<section class="module-showcase">
+  <div class="container module-showcase-inner">
+    <div>
+      <span class="s-label">Modularność bez nadmiaru</span>
+      <h2 class="s-title">Nie kupujesz przeładowanego CRM. Budujesz porządek krok po kroku.</h2>
+      <p class="s-sub">FlowQuest pozwala startować od rdzenia i dobierać kolejne obszary dopiero wtedy, gdy faktycznie przynoszą wartość. To lepsze dla zespołu, prostsze w komunikacji i czytelniejsze dla wyszukiwarek AI, które wolą konkret od przeładowanych list funkcji.</p>
+      <div class="module-cards">
+        <article class="module-card">
+          <h3>CRM &amp; Sprzedaż</h3>
+          <p>Lead-gen, pipeline, oferty, umowy i integracje z e-mail/SMS. Wszystko pod jednym panelem sprzedażowym.</p>
+          <a href="funkcje.html#crm">Zobacz kategorie CRM <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="module-card">
+          <h3>Procesy operacyjne</h3>
+          <p>Faktury, projekty, automaty, magazyny i integracje REST API — operacje w jednym cyklu.</p>
+          <a href="funkcje.html#operacje">Zobacz moduły operacyjne <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+        <article class="module-card">
+          <h3>Zespół &amp; HR</h3>
+          <p>Timesheety, HRM, wiki, chat wewnętrzny i onboarding. Każdy pracownik ma własny workflow.</p>
+          <a href="funkcje.html#hr">Zobacz HR i zespół <i class="fa-solid fa-arrow-right"></i></a>
+        </article>
+      </div>
+    </div>
+    <div class="module-callout">
+      <strong>Rdzeń + rozwój</strong>
+      <span>59 modułów i 10 pakietów branżowych</span>
+      <p>Rozpocznij od Core, a potem dokładnie dołóż procesy, które dziś najbardziej blokują sprzedaż, operacje lub obsługę klienta.</p>
+      <a href="funkcje.html" class="p-link"><i class="fa-solid fa-square-info"></i> Przejdź do listy wszystkich modułów</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PACKAGES ════ -->
+<section class="pkg-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Pakiety</span>
+      <h2 class="s-title">Elastyczny cennik</h2>
+      <p class="s-sub">Rdzeń darmowy. Płacisz subskrypcję tylko za moduły, których faktycznie potrzebujesz.</p>
+    </div>
+    <div class="pkg-grid">
+
+      <div class="p-card scroll-reveal">
+        <div class="p-tier">Core</div>
+        <div class="p-name">Rdzeń systemu</div>
+        <p class="p-desc">Pełna platforma CRM bez opłat — dla każdej instancji, na zawsze.</p>
+        <div class="p-price"><span class="p-price-num">0 PLN</span><span class="p-price-unit">&nbsp;/ zawsze</span></div>
+        <ul class="p-feats">
+          <li><i class="fa-solid fa-check-circle"></i>CRM, kontakty, pipeline sprzedaży</li>
+          <li><i class="fa-solid fa-check-circle"></i>Faktury, oferty, umowy</li>
+          <li><i class="fa-solid fa-check-circle"></i>Panel klienta Self-Service</li>
+          <li><i class="fa-solid fa-check-circle"></i>Projekty, Kanban, zadania</li>
+          <li><i class="fa-solid fa-check-circle"></i>Landing page builder (Zillapage)</li>
+        </ul>
+        <a href="kontakt.html" class="btn-p btn-p-outline">Zacznij bezpłatnie</a>
+        <a href="pakiety/core.html" class="p-link"><i class="fa-solid fa-file-lines"></i> Case study: jak TransLogica uporządkowała przepływ</a>
+      </div>
+
+      <div class="p-card p-featured scroll-reveal">
+        <span class="p-hot">Najczęściej wybierany</span>
+        <div class="p-tier">TEAMS</div>
+        <div class="p-name">FlowQuest TEAMS</div>
+        <p class="p-desc">Komplet dla zespołów 5–50 osób. HR, wiki, timesheety, chat.</p>
+        <div class="p-price"><span class="p-price-num">od 179 PLN</span><span class="p-price-unit">&nbsp;/ miesiąc</span></div>
+        <ul class="p-feats">
+          <li><i class="fa-solid fa-check-circle"></i>Wszystko z Core + SOLO</li>
+          <li><i class="fa-solid fa-check-circle"></i>HRM — urlopy, oceny, ewidencja</li>
+          <li><i class="fa-solid fa-check-circle"></i>Timesheety i karty pracy</li>
+          <li><i class="fa-solid fa-check-circle"></i>Rekrutacja i onboarding</li>
+          <li><i class="fa-solid fa-check-circle"></i>Wiki firmowa + chat wewnętrzny</li>
+        </ul>
+        <a href="oferta.html" class="btn-p btn-p-invert">Wybierz TEAMS</a>
+        <a href="pakiety/teams.html" class="p-link"><i class="fa-solid fa-file-lines"></i> Case study: Studio Północ i Work OS</a>
+      </div>
+
+      <div class="p-card scroll-reveal">
+        <div class="p-tier">SOLO</div>
+        <div class="p-name">FlowQuest SOLO</div>
+        <p class="p-desc">Core + e-faktura, automatyzacje i backup dla samodzielnych firm.</p>
+        <div class="p-price"><span class="p-price-num">od 79 PLN</span><span class="p-price-unit">&nbsp;/ miesiąc</span></div>
+        <ul class="p-feats">
+          <li><i class="fa-solid fa-check-circle"></i>Wszystko z Core</li>
+          <li><i class="fa-solid fa-check-circle"></i>e-Faktura KSeF</li>
+          <li><i class="fa-solid fa-check-circle"></i>Automatyzacje procesów</li>
+          <li><i class="fa-solid fa-check-circle"></i>Backup automatyczny</li>
+          <li><i class="fa-solid fa-check-circle"></i>API REST + SMS/Telegram</li>
+        </ul>
+        <a href="oferta.html" class="btn-p btn-p-solid">Wybierz SOLO</a>
+        <a href="pakiety/solo.html" class="p-link"><i class="fa-solid fa-file-lines"></i> Case study: AeroLab Drony i jednoosobowy growth</a>
+      </div>
+
+    </div>
+    <div class="tc" style="margin-top:20px">
+      <a href="oferta.html#branże" style="color:#3b82f6;font-size:.87rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px">Pakiety branżowe dla 10 branż &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INDUSTRIES ════ -->
+<section class="ind-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Branże</span>
+      <h2 class="s-title">Specjalistyczne konfiguracje<br>dla 10 branż</h2>
+      <p class="s-sub">Każda branża ma własny zestaw modułów dopasowany do specyficznych procesów i wyzwań.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-tile scroll-reveal" style="--ic:#10b981">
+        <div class="ind-icon"><i class="fa-solid fa-solar-panel"></i></div>
+        <div class="ind-name">HVAC &amp; OZE</div>
+        <div class="ind-pkg-name">Technik PRO</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#f59e0b">
+        <div class="ind-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+        <div class="ind-name">Budownictwo</div>
+        <div class="ind-pkg-name">Budowa Control</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#ef4444">
+        <div class="ind-icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <div class="ind-name">Medycyna</div>
+        <div class="ind-pkg-name">Klinika Flow</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#8b5cf6">
+        <div class="ind-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+        <div class="ind-name">Prawo</div>
+        <div class="ind-pkg-name">Kancelaria 2.0</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#3b82f6">
+        <div class="ind-icon"><i class="fa-solid fa-code"></i></div>
+        <div class="ind-name">Agencje &amp; IT</div>
+        <div class="ind-pkg-name">Smart Agency Kit</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#f97316">
+        <div class="ind-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div class="ind-name">Logistyka</div>
+        <div class="ind-pkg-name">Logistyka Fleet</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#06b6d4">
+        <div class="ind-icon"><i class="fa-solid fa-city"></i></div>
+        <div class="ind-name">Nieruchomości</div>
+        <div class="ind-pkg-name">Real Estate 360</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#6366f1">
+        <div class="ind-icon"><i class="fa-solid fa-boxes-stacking"></i></div>
+        <div class="ind-name">E-commerce B2B</div>
+        <div class="ind-pkg-name">E-commerce Sync</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#f43f5e">
+        <div class="ind-icon"><i class="fa-solid fa-dumbbell"></i></div>
+        <div class="ind-name">Fitness</div>
+        <div class="ind-pkg-name">Studio Treningu</div>
+      </div>
+      <div class="ind-tile scroll-reveal" style="--ic:#ec4899">
+        <div class="ind-icon"><i class="fa-solid fa-wand-sparkles"></i></div>
+        <div class="ind-name">Beauty &amp; SPA</div>
+        <div class="ind-pkg-name">Beauty Expert</div>
+      </div>
+    </div>
+    <div class="tc" style="margin-top:24px">
+      <a href="oferta.html#branże" class="btn-ghost" style="display:inline-flex;margin:0 auto">Szczegóły pakietów branżowych <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INDUSTRY ARTICLES ════ -->
+<section class="featured-verticals" id="scenariusze">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Branże priorytetowe</span>
+      <h2 class="s-title">Scenariusze demo zaprojektowane pod realny chaos operacyjny</h2>
+      <p class="s-sub">Najmocniej eksponujemy te branże, w których rozproszenie danych boli najbardziej i gdzie najszybciej widać efekt uporządkowania procesu.</p>
+    </div>
+    <div class="featured-grid">
+      <article class="vertical-card scroll-reveal">
+        <div class="vertical-top">
+          <span class="vertical-badge"><i class="fa-solid fa-solar-panel"></i> OZE i instalacje</span>
+          <span class="vertical-metric">Kanban montaży<br>i dokumentów</span>
+        </div>
+        <h3>Oferty, ekipy terenowe i serwis w jednym przepływie</h3>
+        <p>Demo dla OZE pokazuje, jak prowadzić klienta od zapytania przez wycenę, montaż i płatność bez gubienia statusów między biurem a terenem.</p>
+        <ul class="vertical-points">
+          <li><i class="fa-solid fa-check"></i><span>Mobilny dostęp do harmonogramów i protokołów odbioru.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Śledzenie, czy klient otworzył ofertę i kiedy wymaga follow-upu.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Automatyczne przypomnienia o przeglądach i płatnościach.</span></li>
+        </ul>
+      </article>
+      <article class="vertical-card scroll-reveal">
+        <div class="vertical-top">
+          <span class="vertical-badge"><i class="fa-solid fa-spa"></i> Beauty i medycyna estetyczna</span>
+          <span class="vertical-metric">Mniej no-show<br>więcej powrotów</span>
+        </div>
+        <h3>CRM, który działa jak inteligentna recepcja</h3>
+        <p>Scenariusz Beauty skupia się na przypomnieniach, historii klienta, segmentacji i automatycznym upsellu po wizycie, czyli tam, gdzie powstaje realna wartość.</p>
+        <ul class="vertical-points">
+          <li><i class="fa-solid fa-check"></i><span>Automatyczne SMS-y i e-maile ograniczające puste terminy.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Karta klienta z historią zabiegów i preferencjami.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Kampanie reaktywacyjne dla klientów, którzy dawno nie wrócili.</span></li>
+        </ul>
+      </article>
+      <article class="vertical-card scroll-reveal">
+        <div class="vertical-top">
+          <span class="vertical-badge"><i class="fa-solid fa-bell-concierge"></i> Hospitality i catering</span>
+          <span class="vertical-metric">Obsługa gościa<br>od rezerwacji po upsell</span>
+        </div>
+        <h3>Guest journey i logistyka usług w jednym środowisku</h3>
+        <p>W tym demo FlowQuest porządkuje zapytania, preferencje gości, zamówienia dodatkowe i komunikację z zespołem, tak aby doświadczenie klienta było spójne na każdym etapie.</p>
+        <ul class="vertical-points">
+          <li><i class="fa-solid fa-check"></i><span>Mikropreferencje klienta zapisane w jednym rekordzie.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>QR i portal klienta do zamówień dodatkowych i upsellu.</span></li>
+          <li><i class="fa-solid fa-check"></i><span>Lepsza kontrola produkcji i dostaw w cateringu eventowym.</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="industry-articles-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Answer-first content</span>
+      <h2 class="s-title">Treści branżowe gotowe do cytowania</h2>
+      <p class="s-sub">Każdy blok poniżej odpowiada na konkretne pytanie biznesowe: jaki chaos porządkujemy, jakimi modułami i z jakim efektem. To układ dobry dla użytkownika, SEO i silników generatywnych.</p>
+    </div>
+    <div class="industry-article-grid">
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">HVAC &amp; OZE</div>
+        <h3>Technik PRO: planowanie ekip i e-Faktury w jednym kokpicie</h3>
+        <p>FlowQuest skonfigurował harmonogramy, magazyn części i oferty PV w jednym widoku, a automaty przypominają teamom o przeglądach i wysyłają e-faktury.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, harmonogramy, automaty</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 32% mniej telefonów do kierowników</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Budownictwo</div>
+        <h3>Budowa Control: kontrola kosztów, czasu i ekip</h3>
+        <p>W projekcie budowlanym FlowQuest zbiera timesheety, budżety i zgody BHP, dzięki czemu kierownicy wiedzą, która brygada i ile zasobów potrzebuje jutro.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: projekty, timesheety, dokumentacja</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 18% krótsze zamknięcie etapu</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Medycyna</div>
+        <h3>Klinika Flow: historia pacjentów i compliance w jednym miejscu</h3>
+        <p>Dzienniki wizyt, zgody, rozliczenia NFZ i przypomnienia o badaniach odpowiadają w FlowQuest jednemu procesowi — każdy lekarz ma pełną historię w 15 sekund.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, workflow, dokumenty</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: brak przeterminowanych czyszczeń danych</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Prawo</div>
+        <h3>Kancelaria 2.0: sprawy, deadline, dowody w FlowQuest</h3>
+        <p>Jeszcze przed otwarciem sprawy FlowQuest tworzy check-listę, przypomina o terminach i archiwizuje dokumenty — kancelaria ma transparentny account plan.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, case management, wiki</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 100% terminowych zgłoszeń</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Agencje &amp; IT</div>
+        <h3>Smart Agency Kit: briefy, retainer, billboard w jednym feedzie</h3>
+        <p>Zespoły kreatywne widzą jasny pipeline, automaty wypuszczają zadania do Slacka, a moduł timesheet mierzy marże każdej kampanii.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, projekty, timesheety</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 25% więcej czasu na pomysły</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Logistyka</div>
+        <h3>Logistyka Fleet: trasy, kierowcy i zgłoszenia jednym oknem</h3>
+        <p>FlowQuest Fleet łączy GPS z dokumentacją kierowców, automatycznie aktualizuje status przesyłki i przypomina o przeglądach technicznych.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, zlecenia, automaty</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 18% mniej opóźnień</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Nieruchomości</div>
+        <h3>Real Estate 360: leady, oferty, umowy i portal klienta</h3>
+        <p>FlowQuest trzyma listingi, follow-upy i umowy najmu w jednym pipeline, a portal klienta pokazuje aktualny postęp sprzedaży.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, portal klienta, dokumenty</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 40% szybsze podpisy</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">E-commerce B2B</div>
+        <h3>E-commerce Sync: szybkie ofertowanie i automatyczna faktura</h3>
+        <p>FlowQuest tworzy cost-plus ofert, generuje dokumenty KSeF i informuje magazyn przez REST o nowym zamówieniu.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, automaty, API</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 60% mniej ręcznych cytowań</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Fitness</div>
+        <h3>Studio Treningu: członkowie, grafiki, płatności i upselle</h3>
+        <p>FlowQuest pilnuje subskrypcji, wysyła automaty przypomnienia o opłatach i pozwala trenerom podbijać pakiety up-sellingowe.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, automaty, finanse</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 22% więcej przedłużeń karnetów</span>
+        </div>
+      </article>
+      <article class="industry-article scroll-reveal">
+        <div class="article-tag">Beauty &amp; SPA</div>
+        <h3>Beauty Expert: rezerwacje, upsell i follow-up w jednym flow</h3>
+        <p>FlowQuest automatyzuje przypomnienia o wizytach, proponuje zabiegi po sesji i generuje ofertę VIP dla stałych klientów.</p>
+        <div class="industry-article-meta">
+          <span><i class="fa-solid fa-check"></i> Moduły: CRM, automaty, moduł ofert</span>
+          <span><i class="fa-solid fa-rocket"></i> Efekt: 37% wzrost przychodów z powtórek</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TESTIMONIALS ════ -->
+<section class="testi-section">
+  <div class="container">
+    <div class="tc scroll-reveal">
+      <span class="s-label">Opinie klientów</span>
+      <h2 class="s-title">Co mówią firmy,<br>które nam zaufały</h2>
+      <p class="s-sub">Realne wyniki. Realne firmy. Realna zmiana w sposobie pracy.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="t-card scroll-reveal">
+        <div class="t-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="t-quote">"Przed FlowQuest mieliśmy Excel, papierowe zlecenia i trzy różne systemy. Teraz wszystko jest w jednym miejscu. Zaoszczędziliśmy 10h tygodniowo na samej administracji."</p>
+        <div class="t-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#1d4ed8,#2563eb)">AK</div>
+          <div><div class="t-name">Andrzej Kowalski</div><div class="t-role">Właściciel, AK Klimatyzacja</div></div>
+        </div>
+      </div>
+      <div class="t-card scroll-reveal">
+        <div class="t-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="t-quote">"Budowa Control to strzał w dziesiątkę. Gantt, karty pracy, rozliczenie ekip — wszystko działa. Mam pełny obraz postępu każdej budowy bez telefonów do kierowników."</p>
+        <div class="t-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#1e40af,#3b82f6)">MW</div>
+          <div><div class="t-name">Marek Wiśniewski</div><div class="t-role">Prezes, MW-Bud Sp. z o.o.</div></div>
+        </div>
+      </div>
+      <div class="t-card scroll-reveal">
+        <div class="t-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+        <p class="t-quote">"Kancelaria 2.0 ma account planning spraw, wiki dokumentów i bazę akt. To nie jest zwykły CRM — to narzędzie, które rozumie specyfikę kancelarii prawnej."</p>
+        <div class="t-author">
+          <div class="t-av" style="background:linear-gradient(135deg,#6d28d9,#8b5cf6)">BL</div>
+          <div><div class="t-name">Barbara Lewandowska</div><div class="t-role">Radca Prawny, Kancelaria BL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ / AEO ════ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-shell scroll-reveal">
+      <span class="s-label">FAQ i AEO</span>
+      <h2>Najczęstsze pytania o wdrożenie FlowQuest</h2>
+      <p class="s-sub">Ta sekcja odpowiada wprost na pytania, które zadają właściciele firm przed zmianą systemu. Dzięki temu treść jest czytelna zarówno dla człowieka, jak i dla asystentów AI.</p>
+
+      <div class="faq-list">
+        <article class="faq-item">
+          <h3 class="faq-question">Czy wdrożenie FlowQuest zatrzyma bieżącą pracę firmy?</h3>
+          <p class="faq-answer">Nie. Standardowo wdrażamy system etapami: najpierw porządkujemy najbardziej krytyczny proces, potem dokładamy kolejne moduły. Dzięki temu zespół nie musi uczyć się wszystkiego naraz, a firma nie wpada w przestój.</p>
+        </article>
+        <article class="faq-item">
+          <h3 class="faq-question">Ile trwa uruchomienie podstawowej instancji FlowQuest?</h3>
+          <p class="faq-answer">W typowym scenariuszu startowym podstawowa konfiguracja zajmuje 24 godziny. Obejmuje to uruchomienie instancji, ustawienie ról, import danych startowych i dopięcie najważniejszych automatyzacji.</p>
+        </article>
+        <article class="faq-item">
+          <h3 class="faq-question">Czy FlowQuest działa na telefonie i w pracy terenowej?</h3>
+          <p class="faq-answer">Tak. Interfejs jest responsywny i projektowany z myślą o obsłudze mobilnej, dzięki czemu handlowcy, technicy i właściciele firm mogą sprawdzać statusy, zadania i dokumenty bez wracania do biura.</p>
+        </article>
+        <article class="faq-item">
+          <h3 class="faq-question">Czy muszę kupić wszystkie moduły od razu?</h3>
+          <p class="faq-answer">Nie. To właśnie przewaga FlowQuest nad przeładowanymi systemami. Startujesz od rdzenia i dobierasz moduły wtedy, gdy są potrzebne biznesowo. Dzięki temu płacisz za realną wartość, a nie za funkcje, których nikt nie używa.</p>
+        </article>
+        <article class="faq-item">
+          <h3 class="faq-question">Jakie branże najczęściej wdrażają FlowQuest?</h3>
+          <p class="faq-answer">Najmocniej rozwijamy scenariusze dla OZE i instalacji, Beauty oraz Hospitality i cateringu, ale system działa także w budownictwie, logistyce, usługach profesjonalnych i innych branżach, które chcą uporządkować rozproszone procesy.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CTA FINALE ════ -->
+<div class="cta-finale">
+  <div class="cta-inner">
+    <div class="scroll-reveal">
+      <span class="s-label" style="justify-content:center;margin-bottom:18px">Zacznij porządkować</span>
+      <h2>Twoja firma zasługuje<br>na <span class="conic-text">cyfrowy porządek</span>.</h2>
+      <p>30-minutowy audyt procesów — bezpłatnie. Pokażemy, które obszary można usprawnić najpierw i jak zrobić to bez przestoju w codziennej pracy.</p>
+      <div class="cta-scarcity scroll-reveal">
+        <i class="fa-solid fa-circle-info" style="color:#3b82f6"></i>
+        <span>Dostępne <strong>3 miejsca wdrożeniowe</strong> do końca Q2 2026 — pierwsze spotkanie w ciągu 48h</span>
+      </div>
+      <div class="cta-row">
+        <a href="kontakt.html" class="btn-cta-glow"><i class="fa-solid fa-magnifying-glass-chart"></i> Umów bezpłatny audyt</a>
+        <a href="https://demo.flowquest.pl/" class="btn-ghost" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Wypróbuj demo na żywo</a>
+      </div>
+      <p class="cta-micro">Bez umów, bez zobowiązań. Jeśli FlowQuest nie pasuje do Twojego procesu — powiem Ci to wprost.</p>
+    </div>
+  </div>
+</div>
+<style>
+.cta-scarcity {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(37,99,235,.06);
+  border: 1px solid rgba(37,99,235,.15);
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin: 0 auto 28px;
+  font-size: .84rem;
+  color: var(--pg-text-muted);
+  line-height: 1.5;
+  max-width: 540px;
+}
+.cta-scarcity strong { color: #3b82f6; }
+.cta-micro {
+  margin: 18px auto 0;
+  font-size: .78rem;
+  color: var(--pg-text-dim);
+  max-width: 360px;
+  line-height: 1.6;
+}
+</style>
+</main>
+
+<!-- ════ FOOTER ════ -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img src="https://go.flowquest.pl/uploads/company/2d792704c2078d4b3d0214c7dcd54ec8.png" alt="FlowQuest" class="footer-logo">
+      <p class="footer-tagline">Modułowy System Operacyjny<br>dla rosnących firm z sektora MŚP.</p>
+      <div class="footer-social">
+        <a href="linkedin.html" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="facebook.html" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Produkt</div>
+      <a href="funkcje.html">Funkcje systemu</a>
+      <a href="oferta.html">Pakiety i ceny</a>
+      <a href="oferta.html#branże">Pakiety branżowe</a>
+      <a href="https://crm.flowquest.pl/" target="_blank">Panel klienta</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Zasoby</div>
+      <a href="baza-wiedzy.html">Baza wiedzy</a>
+      <a href="monitoring.html">Status systemu</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Branże</div>
+      <a href="oferta.html#branże">HVAC &amp; OZE</a>
+      <a href="oferta.html#branże">Budownictwo</a>
+      <a href="oferta.html#branże">Medycyna</a>
+      <a href="oferta.html#branże">Prawo</a>
+      <a href="oferta.html#branże">+6 innych branż</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Firma</div>
+      <a href="o-nas.html">O nas</a>
+      <a href="kontakt.html">Kontakt</a>
+      <a href="kontakt.html">Umów audyt</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Kontakt</div>
+      <a href="mailto:kontakt@flowquest.pl"><i class="fa-solid fa-envelope"></i>kontakt@flowquest.pl</a>
+      <a href="tel:+48000000000"><i class="fa-solid fa-phone"></i>+48 000 000 000</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <span>&copy; 2026 FlowQuest. Wszelkie prawa zastrzeżone.</span>
+      <div class="footer-bottom-links">
+        <a href="polityka-prywatnosci.html">Polityka prywatno&#347;ci</a>
+        <a href="regulamin.html">Regulamin</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="motion.js" defer></script>
+<script>
+/* ── HTML5 Canvas Particle Network ── */
+(function() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (canvas) canvas.style.display = 'none';
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], animId;
+  let COUNT = window.innerWidth < 768 ? 24 : 50;
+  let MAX_DIST = window.innerWidth < 768 ? 90 : 120;
+  const PARTICLE_COLOR = '59,130,246';
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    COUNT = window.innerWidth < 768 ? 24 : 50;
+    MAX_DIST = window.innerWidth < 768 ? 90 : 120;
+  }
+
+  function Particle() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - .5) * .3;
+    this.vy = (Math.random() - .5) * .3;
+    this.r  = Math.random() * 1.2 + .4;
+  }
+
+  Particle.prototype.update = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > W) this.vx *= -1;
+    if (this.y < 0 || this.y > H) this.vy *= -1;
+  };
+
+  function init() {
+    resize();
+    particles = Array.from({ length: COUNT }, () => new Particle());
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Draw connections
+    for (let i = 0; i < COUNT; i++) {
+      for (let j = i + 1; j < COUNT; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < MAX_DIST) {
+          const alpha = (1 - dist / MAX_DIST) * 0.25;
+          ctx.strokeStyle = `rgba(${PARTICLE_COLOR},${alpha})`;
+          ctx.lineWidth = .6;
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw dots
+    particles.forEach(p => {
+      ctx.fillStyle = `rgba(${PARTICLE_COLOR},.4)`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      p.update();
+    });
+
+    animId = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { init(); });
+  init();
+  draw();
+
+  // Pause when tab not visible (performance)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else draw();
+  });
+})();
+
+// Scroll-driven fallback for non-supporting browsers
+if (!CSS.supports('animation-timeline', 'scroll()')) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.scroll-reveal').forEach(el => io.observe(el));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowQuest Admin — Zarządzanie artykułami</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/uploads/company/favicon.png">
+<link rel="apple-touch-icon" href="/uploads/company/favicon.png">
+<meta name="theme-color" content="#2563eb">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #070d1a;
+  --bg-card:  #0b1426;
+  --bg-input: #0f1f38;
+  --border:   rgba(255,255,255,0.08);
+  --blue:     #2563eb;
+  --blue-h:   #3b82f6;
+  --green:    #10b981;
+  --red:      #ef4444;
+  --amber:    #f59e0b;
+  --text:     #e2e8f0;
+  --text-m:   #64748b;
+  --text-d:   #334155;
+  --radius:   14px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── LOGIN ── */
+.login-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.login-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 44px 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.login-logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+.login-sub { color: var(--text-m); font-size: .85rem; margin-bottom: 32px; }
+.login-box input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: .95rem;
+  font-family: inherit;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 180ms;
+}
+.login-box input:focus { border-color: rgba(37,99,235,.5); }
+.btn-login {
+  width: 100%;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 180ms;
+}
+.btn-login:hover { background: var(--blue-h); }
+.login-err { color: #f87171; font-size: .82rem; margin-top: 10px; display: none; }
+
+/* ── LAYOUT ── */
+.app { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 4px;
+}
+.sidebar-logo {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #fff;
+  padding: 8px 12px 20px;
+  letter-spacing: -0.5px;
+}
+.sidebar-logo span { color: var(--blue-h); }
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--text-m);
+  text-decoration: none;
+  font-size: .87rem;
+  font-weight: 500;
+  transition: all 160ms;
+}
+.sidebar a:hover { background: rgba(255,255,255,.05); color: var(--text); }
+.sidebar a.active { background: rgba(37,99,235,.15); color: var(--blue-h); font-weight: 600; }
+.sidebar a i { width: 16px; text-align: center; font-size: .9em; }
+.sidebar-sep { height: 1px; background: var(--border); margin: 8px 0; }
+.sidebar-bottom { margin-top: auto; }
+
+.main { flex: 1; padding: 32px; overflow-y: auto; }
+
+/* ── TOP BAR ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+.topbar h1 { font-size: 1.4rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: .85rem;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 180ms;
+  text-decoration: none;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue-h); }
+.btn-ghost { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover { background: rgba(255,255,255,.1); }
+.btn-danger { background: rgba(239,68,68,.12); color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+.btn-danger:hover { background: rgba(239,68,68,.2); }
+.btn-sm { padding: 6px 12px; font-size: .78rem; }
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+.stat-box .val { font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: -1px; }
+.stat-box .lbl { font-size: .78rem; color: var(--text-m); margin-top: 3px; }
+
+/* ── ARTICLE LIST ── */
+.article-list { display: flex; flex-direction: column; gap: 10px; }
+.article-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 180ms;
+}
+.article-row:hover { border-color: rgba(255,255,255,.14); }
+.art-cat {
+  font-size: .66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--blue-h);
+  background: rgba(37,99,235,.12);
+  border: 1px solid rgba(37,99,235,.2);
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.art-title { font-weight: 700; color: #fff; font-size: .95rem; flex: 1; min-width: 0; }
+.art-title small { display: block; font-size: .75rem; color: var(--text-m); font-weight: 400; margin-top: 2px; }
+.art-status {
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.status-pub { background: rgba(16,185,129,.12); color: #34d399; border: 1px solid rgba(16,185,129,.2); }
+.status-draft { background: rgba(245,158,11,.1); color: #fbbf24; border: 1px solid rgba(245,158,11,.2); }
+.art-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+/* ── EDITOR ── */
+.editor-wrap {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 32px;
+}
+.editor-wrap.active { display: block; }
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: .78rem; font-weight: 600; color: var(--text-m); text-transform: uppercase; letter-spacing: .8px; }
+.field input, .field select, .field textarea {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-size: .9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 180ms;
+  width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: rgba(37,99,235,.5);
+}
+.field textarea { resize: vertical; min-height: 160px; line-height: 1.65; }
+.field select option { background: #0b1426; }
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.toggle-row label { font-size: .88rem; color: var(--text); cursor: pointer; flex: 1; }
+.toggle-row input[type=checkbox] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--blue); }
+.editor-actions { display: flex; gap: 10px; margin-top: 22px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #fff;
+  color: #0f172a;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: .88rem;
+  font-weight: 600;
+  box-shadow: 0 16px 40px rgba(0,0,0,.4);
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 300ms ease;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: #10b981; color: #fff; }
+.toast.error { background: #ef4444; color: #fff; }
+
+/* ── Tablet ── */
+@media(max-width: 900px) {
+  .sidebar { width: 200px; }
+}
+
+/* ── Mobile ── */
+@media(max-width: 700px) {
+  .app { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar-logo { display: none; }
+  .sidebar a {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+  }
+  .sidebar-sep { display: none; }
+  .sidebar-bottom { margin-top: 0; display: flex; gap: 6px; flex-shrink: 0; margin-left: auto; }
+  .main { padding: 16px; }
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat-box { padding: 14px 12px; }
+  .stat-box .val { font-size: 1.4rem; }
+  .editor-grid { grid-template-columns: 1fr; }
+  .editor-wrap { padding: 18px 16px; }
+  .topbar h1 { font-size: 1.15rem; }
+  .article-row { flex-wrap: wrap; gap: 8px; }
+  .art-title { flex: 1 1 100%; order: -1; }
+  .art-status { margin-left: auto; }
+  .login-box { padding: 32px 24px; }
+}
+
+/* ── Small phone ── */
+@media(max-width: 420px) {
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .art-cat { display: none; }
+  .sidebar a span, .sidebar-bottom a span { display: none; }
+  .sidebar a i { margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ── -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">Flow<span>Quest</span></div>
+    <p class="login-sub">Panel administracyjny — zaloguj się</p>
+    <input type="password" id="passInput" placeholder="Hasło administratora" autocomplete="current-password">
+    <button class="btn-login" onclick="doLogin()"><i class="fa-solid fa-lock-open"></i> Zaloguj</button>
+    <p class="login-err" id="loginErr">Nieprawidłowe hasło.</p>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div class="app" id="appWrap" style="display:none">
+  <nav class="sidebar">
+    <div class="sidebar-logo">Flow<span style="color:var(--blue-h)">Quest</span> Admin</div>
+    <a href="#" class="active" onclick="showView('articles',this)"><i class="fa-solid fa-newspaper"></i> Artykuły</a>
+    <a href="#" onclick="showView('new',this)"><i class="fa-solid fa-plus"></i> Nowy artykuł</a>
+    <div class="sidebar-sep"></div>
+    <div class="sidebar-bottom">
+      <a href="../index.html" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Podgląd strony</a>
+      <a href="#" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Wyloguj</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <!-- Articles list view -->
+    <div id="viewArticles">
+      <div class="topbar">
+        <h1>Artykuły</h1>
+        <button class="btn btn-primary" onclick="showView('new')"><i class="fa-solid fa-plus"></i> Nowy artykuł</button>
+      </div>
+      <div class="stats-row" id="statsRow">
+        <div class="stat-box"><div class="val" id="statTotal">—</div><div class="lbl">Wszystkich artykułów</div></div>
+        <div class="stat-box"><div class="val" id="statPub">—</div><div class="lbl">Opublikowanych</div></div>
+        <div class="stat-box"><div class="val" id="statDraft">—</div><div class="lbl">Szkiców</div></div>
+      </div>
+      <div class="article-list" id="articleList">
+        <p style="color:var(--text-m);text-align:center;padding:40px">Ładowanie artykułów…</p>
+      </div>
+    </div>
+
+    <!-- Editor view -->
+    <div id="viewNew" style="display:none">
+      <div class="topbar">
+        <h1 id="editorTitle">Nowy artykuł</h1>
+        <button class="btn btn-ghost" onclick="showView('articles')"><i class="fa-solid fa-arrow-left"></i> Powrót</button>
+      </div>
+      <div class="editor-wrap active">
+        <input type="hidden" id="editId">
+        <div class="editor-grid">
+          <div class="field full">
+            <label>Tytuł artykułu *</label>
+            <input type="text" id="editTitle" placeholder="Wpisz tytuł…">
+          </div>
+          <div class="field">
+            <label>Kategoria</label>
+            <select id="editCategory">
+              <option>HVAC & OZE</option>
+              <option>Beauty & SPA</option>
+              <option>Budownictwo</option>
+              <option>Medycyna</option>
+              <option>Prawo</option>
+              <option>Logistyka</option>
+              <option>Nieruchomości</option>
+              <option>E-commerce B2B</option>
+              <option>Fitness</option>
+              <option>Agencje & IT</option>
+              <option>Transformacja cyfrowa</option>
+              <option>Aktualności</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Tag / typ</label>
+            <select id="editTag">
+              <option value="case-study">Case study</option>
+              <option value="artykuł">Artykuł</option>
+              <option value="aktualności">Aktualności</option>
+              <option value="poradnik">Poradnik</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label>Skrót / excerpt (widoczny na stronie głównej)</label>
+            <textarea id="editExcerpt" rows="3" placeholder="Krótki opis artykułu (2–3 zdania)…"></textarea>
+          </div>
+          <div class="field full">
+            <label>Treść artykułu</label>
+            <textarea id="editContent" rows="12" placeholder="Pełna treść artykułu…"></textarea>
+          </div>
+          <div class="field">
+            <label>Moduły (np. CRM, automatyzacje)</label>
+            <input type="text" id="editModules" placeholder="CRM, harmonogramy, automatyzacje">
+          </div>
+          <div class="field">
+            <label>Kluczowy wynik (np. 40% szybsze ofertowanie)</label>
+            <input type="text" id="editResult" placeholder="40% szybsze ofertowanie">
+          </div>
+          <div class="field">
+            <label>Autor</label>
+            <input type="text" id="editAuthor" value="FlowQuest Team">
+          </div>
+          <div class="field">
+            <label>Data publikacji</label>
+            <input type="date" id="editDate">
+          </div>
+          <div class="field full">
+            <div class="toggle-row">
+              <input type="checkbox" id="editPublished">
+              <label for="editPublished">Opublikowany (widoczny na stronie)</label>
+            </div>
+          </div>
+        </div>
+        <div class="editor-actions">
+          <button class="btn btn-primary" onclick="saveArticle()"><i class="fa-solid fa-floppy-disk"></i> Zapisz artykuł</button>
+          <button class="btn btn-ghost" onclick="clearEditor()"><i class="fa-solid fa-rotate-left"></i> Wyczyść</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── CONFIG ──
+const API_URL  = 'api.php';
+const PASS_KEY = 'fq_admin_token';
+
+// ── AUTH ──
+function doLogin() {
+  const pass = document.getElementById('passInput').value;
+  if (!pass) return;
+  sessionStorage.setItem(PASS_KEY, pass);
+  loadApp();
+}
+function doLogout() {
+  sessionStorage.removeItem(PASS_KEY);
+  document.getElementById('appWrap').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+}
+document.getElementById('passInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+function getToken() {
+  return sessionStorage.getItem(PASS_KEY) || '';
+}
+
+// ── API ──
+async function apiGet(admin = true) {
+  const res = await fetch(`${API_URL}?admin=${admin ? 1 : 0}`, {
+    headers: { 'X-Auth-Token': getToken() }
+  });
+  if (res.status === 401) { doLogout(); throw new Error('Unauthorized'); }
+  return res.json();
+}
+
+async function apiSave(article) {
+  const res = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Auth-Token': getToken() },
+    body: JSON.stringify(article)
+  });
+  if (res.status === 401) { doLogout(); throw new Error('Unauthorized'); }
+  return res.json();
+}
+
+async function apiDelete(id) {
+  const res = await fetch(`${API_URL}?id=${id}`, {
+    method: 'DELETE',
+    headers: { 'X-Auth-Token': getToken() }
+  });
+  if (res.status === 401) { doLogout(); throw new Error('Unauthorized'); }
+  return res.json();
+}
+
+// ── TOAST ──
+function toast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'check' : 'xmark'}"></i> ${msg}`;
+  t.className = `toast show ${type}`;
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ── VIEWS ──
+function showView(name, linkEl) {
+  document.getElementById('viewArticles').style.display = name === 'articles' ? 'block' : 'none';
+  document.getElementById('viewNew').style.display      = name === 'new'      ? 'block' : 'none';
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+  if (name === 'articles') loadArticles();
+  if (name === 'new') clearEditor();
+}
+
+// ── ARTICLES ──
+let allArticles = [];
+
+async function loadArticles() {
+  try {
+    const data = await apiGet(true);
+    if (!data.success) { showLoginError(); return; }
+    allArticles = data.articles || [];
+    renderArticles();
+    renderStats();
+  } catch(e) {
+    document.getElementById('articleList').innerHTML =
+      '<p style="color:#f87171;text-align:center;padding:40px">Błąd połączenia z API. Sprawdź czy api.php działa.</p>';
+  }
+}
+
+function renderStats() {
+  const pub   = allArticles.filter(a => a.published).length;
+  const draft = allArticles.length - pub;
+  document.getElementById('statTotal').textContent = allArticles.length;
+  document.getElementById('statPub').textContent   = pub;
+  document.getElementById('statDraft').textContent = draft;
+}
+
+function renderArticles() {
+  const list = document.getElementById('articleList');
+  if (!allArticles.length) {
+    list.innerHTML = '<p style="color:var(--text-m);text-align:center;padding:40px">Brak artykułów. Dodaj pierwszy artykuł.</p>';
+    return;
+  }
+  list.innerHTML = allArticles.map(a => `
+    <div class="article-row">
+      <span class="art-cat">${escHtml(a.category || '—')}</span>
+      <div class="art-title">
+        ${escHtml(a.title)}
+        <small>${escHtml(a.date || '')} · ${escHtml(a.result || '')}</small>
+      </div>
+      <span class="art-status ${a.published ? 'status-pub' : 'status-draft'}">
+        ${a.published ? 'Opublikowany' : 'Szkic'}
+      </span>
+      <div class="art-actions">
+        <button class="btn btn-ghost btn-sm" onclick="editArticle('${escHtml(a.id)}')">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="deleteArticle('${escHtml(a.id)}', this)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── EDITOR ──
+function clearEditor() {
+  document.getElementById('editId').value       = '';
+  document.getElementById('editTitle').value    = '';
+  document.getElementById('editExcerpt').value  = '';
+  document.getElementById('editContent').value  = '';
+  document.getElementById('editModules').value  = '';
+  document.getElementById('editResult').value   = '';
+  document.getElementById('editAuthor').value   = 'FlowQuest Team';
+  document.getElementById('editDate').value     = new Date().toISOString().slice(0, 10);
+  document.getElementById('editPublished').checked = false;
+  document.getElementById('editCategory').value = 'HVAC & OZE';
+  document.getElementById('editTag').value      = 'case-study';
+  document.getElementById('editorTitle').textContent = 'Nowy artykuł';
+}
+
+function editArticle(id) {
+  const a = allArticles.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('editId').value       = a.id || '';
+  document.getElementById('editTitle').value    = a.title || '';
+  document.getElementById('editExcerpt').value  = a.excerpt || '';
+  document.getElementById('editContent').value  = a.content || '';
+  document.getElementById('editModules').value  = a.modules || '';
+  document.getElementById('editResult').value   = a.result || '';
+  document.getElementById('editAuthor').value   = a.author || 'FlowQuest Team';
+  document.getElementById('editDate').value     = a.date || '';
+  document.getElementById('editPublished').checked = !!a.published;
+  document.getElementById('editorTitle').textContent = 'Edytuj artykuł';
+
+  const cat = document.getElementById('editCategory');
+  for (let i = 0; i < cat.options.length; i++) {
+    if (cat.options[i].value === a.category) { cat.selectedIndex = i; break; }
+  }
+  const tag = document.getElementById('editTag');
+  for (let i = 0; i < tag.options.length; i++) {
+    if (tag.options[i].value === a.tag) { tag.selectedIndex = i; break; }
+  }
+  showView('new');
+}
+
+async function saveArticle() {
+  const title = document.getElementById('editTitle').value.trim();
+  if (!title) { toast('Tytuł jest wymagany.', 'error'); return; }
+
+  const article = {
+    id:        document.getElementById('editId').value || '',
+    title,
+    slug:      slugify(title),
+    category:  document.getElementById('editCategory').value,
+    tag:       document.getElementById('editTag').value,
+    excerpt:   document.getElementById('editExcerpt').value.trim(),
+    content:   document.getElementById('editContent').value.trim(),
+    modules:   document.getElementById('editModules').value.trim(),
+    result:    document.getElementById('editResult').value.trim(),
+    author:    document.getElementById('editAuthor').value.trim() || 'FlowQuest Team',
+    date:      document.getElementById('editDate').value || new Date().toISOString().slice(0, 10),
+    published: document.getElementById('editPublished').checked,
+  };
+
+  try {
+    const data = await apiSave(article);
+    if (data.success) {
+      toast('Artykuł zapisany pomyślnie!');
+      showView('articles');
+    } else {
+      toast(data.error || 'Błąd zapisu.', 'error');
+    }
+  } catch(e) {
+    toast('Błąd połączenia.', 'error');
+  }
+}
+
+async function deleteArticle(id, btn) {
+  if (!confirm('Usunąć ten artykuł? Tej operacji nie można cofnąć.')) return;
+  btn.disabled = true;
+  try {
+    const data = await apiDelete(id);
+    if (data.success) {
+      toast('Artykuł usunięty.');
+      loadArticles();
+    } else {
+      toast(data.error || 'Błąd usuwania.', 'error');
+      btn.disabled = false;
+    }
+  } catch(e) {
+    toast('Błąd połączenia.', 'error');
+    btn.disabled = false;
+  }
+}
+
+// ── UTILS ──
+function slugify(str) {
+  return str.toLowerCase()
+    .replace(/[ąę]/g, a => ({'ą':'a','ę':'e'}[a]||a))
+    .replace(/[óö]/g, 'o').replace(/[śšş]/g, 's').replace(/[łl]/g, 'l')
+    .replace(/[żźž]/g, 'z').replace(/[ńñ]/g, 'n').replace(/[ćč]/g, 'c')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showLoginError() {
+  document.getElementById('loginErr').style.display = 'block';
+  sessionStorage.removeItem(PASS_KEY);
+  document.getElementById('appWrap').style.display = 'none';
+  document.getElementById('loginWrap').style.display = 'flex';
+}
+
+// ── INIT ──
+async function loadApp() {
+  try {
+    const data = await apiGet(true);
+    if (!data.success && data.error === 'Unauthorized') {
+      document.getElementById('loginErr').style.display = 'block';
+      return;
+    }
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('appWrap').style.display = 'flex';
+    allArticles = data.articles || [];
+    renderArticles();
+    renderStats();
+    clearEditor();
+  } catch(e) {
+    // API might not be reachable in local dev — show app anyway with empty state
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('appWrap').style.display = 'flex';
+    document.getElementById('articleList').innerHTML =
+      '<p style="color:var(--text-m);text-align:center;padding:40px">⚠️ API niedostępne lokalnie. Na serwerze z PHP artykuły będą ładowane z data/articles.json.</p>';
+  }
+}
+
+// Auto-login if token exists
+const storedToken = sessionStorage.getItem(PASS_KEY);
+if (storedToken) {
+  loadApp();
+}
+</script>
+</body>
+</html>
