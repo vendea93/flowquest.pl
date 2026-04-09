@@ -15,7 +15,8 @@
     <meta name="keywords" content="Technology & IT Solutions HTML Template" />
     <meta name="author" content="PicmaticWeb" />
 
-    <title>Expart - Technology & IT Solutions HTML Template</title>
+    
+<link rel="canonical" href="https://flowquest.pl/contact.html"><title>Expart - Technology & IT Solutions HTML Template</title>
     <link rel="shortcut icon" href="assets/images/favicon.svg" />
 
     <!-- Bootstrap -->
@@ -40,7 +41,81 @@
     <link rel="stylesheet" href="assets/plugins/css/uicons.css" />
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css" />
-  </head>
+  <!-- Google tag (gtag.js) - FlowQuest Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX');
+  
+  // Śledzenie artykułów i konwersji
+  document.addEventListener('DOMContentLoaded', function() {
+    // Śledzenie odczytu artykułu
+    const articleSlug = window.location.pathname.match(/\/([^\/]+)\.html/) || 
+                       new URLSearchParams(window.location.search).get('article');
+    
+    if (articleSlug) {
+      // Czas na stronie i scroll depth
+      let startTime = Date.now();
+      let maxScroll = 0;
+      let readingStart = null;
+      
+      window.addEventListener('scroll', function() {
+        const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent > 25 && !readingStart) {
+          readingStart = Date.now();
+        }
+        maxScroll = Math.max(maxScroll, scrollPercent);
+      });
+      
+      // Track przed opuszczeniem strony
+      window.addEventListener('beforeunload', function() {
+        const timeSpent = Math.round((Date.now() - startTime) / 1000);
+        const readingTime = readingStart ? Math.round((Date.now() - readingStart) / 1000) : 0;
+        
+        gtag('event', 'article_read', {
+          'article_slug': articleSlug,
+          'time_spent_seconds': timeSpent,
+          'reading_time_seconds': readingTime,
+          'scroll_depth': Math.round(maxScroll),
+          'page_location': window.location.href,
+          'page_title': document.title
+        });
+      });
+      
+      // Śledzenie kliknięć w CTA
+      document.querySelectorAll('a[href*="cemr.flowquest.pl"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          const linkType = this.href.includes('/demo') ? 'demo_request' : 
+                          this.href.includes('/rejestracja') ? 'registration' : 'contact';
+          
+          gtag('event', linkType, {
+            'article_slug': articleSlug,
+            'link_text': this.textContent.trim().substring(0, 50),
+            'link_url': this.href,
+            'page_location': window.location.href
+          });
+        });
+      });
+    }
+    
+    // Śledzenie formularzy
+    document.querySelectorAll('form').forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        const formType = this.querySelector('input[name="form_type"]')?.value || 'unknown';
+        
+        gtag('event', 'form_submit', {
+          'form_type': formType,
+          'page_location': window.location.href,
+          'page_title': document.title
+        });
+      });
+    });
+  });
+</script>
+</head>
 
   <body>
     <!-- Start Preloader  -->

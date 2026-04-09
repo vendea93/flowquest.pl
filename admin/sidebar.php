@@ -35,6 +35,12 @@ $activePage = $currentFile;
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?= $activePage === 'analytics.php' ? 'active bg-primary text-white' : 'text-white' ?>" 
+               href="analytics.php">
+                <i class="bi bi-bar-chart me-2"></i> Analityka
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?= $activePage === 'settings.php' ? 'active bg-primary text-white' : 'text-white' ?>" 
                href="settings.php">
                 <i class="bi bi-gear me-2"></i> Ustawienia
